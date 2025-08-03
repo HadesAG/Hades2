@@ -7,11 +7,6 @@
   "env": {
     "NEXT_PUBLIC_PRIVY_APP_ID": "@PRIVY_APP_ID"
   },
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_PRIVY_APP_ID": "@PRIVY_APP_ID"
-    }
-  },
   "functions": {
     "app/api/**/*.ts": {
       "runtime": "nodejs18.x"
