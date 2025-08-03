@@ -1,0 +1,13 @@
+.env
+/node_modules
+/.env
+/dist
+/build
+/.env.local
+/.env.development
+/.env.production
+/.env.test
+/.env.test.local
+/.env.test.local.example
+/.env.test.local.example
+/.next

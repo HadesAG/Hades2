@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String           @id @default(cuid())
+  email     String           @unique
+  wallet    String?          @unique
+  username  String?
+  createdAt DateTime         @default(now())
+  watchlist WatchlistToken[]
+  alerts    Alert[]
+  settings  Json?
+}
+
+model WatchlistToken {
+  id        String   @id @default(cuid())
+  symbol    String
+  addedAt   DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Alert {
+  id          String       @id @default(cuid())
+  symbol      String
+  type        AlertType
+  operator    Operator
+  targetValue Float
+  status      AlertStatus  @default(ACTIVE)
+  triggeredAt DateTime?
+  createdAt   DateTime     @default(now())
+  user        User?        @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Signal {
+  id             String   @id @default(cuid())
+  symbol         String
+  token          String
+  confidence     Int
+  performance    String
+  performanceValue Float
+  currentPrice   Float
+  targetPrice    Float
+  riskLevel      String
+  tags           Json
+  source         String
+  volume24h      Float?
+  marketCap      Float?
+  createdAt      DateTime @default(now())
+}
+
+enum AlertType {
+  PRICE
+  VOLUME
+  PERCENT_CHANGE
+}
+
+enum Operator {
+  ABOVE
+  BELOW
+}
+
+enum AlertStatus {
+  ACTIVE
+  TRIGGERED
+  PAUSED
+}

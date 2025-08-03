@@ -1,0 +1,26 @@
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "bun install",
+  "devCommand": "bun run dev",
+  "env": {
+    "NEXT_PUBLIC_PRIVY_APP_ID": "@privy_app_id"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_PRIVY_APP_ID": "@privy_app_id"
+    }
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
+}
