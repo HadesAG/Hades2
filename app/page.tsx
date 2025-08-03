@@ -13,7 +13,9 @@ import Head from 'next/head';
 
 function LazySplineScene() {
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [isInteractive, setIsInteractive] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const splineRef = useRef<any>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,13 +35,101 @@ function LazySplineScene() {
     return () => observer.disconnect();
   }, []);
 
+  // Handle Spline scene load
+  const onSplineLoad = (spline: any) => {
+    splineRef.current = spline;
+    setIsInteractive(true);
+    
+    // Log available objects for debugging
+    console.log('Spline scene loaded:', spline);
+    
+    // You can access and manipulate objects here
+    // Example: const cube = spline.findObjectByName('Cube');
+  };
+
+  // Handle mouse interactions
+  const onSplineMouseDown = (e: any) => {
+    console.log('Mouse down on:', e.target?.name || 'unknown object');
+    
+    // Add visual feedback or trigger animations
+    if (e.target) {
+      // Example: Scale object on click
+      const originalScale = { ...e.target.scale };
+      e.target.scale.x *= 1.1;
+      e.target.scale.y *= 1.1;
+      e.target.scale.z *= 1.1;
+      
+      // Reset scale after 200ms
+      setTimeout(() => {
+        e.target.scale.x = originalScale.x;
+        e.target.scale.y = originalScale.y;
+        e.target.scale.z = originalScale.z;
+      }, 200);
+    }
+  };
+
+  const onSplineMouseHover = (e: any) => {
+    console.log('Mouse hover on:', e.target?.name || 'unknown object');
+    
+    // Change cursor to pointer when hovering over interactive objects
+    if (containerRef.current) {
+      containerRef.current.classList.toggle('cursor-pointer', !!e.target);
+    }
+  };
+
+  const onSplineMouseUp = (e: any) => {
+    console.log('Mouse up on:', e.target?.name || 'unknown object');
+    
+    // Reset cursor
+    if (containerRef.current) {
+      containerRef.current.classList.remove('cursor-pointer');
+    }
+  };
+
+  // Trigger scene animations programmatically
+  const triggerSceneAnimation = (eventType: string, objectName?: string) => {
+    if (splineRef.current && objectName) {
+      try {
+        splineRef.current.emitEvent(eventType, objectName);
+      } catch (error) {
+        console.log('Animation trigger failed:', error);
+      }
+    }
+  };
+
   return (
     <div ref={containerRef} className="absolute inset-0 z-0">
       {shouldLoad ? (
-        <Spline 
-          scene="https://prod.spline.design/DNj4ME98pq5OHLLH/scene.splinecode"
-          style={{ width: '100%', height: '100%' }}
-        />
+        <>
+          <Spline 
+            scene="https://prod.spline.design/DNj4ME98pq5OHLLH/scene.splinecode"
+            className="w-full h-full"
+            onLoad={onSplineLoad}
+            onMouseDown={onSplineMouseDown}
+            onMouseMove={onSplineMouseHover}
+            onMouseUp={onSplineMouseUp}
+          />
+          
+          {/* Interactive overlay with subtle controls */}
+          {isInteractive && (
+            <div className="absolute top-4 right-4 z-20 space-y-2">
+              <button
+                onClick={() => triggerSceneAnimation('mouseHover', 'MainObject')}
+                className="bg-black/30 backdrop-blur-sm text-white/70 px-3 py-1 rounded-lg text-sm hover:bg-black/50 hover:text-white transition-all duration-200"
+                title="Trigger hover animation"
+              >
+                ✨
+              </button>
+              <button
+                onClick={() => triggerSceneAnimation('mouseDown', 'MainObject')}
+                className="bg-black/30 backdrop-blur-sm text-white/70 px-3 py-1 rounded-lg text-sm hover:bg-black/50 hover:text-white transition-all duration-200"
+                title="Trigger click animation"
+              >
+                🎯
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center">
           <div className="text-center space-y-4">
@@ -121,49 +211,7 @@ export default function HomePage() {
           <LazySplineScene />
           
           {/* Hero Content Overlay */}
-          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center px-6">
-            <div className="max-w-6xl mx-auto text-center">
-              {/* Intelligence Badge */}
-              <div className="intelligence-badge fade-in-up">
-                Cross-Chain Intelligence Layer
-              </div>
-              
-              {/* Hero Title */}
-              <h1 className="hero-title glow-orange fade-in-up delay-1">
-                Intelligence<br/>
-                Aggregator
-              </h1>
-              
-              {/* Subtitle */}
-              <h2 className="subtitle-glow glow-yellow fade-in-up delay-2 mb-8">
-                Forged in the shadows of Jupiter
-              </h2>
-              
-              {/* Description */}
-              <div className="max-w-4xl mx-auto space-y-6 text-lg text-gray-300 fade-in-up delay-3 backdrop-blur-sm bg-black/20 rounded-2xl p-8 border border-gray-800/50">
-                <p className="leading-relaxed">
-                  While Jupiter aggregates, <strong className="text-white">HADES scans, verifying, and surfacing critical intelligence</strong> the moment a token emerges. The two don't compete. They complete the picture.
-                </p>
-                
-                <p className="leading-relaxed">
-                  Intelligence that fuels precision inside the swap flow. The intelligence that moves beneath the swaps.
-                </p>
-              </div>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 fade-in-up delay-4">
-                <Link href="/platform" className="cta-primary">
-                  <span>Launch Platform</span>
-                  <Search className="w-5 h-5" />
-                </Link>
-                
-                <Link href="/alpha-feed" className="cta-secondary">
-                  <span>View Alpha Feed</span>
-                  <ExternalLink className="w-5 h-5" />
-                </Link>
-              </div>
-            </div>
-          </div>
+          {/* Removed overlay content to let Spline design stand alone */}
         </div>
       </main>
 
