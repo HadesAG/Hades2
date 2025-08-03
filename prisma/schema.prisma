@@ -56,6 +56,53 @@ model Signal {
   createdAt      DateTime @default(now())
 }
 
+model TelegramMessage {
+  id            String   @id @default(cuid())
+  chatId        String
+  messageId     Int
+  text          String
+  date          Int
+  fromId        String?
+  fromUsername  String?
+  channelName   String?
+  isBot         Boolean  @default(false)
+  entities      Json?
+  forwardFrom   Json?
+  processed     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  
+  @@unique([chatId, messageId])
+  @@index([chatId])
+  @@index([date])
+  @@index([processed])
+}
+
+model TelegramSignal {
+  id            String   @id @default(cuid())
+  source        String   // 'telegram_channel' or 'telegram_bot'
+  sourceId      String
+  sourceName    String
+  messageId     Int
+  originalMessage String
+  extractedData Json
+  timestamp     BigInt
+  processed     Boolean  @default(false)
+  confidence    Int?
+  token         String?
+  symbol        String?
+  action        String?
+  price         Float?
+  target        Float?
+  stopLoss      Float?
+  riskLevel     String?
+  createdAt     DateTime @default(now())
+  
+  @@index([sourceId])
+  @@index([timestamp])
+  @@index([processed])
+  @@index([token])
+}
+
 enum AlertType {
   PRICE
   VOLUME

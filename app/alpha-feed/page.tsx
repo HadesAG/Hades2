@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { RefreshCw, Search, TrendingUp, Target, BarChart3, Clock, Zap } from 'lucide-react';
+import { RefreshCw, Search, TrendingUp, Target, BarChart3, Clock, Zap, MessageCircle, Bot, Radio } from 'lucide-react';
 
 interface AlphaSignal {
   id: string;
@@ -31,6 +31,9 @@ interface AlphaSignal {
     rawMessage?: string;
     performanceType?: string;
     scannerBot?: string;
+    telegramSource?: 'telegram_channel' | 'telegram_bot';
+    messageId?: number;
+    source?: string;
   };
 }
 
@@ -60,6 +63,7 @@ export default function AlphaFeedPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [strengthFilter, setStrengthFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('all');
   const [timeframeFilter, setTimeframeFilter] = useState('all');
   const [stats, setStats] = useState<SignalStats>({
     totalSignals: 0,
@@ -69,6 +73,11 @@ export default function AlphaFeedPage() {
     signalTypes: { spot: 0, futures: 0, swing: 0, scalp: 0 },
     riskDistribution: { low: 0, medium: 0, high: 0 },
     averageRiskReward: 0
+  });
+  const [telegramStats, setTelegramStats] = useState({
+    totalTelegramSignals: 0,
+    channelSignals: 0,
+    botSignals: 0
   });
   const [isRealData, setIsRealData] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -97,9 +106,15 @@ export default function AlphaFeedPage() {
           riskDistribution: { low: 0, medium: 0, high: 0 },
           averageRiskReward: 0
         });
+        setTelegramStats(data.telegramStats || {
+          totalTelegramSignals: 0,
+          channelSignals: 0,
+          botSignals: 0
+        });
         setIsRealData(data.isRealData || false);
         setLastUpdate(new Date());
-        console.log('🔥 Alpha signals updated:', data.signals.length, data.isRealData ? '(LIVE)' : '(DEMO)');
+        console.log('🔥 Alpha signals updated:', data.signals.length, data.isRealData ? '(LIVE)' : '(DEMO)', 
+                   `Telegram: ${data.telegramStats?.totalTelegramSignals || 0}`);
       }
     } catch (error) {
       console.error('❌ Error fetching alpha signals:', error);
@@ -128,12 +143,17 @@ export default function AlphaFeedPage() {
                            signal.metadata.channelName?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStrength = strengthFilter === 'all' || signal.strength === strengthFilter;
       const matchesType = typeFilter === 'all' || signal.metadata.signalType === typeFilter;
+      const matchesSource = sourceFilter === 'all' || 
+                           (sourceFilter === 'telegram' && signal.metadata.source === 'telegram') ||
+                           (sourceFilter === 'market' && signal.metadata.source !== 'telegram') ||
+                           (sourceFilter === 'bot' && signal.metadata.telegramSource === 'telegram_bot') ||
+                           (sourceFilter === 'channel' && signal.metadata.telegramSource === 'telegram_channel');
       
-      return matchesSearch && matchesStrength && matchesType;
+      return matchesSearch && matchesStrength && matchesType && matchesSource;
     });
     
     setFilteredSignals(filtered);
-  }, [signals, searchTerm, strengthFilter, typeFilter]);
+  }, [signals, searchTerm, strengthFilter, typeFilter, sourceFilter]);
 
   const getStrengthBadgeClass = (strength: string) => {
     switch (strength) {
@@ -270,10 +290,20 @@ export default function AlphaFeedPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-400">Avg R:R Ratio</p>
-                    <p className="text-2xl font-bold text-white">{stats.averageRiskReward?.toFixed(1) || "0.0"}</p>
+                    <p className="text-sm text-slate-400">Telegram Signals</p>
+                    <p className="text-2xl font-bold text-white">{telegramStats.totalTelegramSignals}</p>
+                    <div className="flex gap-2 mt-1">
+                      <span className="text-xs text-cyan-400 flex items-center gap-1">
+                        <MessageCircle className="h-3 w-3" />
+                        {telegramStats.channelSignals}
+                      </span>
+                      <span className="text-xs text-blue-400 flex items-center gap-1">
+                        <Bot className="h-3 w-3" />
+                        {telegramStats.botSignals}
+                      </span>
+                    </div>
                   </div>
-                  <Zap className="h-8 w-8 text-purple-400" />
+                  <Radio className="h-8 w-8 text-cyan-400" />
                 </div>
               </CardContent>
             </Card>
@@ -310,10 +340,22 @@ export default function AlphaFeedPage() {
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
                 <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="spot">Spot</SelectItem>
-                <SelectItem value="futures">Futures</SelectItem>
-                <SelectItem value="swing">Swing</SelectItem>
-                <SelectItem value="scalp">Scalp</SelectItem>
+                <SelectItem value="buy">Buy Signals</SelectItem>
+                <SelectItem value="sell">Sell Signals</SelectItem>
+                <SelectItem value="alert">Alerts</SelectItem>
+                <SelectItem value="trending">Trending</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={sourceFilter} onValueChange={setSourceFilter}>
+              <SelectTrigger className="w-48 bg-slate-800/50 border-slate-600 text-white">
+                <SelectValue placeholder="Signal Source" />
+              </SelectTrigger>
+              <SelectContent className="bg-slate-800 border-slate-600">
+                <SelectItem value="all">All Sources</SelectItem>
+                <SelectItem value="market">Market Data</SelectItem>
+                <SelectItem value="telegram">Telegram</SelectItem>
+                <SelectItem value="channel">Telegram Channels</SelectItem>
+                <SelectItem value="bot">Telegram Bots</SelectItem>
               </SelectContent>
             </Select>
             <Select value={timeframeFilter} onValueChange={setTimeframeFilter}>
@@ -372,6 +414,12 @@ export default function AlphaFeedPage() {
                         {signal.metadata.channelWinRate && (
                           <Badge variant="outline" className="bg-green-500/20 text-green-300 border-green-500/30">
                             {signal.metadata.channelWinRate}% Win Rate
+                          </Badge>
+                        )}
+                        {signal.metadata.source === 'telegram' && (
+                          <Badge variant="outline" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 flex items-center gap-1">
+                            {signal.metadata.telegramSource === 'telegram_bot' ? <Bot className="h-3 w-3" /> : <MessageCircle className="h-3 w-3" />}
+                            {signal.metadata.telegramSource === 'telegram_bot' ? 'BOT' : 'CHANNEL'}
                           </Badge>
                         )}
                       </div>
@@ -551,7 +599,7 @@ export default function AlphaFeedPage() {
 
           <div className="text-center text-slate-500 text-sm">
             {isRealData 
-              ? "🔥 Live alpha signals from premium Telegram channels" 
+              ? `🔥 Live alpha signals: Market data + ${telegramStats.totalTelegramSignals} Telegram signals from ${telegramStats.channelSignals + telegramStats.botSignals > 0 ? `${telegramStats.channelSignals} channels & ${telegramStats.botSignals} bots` : 'premium sources'}` 
               : "📊 Demo mode - Connect your Telegram bot for real-time alpha signals"}
           </div>
         </div>
