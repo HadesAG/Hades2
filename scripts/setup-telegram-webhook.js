@@ -17,6 +17,39 @@
 
 const https = require('https');
 const { URL } = require('url');
+const fs = require('fs');
+const path = require('path');
+
+// Load environment variables from .env files (like Next.js does)
+function loadEnvFiles() {
+  const envFiles = ['.env.local', '.env'];
+  
+  for (const envFile of envFiles) {
+    const envPath = path.join(process.cwd(), envFile);
+    
+    if (fs.existsSync(envPath)) {
+      console.log(`📋 Loading environment from ${envFile}`);
+      const envContent = fs.readFileSync(envPath, 'utf8');
+      
+      // Parse .env file content
+      envContent.split('\n').forEach(line => {
+        line = line.trim();
+        if (line && !line.startsWith('#') && line.includes('=')) {
+          const [key, ...valueParts] = line.split('=');
+          const value = valueParts.join('=').replace(/^["']|["']$/g, ''); // Remove quotes
+          
+          // Only set if not already set (prioritize existing env vars)
+          if (!process.env[key.trim()]) {
+            process.env[key.trim()] = value;
+          }
+        }
+      });
+    }
+  }
+}
+
+// Load environment variables
+loadEnvFiles();
 
 // Configuration
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;

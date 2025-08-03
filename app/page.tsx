@@ -4,150 +4,305 @@ export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { TrendingUp, Target, BarChart3, Zap } from 'lucide-react';
+import { Radar, ShieldCheck, Zap, Search, ExternalLink, ArrowRight, Globe, Diamond, Circle, Menu } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 backdrop-blur-sm bg-slate-900/80">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
-                <span className="font-bold text-2xl text-white">HADES</span>
-              </Link>
-              <nav className="hidden md:flex items-center space-x-6">
-                <Link href="/intelligence" className="text-slate-300 hover:text-white transition-colors">
-                  Intelligence
-                </Link>
-                <Link href="/dashboard" className="text-slate-300 hover:text-white transition-colors">
-                  Dashboard
-                </Link>
-                <Link href="/alpha-feed" className="text-slate-300 hover:text-white transition-colors">
-                  Alpha Feed
-                </Link>
-                <Link href="/platform" className="text-slate-300 hover:text-white transition-colors">
-                  Platform
-                </Link>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/alpha-feed">
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold text-white mb-6">
-            Hunt Alpha Before It Hits Social
-          </h1>
-          <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
-            HADES scans across Solana, Base, and all major chains to surface early signals and intelligence 
-            before they reach social media. Get the edge you need in crypto trading.
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <Link href="/alpha-feed">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3">
-                🔥 View Alpha Signals
-              </Button>
-            </Link>
-            <Link href="/intelligence">
-              <Button size="lg" variant="outline" className="border-slate-600 text-white hover:bg-slate-800 text-lg px-8 py-3">
-                📊 Intelligence Hub
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <TrendingUp className="h-8 w-8 text-blue-400" />
-                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">LIVE</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Alpha Signals</h3>
-              <p className="text-slate-400">Real-time trading signals from premium Telegram channels with confidence scores.</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Target className="h-8 w-8 text-green-400" />
-                <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded-full">AI</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Smart Analysis</h3>
-              <p className="text-slate-400">AI-powered analysis of market movements and entry points across multiple chains.</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <BarChart3 className="h-8 w-8 text-orange-400" />
-                <span className="text-xs bg-orange-500/20 text-orange-300 px-2 py-1 rounded-full">PRO</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Intelligence Hub</h3>
-              <p className="text-slate-400">Comprehensive market intelligence and launchpad analysis for informed decisions.</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Zap className="h-8 w-8 text-purple-400" />
-                <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">FAST</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Cross-Chain</h3>
-              <p className="text-slate-400">Monitor opportunities across Solana, Base, Ethereum, and other major blockchains.</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Stats Section */}
-        <div className="bg-slate-800/30 rounded-xl p-8 border border-slate-700/50">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">Trusted by Alpha Hunters</h2>
-            <p className="text-slate-300">Join thousands of traders who get early access to the next big opportunities</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400 mb-2">500+</div>
-              <div className="text-sm text-slate-400">Daily Signals</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-400 mb-2">87%</div>
-              <div className="text-sm text-slate-400">Success Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-2">15+</div>
-              <div className="text-sm text-slate-400">Chains Monitored</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400 mb-2">24/7</div>
-              <div className="text-sm text-slate-400">Live Monitoring</div>
-            </div>
-          </div>
+    <div className="min-h-screen relative overflow-x-hidden">
+      {/* Space Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        {/* Radial gradients */}
+        <div className="absolute inset-0 bg-gradient-radial from-orange-500/10 via-transparent to-transparent" style={{
+          background: `radial-gradient(ellipse at center, rgba(20, 20, 20, 0.8) 0%, rgba(8, 8, 8, 1) 70%),
+                      radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(255, 235, 59, 0.05) 0%, transparent 50%),
+                      #0a0a0a`
+        }} />
+        
+        {/* Animated stars */}
+        <div className="absolute inset-0 opacity-30">
+          <div 
+            className="absolute inset-0 animate-star-field"
+            style={{
+              backgroundImage: `
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.05), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.08), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.03), transparent)
+              `,
+              backgroundRepeat: 'repeat',
+              backgroundSize: '200px 200px'
+            }}
+          />
         </div>
       </div>
 
+      {/* Navigation */}
+      <nav className="relative z-50 px-6 py-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="text-2xl font-bold text-white">
+            HADES
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-8">
+            <Link href="/intelligence" className="nav-link">Intelligence</Link>
+            <Link href="/platform" className="nav-link">Chains</Link>
+            <Link href="/alpha-feed" className="nav-link">Alpha Feed</Link>
+          </div>
+          
+          <Link href="/platform" className="launch-btn">
+            Launch Platform →
+          </Link>
+          
+          <button className="md:hidden text-white" aria-label="Open mobile menu">
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="relative z-10 px-6 py-20">
+        <div className="ambient-glow"></div>
+        
+        <div className="max-w-6xl mx-auto text-center">
+          {/* Intelligence Badge */}
+          <div className="intelligence-badge fade-in-up">
+            Cross-Chain Intelligence Layer
+          </div>
+          
+          {/* Hero Title */}
+          <h1 className="hero-title glow-orange fade-in-up delay-1">
+            Intelligence<br/>
+            Aggregator
+          </h1>
+          
+          {/* Subtitle */}
+          <h2 className="subtitle-glow glow-yellow fade-in-up delay-2 mb-8">
+            Forged in the shadows of Jupiter
+          </h2>
+          
+          {/* Description */}
+          <div className="max-w-4xl mx-auto space-y-6 text-lg text-gray-300 fade-in-up delay-3">
+            <p className="leading-relaxed">
+              While Jupiter aggregates, <strong className="text-white">HADES scans, verifying, and surfacing critical intelligence</strong> the moment a token emerges. The two don't compete. They complete the picture.
+            </p>
+            
+            <p className="leading-relaxed">
+              Intelligence that fuels precision inside the swap flow. The intelligence that moves beneath the swaps.
+            </p>
+          </div>
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 fade-in-up delay-4">
+            <Link href="/alpha-feed" className="cta-primary">
+              <span>Access Intelligence</span>
+              <Search className="w-5 h-5" />
+            </Link>
+            
+            <Link href="/alpha-feed" className="cta-secondary">
+              <span>View Alpha Feed</span>
+              <ExternalLink className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </main>
+
+      {/* Features Section */}
+      <section className="relative z-10 px-6 py-20">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="features-title text-center fade-in-up">
+            <span className="orange-text">Intelligence</span> <span className="white-text">Features</span>
+          </h2>
+          
+          {/* Feature Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mt-16">
+            {/* Real-time Scanning */}
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-6">
+                <Radar className="w-6 h-6 text-orange-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Real-time Scanning</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Continuous monitoring of token emergence across multiple chains, providing instant intelligence the moment opportunities surface.
+              </p>
+            </div>
+            
+            {/* Risk Assessment */}
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-6">
+                <ShieldCheck className="w-6 h-6 text-yellow-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Risk Verification</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Advanced algorithms verify token legitimacy, contract security, and liquidity depth before surfacing opportunities.
+              </p>
+            </div>
+            
+            {/* Alpha Intelligence */}
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6">
+                <Zap className="w-6 h-6 text-red-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Alpha Intelligence</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Curated intelligence feed delivering high-conviction opportunities with detailed analysis and timing insights.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Integration Section */}
+      <section className="relative z-10 px-6 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-2xl p-12">
+            <h3 className="text-3xl font-bold text-white mb-6">
+              Seamless <span className="text-orange-500">Jupiter Integration</span>
+            </h3>
+            <p className="text-xl text-gray-300 leading-relaxed mb-8">
+              HADES intelligence flows directly into your Jupiter swap interface, providing contextual insights without disrupting your trading flow.
+            </p>
+            <Link href="/platform" className="cta-primary">
+              <span>Explore Integration</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Chain Support Section */}
+      <section className="relative z-10 px-6 py-20 border-t border-gray-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {/* Solana */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Solana</h3>
+                <p className="text-gray-400 text-sm">High-speed monitoring</p>
+              </div>
+            </div>
+            
+            {/* Base */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
+                <Circle className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Base</h3>
+                <p className="text-gray-400 text-sm">L2 intelligence</p>
+              </div>
+            </div>
+            
+            {/* Ethereum */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                <Diamond className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Ethereum</h3>
+                <p className="text-gray-400 text-sm">Core network data</p>
+              </div>
+            </div>
+            
+            {/* Multi-Chain */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                <Globe className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Multi-Chain</h3>
+                <p className="text-gray-400 text-sm">Cross-chain bridges</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="relative z-10 px-6 py-32">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            Ready to Access the <span className="text-orange-500 glow-orange">Underworld</span>?
+          </h2>
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Join the intelligence network that moves beneath the surface of the markets
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link href="/alpha-feed" className="cta-primary text-lg px-8 py-4">
+              <span>Access Alpha Feed →</span>
+            </Link>
+            
+            <Link href="/platform" className="cta-secondary text-lg px-8 py-4">
+              <span>Launch Platform</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-slate-700/50 bg-slate-900/50">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-slate-400">
-            <p>&copy; 2024 HADES. Hunt alpha before it hits social.</p>
+      <footer className="relative z-10 bg-black/50 border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 py-16">
+          <div className="grid md:grid-cols-4 gap-12">
+            {/* HADES Brand */}
+            <div className="md:col-span-1">
+              <h3 className="text-2xl font-bold text-white mb-4">HADES</h3>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                Intelligence Platform forged in the shadows of Jupiter
+              </p>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Cross-chain intelligence aggregation for the next generation of traders and protocols.
+              </p>
+            </div>
+            
+            {/* Platform Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-6">Platform</h4>
+              <ul className="space-y-3">
+                <li><Link href="/intelligence" className="text-gray-400 hover:text-orange-500 transition-colors">Intelligence Hub</Link></li>
+                <li><Link href="/alpha-feed" className="text-gray-400 hover:text-orange-500 transition-colors">Alpha Feed</Link></li>
+                <li><Link href="/dashboard" className="text-gray-400 hover:text-orange-500 transition-colors">Dashboard</Link></li>
+                <li><Link href="/platform" className="text-gray-400 hover:text-orange-500 transition-colors">Chain Monitor</Link></li>
+              </ul>
+            </div>
+            
+            {/* Resources Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-6">Resources</h4>
+              <ul className="space-y-3">
+                <li><Link href="#documentation" className="text-gray-400 hover:text-orange-500 transition-colors">Documentation</Link></li>
+                <li><Link href="#api-reference" className="text-gray-400 hover:text-orange-500 transition-colors">API Reference</Link></li>
+                <li><Link href="#support-center" className="text-gray-400 hover:text-orange-500 transition-colors">Support Center</Link></li>
+                <li><Link href="#system-status" className="text-gray-400 hover:text-orange-500 transition-colors">System Status</Link></li>
+              </ul>
+            </div>
+            
+            {/* Community Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-6">Community</h4>
+              <ul className="space-y-3">
+                <li><Link href="#telegram" className="text-gray-400 hover:text-orange-500 transition-colors">Telegram</Link></li>
+                <li><Link href="#twitter" className="text-gray-400 hover:text-orange-500 transition-colors">Twitter</Link></li>
+                <li><Link href="#discord" className="text-gray-400 hover:text-orange-500 transition-colors">Discord</Link></li>
+                <li><Link href="#github" className="text-gray-400 hover:text-orange-500 transition-colors">GitHub</Link></li>
+              </ul>
+            </div>
+          </div>
+          
+          {/* Footer Bottom */}
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm mb-4 md:mb-0">
+              © 2024 HADES Intelligence Platform. Forged in the shadows of Jupiter.
+            </p>
+            
+            <div className="flex space-x-6 text-sm">
+              <Link href="#privacy" className="text-gray-500 hover:text-orange-500 transition-colors">Privacy Policy</Link>
+              <Link href="#terms" className="text-gray-500 hover:text-orange-500 transition-colors">Terms of Service</Link>
+              <Link href="#cookies" className="text-gray-500 hover:text-orange-500 transition-colors">Cookie Policy</Link>
+            </div>
           </div>
         </div>
       </footer>
