@@ -7,7 +7,7 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, providi
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
 ![Prisma](https://img.shields.io/badge/Prisma-6.13.0-2D3748?style=flat-square&logo=prisma)
 
-## 🚀 Features Built in
+## 🚀 Features Built in Currently.
 
 - **📊 Real-time Market Data** - Live cryptocurrency prices and market statistics
 - **🔥 Alpha Signals** - AI-powered trading signals with confidence ratings
