@@ -234,6 +234,12 @@
     pointer-events: none;
     z-index: -1;
   }
+
+  /* Spline 3D Integration Styles */
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
 }
 
 @layer utilities {

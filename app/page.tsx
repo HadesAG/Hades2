@@ -1,3 +1,5 @@
+'use client';
+
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
@@ -5,10 +7,59 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Radar, ShieldCheck, Zap, Search, ExternalLink, ArrowRight, Globe, Diamond, Circle, Menu } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
+import { useState, useEffect, useRef } from 'react';
+import Head from 'next/head';
+
+function LazySplineScene() {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 z-0">
+      {shouldLoad ? (
+        <Spline 
+          scene="https://prod.spline.design/DNj4ME98pq5OHLLH/scene.splinecode"
+          style={{ width: '100%', height: '100%' }}
+        />
+      ) : (
+        <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin mx-auto"></div>
+            <div className="text-orange-500 font-semibold">Preparing 3D Experience...</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen relative overflow-x-hidden">
+    <>
+      <Head>
+        <link rel="preconnect" href="https://prod.spline.design" />
+        <link rel="dns-prefetch" href="https://prod.spline.design" />
+      </Head>
+      <div className="min-h-screen relative overflow-x-hidden">
       {/* Space Background */}
       <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
         {/* Radial gradients */}
@@ -52,7 +103,7 @@ export default function HomePage() {
           
           <Link href="/platform" className="launch-btn">
             Launch Platform →
-          </Link>
+              </Link>
           
           <button className="md:hidden text-white" aria-label="Open mobile menu">
             <Menu className="w-6 h-6" />
@@ -60,49 +111,58 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <main className="relative z-10 px-6 py-20">
+      {/* Hero Section with 3D Spline */}
+      <main className="relative z-10">
         <div className="ambient-glow"></div>
         
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Intelligence Badge */}
-          <div className="intelligence-badge fade-in-up">
-            Cross-Chain Intelligence Layer
-          </div>
+        {/* 3D Spline Scene Container */}
+        <div className="relative h-screen w-full">
+          {/* Spline 3D Scene - Lazy loaded */}
+          <LazySplineScene />
           
-          {/* Hero Title */}
-          <h1 className="hero-title glow-orange fade-in-up delay-1">
-            Intelligence<br/>
-            Aggregator
-          </h1>
-          
-          {/* Subtitle */}
-          <h2 className="subtitle-glow glow-yellow fade-in-up delay-2 mb-8">
-            Forged in the shadows of Jupiter
-          </h2>
-          
-          {/* Description */}
-          <div className="max-w-4xl mx-auto space-y-6 text-lg text-gray-300 fade-in-up delay-3">
-            <p className="leading-relaxed">
-              While Jupiter aggregates, <strong className="text-white">HADES scans, verifying, and surfacing critical intelligence</strong> the moment a token emerges. The two don't compete. They complete the picture.
-            </p>
-            
-            <p className="leading-relaxed">
-              Intelligence that fuels precision inside the swap flow. The intelligence that moves beneath the swaps.
-            </p>
-          </div>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 fade-in-up delay-4">
-            <Link href="/alpha-feed" className="cta-primary">
-              <span>Access Intelligence</span>
-              <Search className="w-5 h-5" />
-            </Link>
-            
-            <Link href="/alpha-feed" className="cta-secondary">
-              <span>View Alpha Feed</span>
-              <ExternalLink className="w-5 h-5" />
-            </Link>
+          {/* Hero Content Overlay */}
+          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center px-6">
+            <div className="max-w-6xl mx-auto text-center">
+              {/* Intelligence Badge */}
+              <div className="intelligence-badge fade-in-up">
+                Cross-Chain Intelligence Layer
+              </div>
+              
+              {/* Hero Title */}
+              <h1 className="hero-title glow-orange fade-in-up delay-1">
+                Intelligence<br/>
+                Aggregator
+              </h1>
+              
+              {/* Subtitle */}
+              <h2 className="subtitle-glow glow-yellow fade-in-up delay-2 mb-8">
+                Forged in the shadows of Jupiter
+              </h2>
+              
+              {/* Description */}
+              <div className="max-w-4xl mx-auto space-y-6 text-lg text-gray-300 fade-in-up delay-3 backdrop-blur-sm bg-black/20 rounded-2xl p-8 border border-gray-800/50">
+                <p className="leading-relaxed">
+                  While Jupiter aggregates, <strong className="text-white">HADES scans, verifying, and surfacing critical intelligence</strong> the moment a token emerges. The two don't compete. They complete the picture.
+                </p>
+                
+                <p className="leading-relaxed">
+                  Intelligence that fuels precision inside the swap flow. The intelligence that moves beneath the swaps.
+                </p>
+              </div>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 fade-in-up delay-4">
+                <Link href="/platform" className="cta-primary">
+                  <span>Launch Platform</span>
+                  <Search className="w-5 h-5" />
+                </Link>
+                
+                <Link href="/alpha-feed" className="cta-secondary">
+                  <span>View Alpha Feed</span>
+                  <ExternalLink className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -302,10 +362,11 @@ export default function HomePage() {
               <Link href="#privacy" className="text-gray-500 hover:text-orange-500 transition-colors">Privacy Policy</Link>
               <Link href="#terms" className="text-gray-500 hover:text-orange-500 transition-colors">Terms of Service</Link>
               <Link href="#cookies" className="text-gray-500 hover:text-orange-500 transition-colors">Cookie Policy</Link>
-            </div>
+      </div>
           </div>
         </div>
       </footer>
     </div>
+    </>
   );
 }
