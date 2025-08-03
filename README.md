@@ -1,17 +1,31 @@
-# HADES - Cryptocurrency Intelligence Platform
+# HADES - Cross-Chain Intelligence Aggregator
 
-A sophisticated cryptocurrency intelligence platform built with Next.js, providing real-time market data, alpha signals, portfolio tracking, and advanced analytics.
+**"Forged in the shadows of Jupiter"**
 
-![HADES Platform](https://img.shields.io/badge/HADES-Crypto%20Intelligence-orange?style=for-the-badge)
+A sophisticated cryptocurrency intelligence platform built with Next.js, featuring an immersive 3D interface powered by Spline. HADES scans, verifies, and surfaces critical intelligence the moment tokens emerge across multiple blockchains.
+
+![HADES Platform](https://img.shields.io/badge/HADES-Cross%20Chain%20Intelligence-orange?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.3-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
+![Spline](https://img.shields.io/badge/Spline-3D%20Interactive-purple?style=flat-square)
 ![Prisma](https://img.shields.io/badge/Prisma-6.13.0-2D3748?style=flat-square&logo=prisma)
 
-## 🚀 Features Built in Currently.
+## 🚀 Core Features
 
+### 🎮 Interactive 3D Experience
+- **🌌 Immersive Landing** - Interactive Spline 3D scene with real-time user interaction
+- **✨ Dynamic Animations** - Click, hover, and programmatic animation triggers
+- **🎯 Visual Feedback** - Responsive object scaling and cursor interactions
+- **🚀 Lazy Loading** - Optimized 3D scene loading with intersection observers
+
+### 🧠 Intelligence Layer
 - **📊 Real-time Market Data** - Live cryptocurrency prices and market statistics
 - **🔥 Alpha Signals** - AI-powered trading signals with confidence ratings
-- **👁️ Intelligence Feed** - Curated market intelligence and insights  
+- **👁️ Intelligence Feed** - Curated market intelligence and insights
+- **🔍 Real-time Scanning** - Continuous token emergence monitoring across chains
+- **🛡️ Risk Verification** - Advanced algorithms for token legitimacy assessment
+
+### 🛠️ Platform Features
 - **⭐ Watchlist Management** - Track your favorite tokens with custom alerts
 - **🔔 Smart Alerts** - Price, volume, and percentage change notifications
 - **📈 Market Analysis** - Sector performance and dominance charts
@@ -19,23 +33,40 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, providi
 - **⚙️ User Settings** - Personalized preferences and configurations
 - **🔐 Secure Authentication** - Privy-powered wallet and email authentication
 
+### 🌐 Cross-Chain Support
+- **⚡ Solana** - Active: High-speed monitoring and Jupiter integration
+- **🔵 Base** - Planned (Q4 '25): Layer 2 scaling solutions
+- **🟣 Ethereum** - Planned (Q4 '25): DeFi ecosystem intelligence
+- **🌈 Multi-Chain** - Planned (Q1 '26): Unified intelligence across blockchain networks
+
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14, React 18, TypeScript
+### Frontend & 3D
+- **Framework**: Next.js 14 with App Router, React 18, TypeScript
+- **3D Graphics**: Spline 3D with @splinetool/react-spline
 - **Styling**: Tailwind CSS, Radix UI Components
+- **Icons**: Lucide React
+- **Charts**: Recharts for data visualization
+
+### Backend & Data
 - **Database**: SQLite with Prisma ORM
 - **Authentication**: Privy (Web3 + Email)
-- **Charts**: Recharts
 - **APIs**: CoinGecko, Jupiter, Birdeye, Fear & Greed Index
-- **Icons**: Lucide React
+- **Runtime**: Bun (recommended) or Node.js
+
+### Infrastructure
+- **Deployment**: Vercel, Netlify (configured)
+- **Development**: Hot reload, TypeScript strict mode
+- **Performance**: SSR/SSG, API caching, lazy loading
 
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 
 - **Node.js** (v18.0.0 or higher)
-- **npm** or **yarn** or **bun**
+- **Bun** (recommended) or **npm**/**yarn**
 - **Git**
+- **Modern browser** with WebGL support for 3D interactions
 
 ## 🚀 Installation
 
@@ -43,7 +74,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/HadesAG/Hades2.git
-cd hades2
+cd Hades2
 ```
 
 ### 2. Install Dependencies
@@ -124,6 +155,8 @@ bun run dev
 
 The application will be available at `http://localhost:3000`
 
+🎮 **Experience the 3D Interface**: The landing page features an interactive Spline 3D scene that responds to mouse interactions and includes programmatic animation controls.
+
 ## 🔧 Configuration
 
 ### Privy Authentication Setup
@@ -142,34 +175,41 @@ The application will be available at `http://localhost:3000`
 ## 📁 Project Structure
 
 ```
-hades2/
+Hades2/
 ├── app/                    # Next.js 14 App Router
 │   ├── api/               # API routes
 │   │   ├── alerts/        # Alert management
 │   │   ├── settings/      # User settings
 │   │   ├── signals/       # Trading signals
+│   │   ├── telegram-webhook/ # Telegram integration
 │   │   └── watchlist/     # Watchlist management
 │   ├── platform/          # Main application pages
 │   │   ├── alerts/        # Alerts dashboard
 │   │   ├── alpha-signals/ # Alpha signals page
-│   │   ├── dashboard/     # Main dashboard
 │   │   ├── intelligence-feed/ # Intelligence feed
 │   │   ├── market-analysis/   # Market analysis
 │   │   ├── search-tokens/     # Token search
 │   │   ├── settings/          # User settings
 │   │   └── watchlist/         # Watchlist management
-│   └── globals.css        # Global styles
-├── components/            # Reusable UI components
-│   └── ui/               # Shadcn/ui components
-├── lib/                  # Utility libraries
-│   ├── api-client.ts     # API client utilities
-│   ├── data-services.ts  # External API integrations
-│   ├── prisma.ts         # Database client
-│   └── utils.ts          # Helper functions
-├── prisma/               # Database schema and migrations
-│   ├── schema.prisma     # Database schema
-│   └── migrations/       # Database migrations
-└── public/               # Static assets
+│   ├── alpha-feed/        # Alpha feed public page
+│   ├── intelligence/      # Intelligence hub page
+│   ├── dashboard/         # Dashboard page
+│   ├── page.tsx          # Landing page with 3D Spline scene
+│   ├── layout.tsx        # Root layout
+│   └── globals.css       # Global styles with 3D animations
+├── components/           # Reusable UI components
+│   ├── ui/              # Shadcn/ui components
+│   └── privy-wrapper.tsx # Authentication wrapper
+├── lib/                 # Utility libraries
+│   ├── api-client.ts    # API client utilities
+│   ├── data-services.ts # External API integrations
+│   ├── prisma.ts        # Database client
+│   ├── telegram-service.ts # Telegram bot integration
+│   └── utils.ts         # Helper functions
+├── prisma/              # Database schema and migrations
+│   ├── schema.prisma    # Database schema
+│   └── migrations/      # Database migrations
+└── public/              # Static assets
 ```
 
 ## 🔄 Available Scripts
@@ -208,6 +248,7 @@ npx prisma db push   # Push schema changes to database
 - `GET /api/signals` - Get general trading signals
 - `GET /api/launchpad-intelligence` - Get launchpad data
 - `GET /api/telegram-signals` - Get Telegram signals
+- `POST /api/telegram-webhook` - Telegram bot webhook endpoint
 
 ## 🚀 Deployment
 
@@ -259,10 +300,12 @@ The application can be deployed on any platform that supports Next.js:
 ## 📊 Performance
 
 - **SSR/SSG**: Optimized with Next.js App Router
+- **3D Optimization**: Lazy loading Spline scenes with intersection observers
 - **API Caching**: External API responses are cached
 - **Database**: Optimized queries with Prisma
 - **Images**: Next.js Image optimization
 - **Bundle**: Code splitting and tree shaking
+- **Interactive**: Hardware-accelerated 3D graphics with WebGL
 
 ## 🤝 Contributing
 
@@ -298,6 +341,8 @@ yarn install --ignore-peer-deps
 - **Privy Auth Error**: Ensure your `NEXT_PUBLIC_PRIVY_APP_ID` is set correctly
 - **Database Error**: Run `npx prisma generate` and `npx prisma migrate dev`
 - **API Rate Limits**: CoinGecko free tier has rate limits; consider upgrading for production
+- **3D Scene Not Loading**: Check browser WebGL support and ensure stable internet connection
+- **Spline Interactions**: Check browser console for interaction logs and object names
 
 ## 🆘 Support
 
@@ -307,10 +352,12 @@ yarn install --ignore-peer-deps
 
 ## 🙏 Acknowledgments
 
+- [Spline](https://spline.design/) for 3D design and interactive graphics
 - [CoinGecko](https://coingecko.com/) for market data API
 - [Privy](https://privy.io/) for authentication infrastructure
 - [Shadcn/ui](https://ui.shadcn.com/) for UI components
 - [Fear & Greed Index](https://alternative.me/) for sentiment data
+- [Jupiter](https://jup.ag/) for Solana swap aggregation inspiration
 
 ---
 
