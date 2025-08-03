@@ -4,9 +4,6 @@
   "framework": "nextjs",
   "installCommand": "bun install",
   "devCommand": "bun run dev",
-  "env": {
-    "NEXT_PUBLIC_PRIVY_APP_ID": "@PRIVY_APP_ID"
-  },
   "functions": {
     "app/api/**/*.ts": {
       "runtime": "nodejs18.x"
