@@ -5,11 +5,11 @@
   "installCommand": "bun install",
   "devCommand": "bun run dev",
   "env": {
-    "NEXT_PUBLIC_PRIVY_APP_ID": "@privy_app_id"
+    "NEXT_PUBLIC_PRIVY_APP_ID": "@PRIVY_APP_ID"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_PRIVY_APP_ID": "@privy_app_id"
+      "NEXT_PUBLIC_PRIVY_APP_ID": "@PRIVY_APP_ID"
     }
   },
   "functions": {
