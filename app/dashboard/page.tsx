@@ -8,176 +8,132 @@ import { TrendingUp, Target, BarChart3, Zap, Clock } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 backdrop-blur-sm sticky top-0 z-50 bg-slate-900/80">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
-                <span className="font-bold text-2xl text-white">HADES</span>
-              </Link>
-              <nav className="hidden md:flex items-center space-x-6">
-                <Link href="/intelligence" className="text-slate-300 hover:text-white transition-colors">
-                  Intelligence
-                </Link>
-                <Link href="/dashboard" className="text-blue-400 font-semibold">
-                  Dashboard
-                </Link>
-                <Link href="/alpha-feed" className="text-slate-300 hover:text-white transition-colors">
-                  Alpha Feed
-                </Link>
-                <Link href="/platform" className="text-slate-300 hover:text-white transition-colors">
-                  Platform
-                </Link>
-              </nav>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
+          </div>
+          {/* Navigation */}
+          <nav className="space-y-1">
+            <Link href="/dashboard" className="sidebar-item active flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all text-white bg-[#d2691e]">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm8-18h-8v6h8V3Z"/></svg></span></span>
+              <span>Dashboard</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35"/></svg></span></span>
+              <span>Search Tokens</span>
+            </Link>
+            <Link href="/alpha-feed" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg></span></span>
+              <span>Alpha Signals</span>
+            </Link>
+            <Link href="/intelligence" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg></span></span>
+              <span>Intelligence Feed</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z"/></svg></span></span>
+              <span>Watchlist</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 3v18h18"/></svg></span></span>
+              <span>Market Analysis</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span></span>
+              <span>Alerts</span>
+            </Link>
+          </nav>
+        </div>
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M12 16v-4m0-4h.01"/></svg></span></span>
+            <span>Settings</span>
+          </div>
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg></span></span>
+            <span>Log out</span>
+          </div>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 main-content p-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Intelligence Dashboard</h1>
+          <p className="text-gray-400">Real-time crypto intelligence and market analysis</p>
+        </div>
+        {/* Hero Card */}
+        <div className="hero-card relative mb-8 bg-gradient-to-br from-[#8b4513] to-[#a0522d] rounded-xl p-6 overflow-hidden">
+          <div className="hero-content flex items-center justify-between relative z-10">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">Live Alpha Intelligence</h2>
+              <h3 className="text-xl font-semibold text-[#ff6b35] mb-4">Currently Tracking</h3>
+              <p className="text-white opacity-90">Real-time monitoring across 12 chains • 1,247 tokens tracked • 89 alpha signals active</p>
+            </div>
+            <button className="play-button bg-[#ff6b35] rounded-full w-12 h-12 flex items-center justify-center hover:bg-[#ff5722] transition-all" title="Play">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#fff"/></svg>
+            </button>
+          </div>
+        </div>
+        {/* Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {/* Example: Alpha Signals */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="metric-icon text-[#ff6b35] mb-3"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M12 8v4l3 3"/></svg></div>
+            <div className="metric-number text-[#ff6b35]">24 new today</div>
+            <div className="metric-label">Alpha Signals</div>
+            <div className="metric-description">New token discoveries</div>
+          </div>
+          {/* Cross-Chain Intel */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="metric-icon text-[#f1c40f] mb-3"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 2v20m10-10H2"/></svg></div>
+            <div className="metric-number text-[#f1c40f]">12 chains active</div>
+            <div className="metric-label">Cross-Chain Intel</div>
+            <div className="metric-description">Multi-chain monitoring</div>
+          </div>
+          {/* DeFi Alerts */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="metric-icon text-[#ff6b35] mb-3"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+            <div className="metric-number text-[#ff6b35]">8 alerts pending</div>
+            <div className="metric-label">DeFi Alerts</div>
+            <div className="metric-description">Protocol updates</div>
+          </div>
+          {/* Market Intelligence */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="metric-icon text-[#2ea043] mb-3"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 17v-2a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2"/></svg></div>
+            <div className="metric-number text-[#2ea043]">156 signals</div>
+            <div className="metric-label">Market Intelligence</div>
+            <div className="metric-description">Trading insights</div>
+          </div>
+        </div>
+        {/* Stats Row */}
+        <div className="stats-row bg-[#242938] rounded-xl p-6 border border-[#2a3441] mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="stat-item text-center">
+              <div className="stat-number text-[#ff6b35] text-2xl font-bold">1,247</div>
+              <div className="stat-label text-[#8b949e] text-sm">Tokens Tracked</div>
+            </div>
+            <div className="stat-item text-center">
+              <div className="stat-number text-[#ff6b35] text-2xl font-bold">89</div>
+              <div className="stat-label text-[#8b949e] text-sm">Active Signals</div>
+            </div>
+            <div className="stat-item text-center">
+              <div className="stat-number text-[#ff6b35] text-2xl font-bold">12</div>
+              <div className="stat-label text-[#8b949e] text-sm">Chains Monitored</div>
+            </div>
+            <div className="stat-item text-center">
+              <div className="stat-number text-[#ff6b35] text-2xl font-bold">24h</div>
+              <div className="stat-label text-[#8b949e] text-sm">Live Monitoring</div>
             </div>
           </div>
         </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">📊 Dashboard</h1>
-          <p className="text-slate-300 text-lg">Your personalized trading command center</p>
-        </div>
-
-        {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-400">Portfolio Value</p>
-                  <p className="text-2xl font-bold text-white">$125,430</p>
-                  <p className="text-sm text-green-400">+12.5% today</p>
-                </div>
-                <TrendingUp className="h-8 w-8 text-green-400" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-400">Active Positions</p>
-                  <p className="text-2xl font-bold text-white">8</p>
-                  <p className="text-sm text-blue-400">3 profitable</p>
-                </div>
-                <Target className="h-8 w-8 text-blue-400" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-400">Win Rate</p>
-                  <p className="text-2xl font-bold text-white">73%</p>
-                  <p className="text-sm text-orange-400">Last 30 days</p>
-                </div>
-                <BarChart3 className="h-8 w-8 text-orange-400" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-slate-400">Signals Today</p>
-                  <p className="text-2xl font-bold text-white">24</p>
-                  <p className="text-sm text-purple-400">6 high confidence</p>
-                </div>
-                <Zap className="h-8 w-8 text-purple-400" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Recent Signals</h3>
-              <div className="space-y-4">
-                {[
-                  { token: 'BONK', type: 'BUY', confidence: 94, time: '2m ago' },
-                  { token: 'WIF', type: 'SELL', confidence: 87, time: '15m ago' },
-                  { token: 'POPCAT', type: 'BUY', confidence: 91, time: '32m ago' },
-                ].map((signal, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <Badge variant="outline" className={signal.type === 'BUY' ? 'text-green-400 border-green-400' : 'text-red-400 border-red-400'}>
-                        {signal.type}
-                      </Badge>
-                      <span className="font-semibold text-white">{signal.token}</span>
-                      <span className="text-sm text-slate-400">{signal.confidence}% confidence</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-slate-500">
-                      <Clock className="h-3 w-3" />
-                      {signal.time}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Top Performers</h3>
-              <div className="space-y-4">
-                {[
-                  { token: 'HOMURA', gain: '+245%', value: '$12,450' },
-                  { token: 'PEPE', gain: '+180%', value: '$8,920' },
-                  { token: 'DOGE', gain: '+95%', value: '$15,630' },
-                ].map((performer, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="font-semibold text-white">{performer.token}</span>
-                      <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                        {performer.gain}
-                      </Badge>
-                    </div>
-                    <span className="text-white font-mono">{performer.value}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mt-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Link href="/alpha-feed" className="p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors text-center">
-                  <TrendingUp className="h-8 w-8 text-blue-400 mx-auto mb-2" />
-                  <span className="text-white font-medium">View Signals</span>
-                </Link>
-                <Link href="/intelligence" className="p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors text-center">
-                  <BarChart3 className="h-8 w-8 text-orange-400 mx-auto mb-2" />
-                  <span className="text-white font-medium">Intelligence</span>
-                </Link>
-                <Link href="/platform" className="p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors text-center">
-                  <Target className="h-8 w-8 text-green-400 mx-auto mb-2" />
-                  <span className="text-white font-medium">Platform</span>
-                </Link>
-                <div className="p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors text-center cursor-pointer">
-                  <Zap className="h-8 w-8 text-purple-400 mx-auto mb-2" />
-                  <span className="text-white font-medium">Settings</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }

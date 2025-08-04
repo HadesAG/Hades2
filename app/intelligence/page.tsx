@@ -8,289 +8,185 @@ import { TrendingUp, Target, BarChart3, Zap, Brain, Rocket } from 'lucide-react'
 
 export default function IntelligencePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 backdrop-blur-sm sticky top-0 z-50 bg-slate-900/80">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
-                <span className="font-bold text-2xl text-white">HADES</span>
-              </Link>
-              <nav className="hidden md:flex items-center space-x-6">
-                <Link href="/intelligence" className="text-blue-400 font-semibold">
-                  Intelligence
-                </Link>
-                <Link href="/dashboard" className="text-slate-300 hover:text-white transition-colors">
-                  Dashboard
-                </Link>
-                <Link href="/alpha-feed" className="text-slate-300 hover:text-white transition-colors">
-                  Alpha Feed
-                </Link>
-                <Link href="/platform" className="text-slate-300 hover:text-white transition-colors">
-                  Platform
-                </Link>
-              </nav>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
+          </div>
+          {/* Navigation */}
+          <nav className="space-y-1">
+            <Link href="/dashboard" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm8-18h-8v6h8V3Z"/></svg></span></span>
+              <span>Dashboard</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35"/></svg></span></span>
+              <span>Search Tokens</span>
+            </Link>
+            <Link href="/alpha-feed" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg></span></span>
+              <span>Alpha Signals</span>
+            </Link>
+            <Link href="/intelligence" className="sidebar-item active flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all text-white bg-[#d2691e]">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg></span></span>
+              <span>Intelligence Feed</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z"/></svg></span></span>
+              <span>Watchlist</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 3v18h18"/></svg></span></span>
+              <span>Market Analysis</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span></span>
+              <span>Alerts</span>
+            </Link>
+          </nav>
+        </div>
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M12 16v-4m0-4h.01"/></svg></span></span>
+            <span>Settings</span>
+          </div>
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg></span></span>
+            <span>Log out</span>
+          </div>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 main-content p-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <div className="flex items-center mb-2">
+              <div className="w-6 h-6 bg-pink-500 rounded-full mr-3 flex items-center justify-center">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg>
+              </div>
+              <h1 className="text-3xl font-bold">Intelligence Feed</h1>
+            </div>
+            <p className="text-gray-400">Cross-chain launchpad monitoring and analysis</p>
+          </div>
+          <button className="refresh-btn bg-[#ff6b35] text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[#ff5722] transition-all" title="Refresh">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M4.05 11a9 9 0 1 1 2.13 5.66"/><path stroke="currentColor" strokeWidth="2" d="M4 19v-5h5"/></svg>
+            Refresh
+          </button>
+        </div>
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {/* Market Liquidity */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Market Liquidity</div>
+                <div className="text-2xl font-bold">$978.0M</div>
+                <div className="text-sm text-[#2ea043]">↑ +5.2% 24h</div>
+              </div>
+              <div className="text-[#58a6ff]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* Bonded Tokens */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Bonded Tokens</div>
+                <div className="text-2xl font-bold">847</div>
+                <div className="text-sm text-[#2ea043]">↑ Backed by liquidity</div>
+              </div>
+              <div className="text-[#2ea043]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* Avg Rug Rate */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Avg Rug Rate</div>
+                <div className="text-2xl font-bold">8.4%</div>
+              </div>
+              <div className="text-[#f85149]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* Top Gainer */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Top Gainer</div>
+                <div className="text-2xl font-bold">Moonshot</div>
+                <div className="text-sm text-[#2ea043]">+23.7%</div>
+              </div>
+              <div className="text-[#2ea043]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
+              </div>
             </div>
           </div>
         </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">🧠 Intelligence Hub</h1>
-          <p className="text-slate-300 text-lg">AI-powered market analysis and launchpad intelligence</p>
+        {/* Tab Navigation */}
+        <div className="tab-nav flex mb-6">
+          <div className="tab-item active px-6 py-3 rounded-lg mr-2 bg-[#ff6b35] text-white cursor-pointer">Overview</div>
+          <div className="tab-item px-6 py-3 rounded-lg mr-2 text-[#8b949e] cursor-pointer hover:bg-white/5 hover:text-white transition-all">Platforms</div>
+          <div className="tab-item px-6 py-3 rounded-lg text-[#8b949e] cursor-pointer hover:bg-white/5 hover:text-white transition-all">Analytics</div>
         </div>
-
-        {/* Market Overview */}
+        {/* Platform Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Brain className="h-8 w-8 text-blue-400" />
-                <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">LIVE</Badge>
+          {/* Example Platform Card: BONK */}
+          <div className="platform-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all relative">
+            <div className="percentage-badge positive absolute top-4 right-4 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">36.8%</div>
+            <div className="platform-icon bonk-icon bg-[#ff6b35] text-white w-8 h-8 rounded-lg flex items-center justify-center mb-3">🐕</div>
+            <h3 className="text-xl font-bold mb-4">BONK</h3>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <div className="text-sm text-gray-400">Total Liquidity</div>
+                <div className="font-semibold">$298.0M</div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Market Sentiment</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Overall</span>
-                  <span className="text-green-400 font-semibold">Bullish</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Confidence</span>
-                  <span className="text-white">87%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Volume</span>
-                  <span className="text-orange-400">High</span>
-                </div>
+              <div>
+                <div className="text-sm text-gray-400">24h Volume</div>
+                <div className="font-semibold text-[#ff6b35]">18.4%</div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Rocket className="h-8 w-8 text-green-400" />
-                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">HOT</Badge>
+              <div>
+                <div className="text-sm text-gray-400">New Tokens/hr</div>
+                <div className="font-semibold text-[#f1c40f]">156</div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Trending Sectors</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">DeFi</span>
-                  <span className="text-green-400">+24%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">GameFi</span>
-                  <span className="text-green-400">+18%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Layer 2</span>
-                  <span className="text-green-400">+15%</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Target className="h-8 w-8 text-purple-400" />
-                <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">AI</Badge>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Risk Assessment</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Market Risk</span>
-                  <span className="text-yellow-400">Medium</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Volatility</span>
-                  <span className="text-orange-400">High</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Liquidity</span>
-                  <span className="text-green-400">Good</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Launchpad Intelligence */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-white mb-4">🚀 Upcoming Launches</h3>
-              <div className="space-y-4">
-                {[
-                  {
-                    name: 'DefiToken',
-                    symbol: 'DFT',
-                    date: '2024-02-15',
-                    platform: 'Uniswap',
-                    confidence: 88,
-                    risk: 'Medium'
-                  },
-                  {
-                    name: 'GameFi Protocol',
-                    symbol: 'GFP',
-                    date: '2024-02-20',
-                    platform: 'PancakeSwap',
-                    confidence: 94,
-                    risk: 'Low'
-                  },
-                  {
-                    name: 'Layer2 Bridge',
-                    symbol: 'L2B',
-                    date: '2024-02-25',
-                    platform: 'Arbitrum',
-                    confidence: 76,
-                    risk: 'High'
-                  }
-                ].map((launch, index) => (
-                  <div key={index} className="p-4 bg-slate-700/30 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-white">{launch.name}</span>
-                        <Badge variant="outline" className="text-blue-300 border-blue-300">
-                          {launch.symbol}
-                        </Badge>
-                      </div>
-                      <Badge className={`${
-                        launch.risk === 'Low' ? 'bg-green-500/20 text-green-300 border-green-500/30' :
-                        launch.risk === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' :
-                        'bg-red-500/20 text-red-300 border-red-500/30'
-                      }`}>
-                        {launch.risk} Risk
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-slate-400">{launch.platform} • {launch.date}</span>
-                      <span className="text-white">{launch.confidence}% confidence</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-white mb-4">📊 Market Analysis</h3>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-2">Key Insights</h4>
-                  <ul className="space-y-2 text-slate-300">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-400 mt-1">•</span>
-                      DeFi sector showing strong momentum with 24% growth
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-blue-400 mt-1">•</span>
-                      GameFi tokens gaining institutional interest
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-orange-400 mt-1">•</span>
-                      Layer 2 solutions preparing for major upgrades
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-2">Recommendations</h4>
-                  <div className="space-y-2">
-                    <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                      <span className="text-green-400 font-semibold">BUY: </span>
-                      <span className="text-white">Monitor DeFi blue chips for entry</span>
-                    </div>
-                    <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                      <span className="text-yellow-400 font-semibold">WATCH: </span>
-                      <span className="text-white">GameFi sector for breakout signals</span>
-                    </div>
-                    <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <span className="text-blue-400 font-semibold">RESEARCH: </span>
-                      <span className="text-white">Layer 2 tokens before upgrades</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Chain Analysis */}
-        <Card className="bg-slate-800/50 border-slate-700">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-bold text-white mb-4">🔗 Cross-Chain Analysis</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">S</span>
-                </div>
-                <h4 className="text-lg font-semibold text-white mb-2">Solana</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Activity</span>
-                    <span className="text-green-400">High</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">TVL</span>
-                    <span className="text-white">$2.1B</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">24h Volume</span>
-                    <span className="text-blue-400">$890M</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">B</span>
-                </div>
-                <h4 className="text-lg font-semibold text-white mb-2">Base</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Activity</span>
-                    <span className="text-green-400">High</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">TVL</span>
-                    <span className="text-white">$1.8B</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">24h Volume</span>
-                    <span className="text-blue-400">$650M</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full mx-auto mb-3 flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">E</span>
-                </div>
-                <h4 className="text-lg font-semibold text-white mb-2">Ethereum</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Activity</span>
-                    <span className="text-yellow-400">Medium</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">TVL</span>
-                    <span className="text-white">$45.2B</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">24h Volume</span>
-                    <span className="text-blue-400">$12.5B</span>
-                  </div>
-                </div>
+              <div>
+                <div className="text-sm text-gray-400">Rug Rate</div>
+                <div className="font-semibold text-[#ff6b35]">8.7%</div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+            <div className="mb-3">
+              <div className="text-sm text-gray-400 mb-2">🔥 Top 24h Performers</div>
+              <div>
+                <span className="token-tag bg-[#ff6b35] text-white px-2 py-1 rounded mr-1 text-xs font-semibold">WIF</span>
+                <span className="token-tag bg-[#ff6b35] text-white px-2 py-1 rounded mr-1 text-xs font-semibold">POPCAT</span>
+                <span className="token-tag bg-[#ff6b35] text-white px-2 py-1 rounded text-xs font-semibold">MEW</span>
+              </div>
+            </div>
+          </div>
+          {/* Additional platform cards would be mapped here using dynamic data */}
+        </div>
+        {/* Footer Status */}
+        <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+          <div className="flex items-center">
+            <div className="live-indicator mr-2 w-2 h-2 bg-[#2ea043] rounded-full animate-pulse"></div>
+            <span className="font-semibold">Live Intelligence</span>
+            <span className="text-gray-400 ml-4">Last update: 11:13:29 PM</span>
+          </div>
+          <div className="text-gray-400">
+            Monitoring 6 platforms
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

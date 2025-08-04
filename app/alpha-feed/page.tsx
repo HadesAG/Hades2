@@ -186,424 +186,234 @@ export default function AlphaFeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 backdrop-blur-sm sticky top-0 z-50 bg-slate-900/80">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
-                <span className="font-bold text-2xl text-white">HADES</span>
-              </Link>
-              <nav className="hidden md:flex items-center space-x-6">
-                <Link href="/intelligence" className="text-slate-300 hover:text-white transition-colors">
-                  Intelligence
-                </Link>
-                <Link href="#" className="text-slate-300 hover:text-white transition-colors">
-                  Chains
-                </Link>
-                <Link href="/alpha-feed" className="text-blue-400 font-semibold">
-                  Alpha Feed
-                </Link>
-              </nav>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
+          </div>
+          {/* Navigation */}
+          <nav className="space-y-1">
+            <Link href="/dashboard" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm8-18h-8v6h8V3Z"/></svg></span></span>
+              <span>Dashboard</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35"/></svg></span></span>
+              <span>Search Tokens</span>
+            </Link>
+            <Link href="/alpha-feed" className="sidebar-item active flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all text-white bg-[#d2691e]">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg></span></span>
+              <span>Alpha Signals</span>
+            </Link>
+            <Link href="/intelligence" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg></span></span>
+              <span>Intelligence Feed</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z"/></svg></span></span>
+              <span>Watchlist</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 3v18h18"/></svg></span></span>
+              <span>Market Analysis</span>
+            </Link>
+            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span></span>
+              <span>Alerts</span>
+            </Link>
+          </nav>
+        </div>
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M12 16v-4m0-4h.01"/></svg></span></span>
+            <span>Settings</span>
+          </div>
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg></span></span>
+            <span>Log out</span>
+          </div>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 main-content p-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <div className="flex items-center mb-2">
+              <div className="w-6 h-6 bg-orange-500 rounded-full mr-3 flex items-center justify-center">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
+              </div>
+              <h1 className="text-3xl font-bold">Alpha Signals</h1>
             </div>
-            <div className="flex items-center gap-4">
-              <Badge variant={isRealData ? "default" : "secondary"} className="text-sm">
-                {isRealData ? "🔴 Live Signals" : "📊 Demo Mode"}
-              </Badge>
-              <div className="flex items-center gap-2">
-                <Button
-                  onClick={() => setAutoRefresh(!autoRefresh)}
-                  size="sm"
-                  variant={autoRefresh ? "default" : "outline"}
-                  className={autoRefresh ? "bg-green-600 hover:bg-green-700" : "bg-slate-800 border-slate-600 text-white"}
-                >
-                  <RefreshCw className={`h-4 w-4 mr-2 ${autoRefresh ? "animate-spin" : ""}`} />
-                  {autoRefresh ? "Auto-Refresh ON" : "Auto-Refresh OFF"}
-                </Button>
-                <Select value={refreshInterval.toString()} onValueChange={(value) => setRefreshInterval(Number(value))} disabled={!autoRefresh}>
-                  <SelectTrigger className="w-24 bg-slate-800/50 border-slate-600 text-white text-xs">
-                    <SelectValue placeholder="Interval" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
-                    <SelectItem value="10">10s</SelectItem>
-                    <SelectItem value="30">30s</SelectItem>
-                    <SelectItem value="60">1m</SelectItem>
-                    <SelectItem value="120">2m</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button onClick={() => fetchSignals()} disabled={loading} size="sm" className="bg-blue-600 hover:bg-blue-700">
-                  <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-                  Refresh
-                </Button>
+            <p className="text-gray-400">Premium trading signals from Telegram channels</p>
+          </div>
+          <div className="header-buttons flex gap-3 items-center">
+            <button className="demo-btn bg-blue-100 text-blue-600 px-4 py-2 rounded-lg border border-blue-200 font-medium flex items-center gap-2" title="Demo Mode">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#2196f3"/></svg>
+              Demo Mode
+            </button>
+            <button className="auto-btn bg-green-100 text-green-600 px-4 py-2 rounded-lg border border-green-200 font-medium" title="Auto ON">Auto ON</button>
+            <button className="refresh-btn bg-[#ff6b35] text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[#ff5722] transition-all" title="Refresh">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M4.05 11a9 9 0 1 1 2.13 5.66"/><path stroke="currentColor" strokeWidth="2" d="M4 19v-5h5"/></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {/* Total Signals */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Total Signals</div>
+                <div className="text-2xl font-bold">{stats.totalSignals || 0}</div>
+              </div>
+              <div className="text-[#ff6b35]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* High Confidence */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">High Confidence</div>
+                <div className="text-2xl font-bold">{stats.highConfidenceSignals || 0}</div>
+              </div>
+              <div className="text-[#2ea043]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* Avg Confidence */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Avg Confidence</div>
+                <div className="text-2xl font-bold">{stats.averageConfidence || 0}%</div>
+              </div>
+              <div className="text-[#ff6b35]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+              </div>
+            </div>
+          </div>
+          {/* Last Update */}
+          <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Last Update</div>
+                <div className="text-2xl font-bold">{lastUpdate.toLocaleTimeString()}</div>
+              </div>
+              <div className="text-[#f1c40f]">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
               </div>
             </div>
           </div>
         </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Title Section */}
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-white mb-2">🔥 Alpha Feed</h1>
-            <p className="text-slate-300 text-lg">Premium trading signals with precise entry points and targets</p>
+        {/* Search and Filters */}
+        <div className="mb-6">
+          <input type="text" placeholder="Search signals..." className="search-bar bg-[#242938] border border-[#2a3441] rounded-lg px-4 py-3 text-white w-full mb-4" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          <div className="filter-section flex gap-4 mb-4">
+            <select className="filter-dropdown bg-[#242938] border border-[#2a3441] rounded-lg px-3 py-2 text-white" value={strengthFilter} onChange={e => setStrengthFilter(e.target.value)} title="Filter by signal strength">
+              <option value="all">All Strengths</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <select className="filter-dropdown bg-[#242938] border border-[#2a3441] rounded-lg px-3 py-2 text-white" value={typeFilter} onChange={e => setTypeFilter(e.target.value)} title="Filter by signal type">
+              <option value="all">All Types</option>
+              <option value="buy">Buy Signals</option>
+              <option value="sell">Sell Signals</option>
+              <option value="alert">Alerts</option>
+              <option value="trending">Trending</option>
+            </select>
           </div>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+        </div>
+        {/* Signal Cards */}
+        <div className="space-y-6">
+          {filteredSignals.map(signal => (
+            <div key={signal.id} className="signal-card bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6 hover:border-[#3a4553] transition-all">
+              <div className="signal-header flex items-center justify-between mb-5">
+                <div className="signal-title flex items-center gap-3">
+                  <div className="signal-icon w-8 h-8 rounded-lg flex items-center justify-center text-white bg-[#ff6b35]">{signal.token[0]}</div>
                   <div>
-                    <p className="text-sm text-slate-400">Total Signals</p>
-                    <p className="text-2xl font-bold text-white">{stats.totalSignals || 0}</p>
+                    <h3 className="text-xl font-bold">{signal.token}</h3>
                   </div>
-                  <TrendingUp className="h-8 w-8 text-blue-400" />
                 </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-slate-400">High Confidence</p>
-                    <p className="text-2xl font-bold text-white">{stats.highConfidenceSignals || 0}</p>
+                <div className="signal-badges flex gap-2 flex-wrap">
+                  <span className={`badge ${signal.strength === 'critical' ? 'badge-critical' : signal.strength === 'high' ? 'badge-high' : signal.strength === 'medium' ? 'badge-medium' : ''}`}>{signal.strength.toUpperCase()}</span>
+                  {signal.metadata.signalType && <span className="badge badge-performance">{signal.metadata.signalType.toUpperCase()}</span>}
+                  {signal.metadata.performanceType && <span className="badge badge-trending">{signal.metadata.performanceType}</span>}
+                </div>
+              </div>
+              <div className="signal-content grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+                {/* Performance */}
+                <div className="performance-section bg-green-100/10 border border-green-400/20 rounded-lg p-4">
+                  <div className="performance-title text-green-400 text-sm font-medium flex items-center gap-2 mb-2">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#2ea043" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
+                    Performance
                   </div>
-                  <Target className="h-8 w-8 text-green-400" />
+                  <div className="performance-value text-2xl font-bold text-green-400 mb-1">{signal.value}</div>
+                  <div className="performance-change text-green-400 text-lg font-semibold">+{signal.change?.toFixed(0) || 0}%</div>
                 </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-slate-400">Avg Confidence</p>
-                    <p className="text-2xl font-bold text-white">{stats.averageConfidence || 0}%</p>
-                  </div>
-                  <BarChart3 className="h-8 w-8 text-orange-400" />
+                {/* Price Movement */}
+                <div className="price-section text-center">
+                  <div className="price-title text-[#8b949e] text-sm mb-2">Price Movement</div>
+                  <div className="price-value text-lg font-bold text-white mb-1">{signal.metadata.priceFrom}</div>
+                  <div className="price-range text-[#8b949e] text-sm">{signal.metadata.priceTo}</div>
                 </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-slate-400">Telegram Signals</p>
-                    <p className="text-2xl font-bold text-white">{telegramStats.totalTelegramSignals}</p>
-                    <div className="flex gap-2 mt-1">
-                      <span className="text-xs text-cyan-400 flex items-center gap-1">
-                        <MessageCircle className="h-3 w-3" />
-                        {telegramStats.channelSignals}
-                      </span>
-                      <span className="text-xs text-blue-400 flex items-center gap-1">
-                        <Bot className="h-3 w-3" />
-                        {telegramStats.botSignals}
-                      </span>
-                    </div>
-                  </div>
-                  <Radio className="h-8 w-8 text-cyan-400" />
+                {/* Risk Analysis */}
+                <div className="risk-section bg-orange-100/10 border border-orange-400/20 rounded-lg p-4 text-center">
+                  <div className="risk-title text-[#ff6b35] text-sm font-medium mb-2">Risk Analysis</div>
+                  <div className={`risk-value text-lg font-bold ${signal.metadata.riskLevel === 'low' ? 'text-green-400' : signal.metadata.riskLevel === 'high' ? 'text-red-400' : 'text-yellow-400'}`}>{signal.metadata.riskLevel?.toUpperCase() || 'UNKNOWN'}</div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Filters */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div className="flex-1 min-w-64">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
-                <Input
-                  placeholder="Search signals..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-slate-800/50 border-slate-600 text-white placeholder-slate-400"
-                />
+                {/* Confidence */}
+                <div className="confidence-section text-center">
+                  <div className="confidence-label text-[#8b949e] text-xs uppercase mb-1">CONFIDENCE</div>
+                  <div className="confidence-value text-2xl font-bold text-green-400 mb-1">{signal.confidence}%</div>
+                  <div className="confidence-time text-[#6e7681] text-xs">⏱ {getTimeAgo(signal.timestamp)}</div>
+                </div>
               </div>
             </div>
-            <Select value={strengthFilter} onValueChange={setStrengthFilter}>
-              <SelectTrigger className="w-48 bg-slate-800/50 border-slate-600 text-white">
-                <SelectValue placeholder="Signal Strength" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="all">All Strengths</SelectItem>
-                <SelectItem value="critical">Critical</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="low">Low</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger className="w-48 bg-slate-800/50 border-slate-600 text-white">
-                <SelectValue placeholder="Signal Type" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="buy">Buy Signals</SelectItem>
-                <SelectItem value="sell">Sell Signals</SelectItem>
-                <SelectItem value="alert">Alerts</SelectItem>
-                <SelectItem value="trending">Trending</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={sourceFilter} onValueChange={setSourceFilter}>
-              <SelectTrigger className="w-48 bg-slate-800/50 border-slate-600 text-white">
-                <SelectValue placeholder="Signal Source" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="all">All Sources</SelectItem>
-                <SelectItem value="market">Market Data</SelectItem>
-                <SelectItem value="telegram">Telegram</SelectItem>
-                <SelectItem value="channel">Telegram Channels</SelectItem>
-                <SelectItem value="bot">Telegram Bots</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={timeframeFilter} onValueChange={setTimeframeFilter}>
-              <SelectTrigger className="w-48 bg-slate-800/50 border-slate-600 text-white">
-                <SelectValue placeholder="Timeframe" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="all">All Timeframes</SelectItem>
-                <SelectItem value="5m">5 Minutes</SelectItem>
-                <SelectItem value="30m">30 Minutes</SelectItem>
-                <SelectItem value="1h">1 Hour</SelectItem>
-                <SelectItem value="4h">4 Hours</SelectItem>
-                <SelectItem value="1d">1 Day</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          ))}
         </div>
-
-        {/* Signals List */}
-        <div className="space-y-4">
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <RefreshCw className="h-8 w-8 animate-spin text-blue-400" />
-              <span className="ml-3 text-slate-300">Loading alpha signals...</span>
-            </div>
-          ) : filteredSignals.length === 0 ? (
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardContent className="p-8 text-center">
-                <p className="text-slate-400">No alpha signals found matching your filters.</p>
-              </CardContent>
-            </Card>
-          ) : (
-            filteredSignals.map((signal) => (
-              <Card key={signal.id} className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group">
-                <CardContent className="p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                          {signal.change > 100 && <TrendingUp className="h-5 w-5 text-yellow-400 animate-pulse" />}
-                          <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">
-                            {signal.token}
-                          </h3>
-                        </div>
-                        <Badge className={`${getStrengthBadgeClass(signal.strength)} font-semibold`} variant="outline">
-                          {signal.strength.toUpperCase()}
-                        </Badge>
-                        <Badge variant="outline" className="bg-blue-500/20 text-blue-300 border-blue-500/30 font-medium">
-                          {signal.metadata.signalType?.toUpperCase() || "ALPHA"}
-                        </Badge>
-                        {signal.metadata.channelName && (
-                          <Badge variant="outline" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                            {signal.metadata.channelName}
-                          </Badge>
-                        )}
-                        {signal.metadata.channelWinRate && (
-                          <Badge variant="outline" className="bg-green-500/20 text-green-300 border-green-500/30">
-                            {signal.metadata.channelWinRate}% Win Rate
-                          </Badge>
-                        )}
-                        {signal.metadata.source === 'telegram' && (
-                          <Badge variant="outline" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 flex items-center gap-1">
-                            {signal.metadata.telegramSource === 'telegram_bot' ? <Bot className="h-3 w-3" /> : <MessageCircle className="h-3 w-3" />}
-                            {signal.metadata.telegramSource === 'telegram_bot' ? 'BOT' : 'CHANNEL'}
-                          </Badge>
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div className="bg-gradient-to-br from-green-500/20 via-emerald-500/20 to-green-600/20 rounded-xl p-4 border border-green-500/30 relative overflow-hidden">
-                          <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent" />
-                          <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-2">
-                              <p className="text-sm font-medium text-green-300">Performance</p>
-                              <Zap className="h-4 w-4 text-green-400" />
-                            </div>
-                            <p className="text-2xl font-bold text-green-400 mb-1">{signal.value}</p>
-                            <div className="flex items-center gap-2">
-                              <p className="text-lg font-semibold text-green-300">+{signal.change?.toFixed(0) || 0}%</p>
-                              {signal.change > 200 && (
-                                <span className="text-xs bg-yellow-500/30 text-yellow-300 px-2 py-1 rounded-full">🔥 MEGA</span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-xl p-4 border border-slate-600/50">
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium text-slate-400">Price Movement</p>
-                            <Target className="h-4 w-4 text-slate-400" />
-                          </div>
-                          {signal.metadata.priceFrom && signal.metadata.priceTo ? (
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between text-sm">
-                                <span className="text-slate-300 font-medium">From:</span>
-                                <span className="text-slate-200 font-mono">{signal.metadata.priceFrom}</span>
-                              </div>
-                              <div className="flex items-center justify-center">
-                                <Zap className="h-4 w-4 text-blue-400" />
-                              </div>
-                              <div className="flex items-center justify-between text-sm">
-                                <span className="text-slate-300 font-medium">To:</span>
-                                <span className="text-green-400 font-mono font-semibold">{signal.metadata.priceTo}</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <p className="text-sm text-slate-400">Price data pending...</p>
-                          )}
-                        </div>
-
-                        <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-4 border border-blue-500/30">
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium text-blue-300">Analysis</p>
-                            <BarChart3 className="h-4 w-4 text-blue-400" />
-                          </div>
-                          <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm px-3 py-2 rounded-lg transition-all duration-300 font-medium group-hover:shadow-md">
-                            🔍 Scan with {signal.metadata.scannerBot || "@soul_scanner_bot"}
-                          </button>
-                          {signal.metadata.performanceType && (
-                            <p className="text-xs text-purple-300 mt-2 text-center">{signal.metadata.performanceType}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="lg:text-right space-y-3 lg:min-w-[120px]">
-                      <div className="bg-slate-700/30 rounded-lg p-3 border border-slate-600/30">
-                        <div className="text-center">
-                          <span className="text-xs text-slate-400 block mb-1">CONFIDENCE</span>
-                          <span className={`text-2xl font-bold ${
-                            signal.confidence >= 90 ? "text-green-400" : 
-                            signal.confidence >= 80 ? "text-yellow-400" : "text-orange-400"
-                          }`}>
-                            {signal.confidence}%
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex lg:flex-col gap-2">
-                        <div className="flex lg:flex-col items-center lg:items-end gap-1">
-                          <span className="text-xs text-slate-400">RISK</span>
-                          <span className={`text-sm font-bold px-2 py-1 rounded-md ${getRiskBadgeClass(signal.metadata.riskLevel || '')}`}>
-                            {signal.metadata.riskLevel?.toUpperCase() || "UNKNOWN"}
-                          </span>
-                        </div>
-                        {signal.metadata.riskRewardRatio && (
-                          <div className="flex lg:flex-col items-center lg:items-end gap-1">
-                            <span className="text-xs text-slate-400">R:R</span>
-                            <span className="text-sm font-bold text-purple-400">{signal.metadata.riskRewardRatio}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-center lg:justify-end gap-1 text-xs text-slate-500 mt-3">
-                        <Clock className="h-3 w-3" />
-                        {getTimeAgo(signal.timestamp)}
-                      </div>
-                    </div>
-                  </div>
-
-                  {signal.metadata.rawMessage && (
-                    <div className="mt-4 pt-4 border-t border-slate-700/50">
-                      <details className="group">
-                        <summary className="text-xs text-slate-400 cursor-pointer hover:text-slate-300 transition-colors">
-                          📱 View Original Message
-                        </summary>
-                        <div className="mt-2 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
-                          <p className="text-xs text-slate-300 font-mono whitespace-pre-wrap">
-                            {signal.metadata.rawMessage.length > 200 
-                              ? `${signal.metadata.rawMessage.substring(0, 200)}...` 
-                              : signal.metadata.rawMessage}
-                          </p>
-                        </div>
-                      </details>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </div>
-
         {/* Footer Stats */}
-        <div className="mt-8 space-y-4">
-          <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
-                  <div className={`h-2 w-2 rounded-full ${isRealData ? "bg-green-400 animate-pulse" : "bg-yellow-400"}`} />
-                  <span className="text-sm font-medium text-slate-300">{isRealData ? "Live Channels" : "Demo Mode"}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-slate-400" />
-                  <span className="text-sm text-slate-400">Last update: {lastUpdate.toLocaleTimeString()}</span>
-                </div>
-                {autoRefresh && (
-                  <div className="flex items-center gap-2">
-                    <RefreshCw className="h-4 w-4 text-green-400 animate-spin" />
-                    <span className="text-sm text-green-400">Auto-refresh every {refreshInterval}s</span>
-                  </div>
-                )}
-              </div>
-              <div className="flex items-center gap-4 text-sm">
-                <div className="text-slate-400">
-                  <span className="text-white font-semibold">{signals.length}</span> total signals
-                </div>
-                <div className="text-slate-400">
-                  <span className="text-green-400 font-semibold">{signals.filter(s => s.confidence >= 85).length}</span> high confidence
-                </div>
-                <div className="text-slate-400">
-                  <span className="text-red-400 font-semibold">{signals.filter(s => s.strength === 'critical').length}</span> critical
-                </div>
-              </div>
+        <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#242938] rounded-lg p-4 border border-[#2a3441]">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className={`h-2 w-2 rounded-full ${isRealData ? 'bg-green-400 animate-pulse' : 'bg-yellow-400'}`} />
+              <span className="text-sm font-medium text-[#8b949e]">{isRealData ? 'Live Channels' : 'Demo Mode'}</span>
             </div>
+            <div className="flex items-center gap-2">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#8b949e" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+              <span className="text-sm text-[#8b949e]">Last update: {lastUpdate.toLocaleTimeString()}</span>
+            </div>
+            {autoRefresh && (
+              <div className="flex items-center gap-2">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#2ea043" strokeWidth="2" d="M4.05 11a9 9 0 1 1 2.13 5.66"/><path stroke="#2ea043" strokeWidth="2" d="M4 19v-5h5"/></svg>
+                <span className="text-sm text-green-400">Auto-refresh every {refreshInterval}s</span>
+              </div>
+            )}
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-slate-800/20 rounded-lg p-3 text-center border border-slate-700/30">
-              <div className="text-lg font-bold text-white">{stats.averageConfidence}%</div>
-              <div className="text-xs text-slate-400">Avg Confidence</div>
+          <div className="flex items-center gap-4 text-sm">
+            <div className="text-[#8b949e]">
+              <span className="text-white font-semibold">{signals.length}</span> total signals
             </div>
-            <div className="bg-slate-800/20 rounded-lg p-3 text-center border border-slate-700/30">
-              <div className="text-lg font-bold text-green-400">
-                {signals.length > 0 ? Math.round(signals.reduce((acc, signal) => acc + signal.change, 0) / signals.length) : 0}%
-              </div>
-              <div className="text-xs text-slate-400">Avg Performance</div>
+            <div className="text-[#8b949e]">
+              <span className="text-green-400 font-semibold">{signals.filter(s => s.confidence >= 85).length}</span> high confidence
             </div>
-            <div className="bg-slate-800/20 rounded-lg p-3 text-center border border-slate-700/30">
-              <div className="text-lg font-bold text-blue-400">
-                {signals.filter(s => s.metadata.channelWinRate && s.metadata.channelWinRate > 85).length}
-              </div>
-              <div className="text-xs text-slate-400">Elite Channels</div>
+            <div className="text-[#8b949e]">
+              <span className="text-red-400 font-semibold">{signals.filter(s => s.strength === 'critical').length}</span> critical
             </div>
-            <div className="bg-slate-800/20 rounded-lg p-3 text-center border border-slate-700/30">
-              <div className="text-lg font-bold text-purple-400">
-                {signals.filter(s => s.change > 100).length}
-              </div>
-              <div className="text-xs text-slate-400">Mega Gains (100%+)</div>
-            </div>
-          </div>
-
-          <div className="text-center text-slate-500 text-sm">
-            {isRealData 
-              ? `🔥 Live alpha signals: Market data + ${telegramStats.totalTelegramSignals} Telegram signals from ${telegramStats.channelSignals + telegramStats.botSignals > 0 ? `${telegramStats.channelSignals} channels & ${telegramStats.botSignals} bots` : 'premium sources'}` 
-              : "📊 Demo mode - Connect your Telegram bot for real-time alpha signals"}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

@@ -13,12 +13,14 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 ## 🚀 Core Features
 
 ### 🎮 Interactive 3D Experience
+
 - **🌌 Immersive Landing** - Interactive Spline 3D scene with real-time user interaction
 - **✨ Dynamic Animations** - Click, hover, and programmatic animation triggers
 - **🎯 Visual Feedback** - Responsive object scaling and cursor interactions
 - **🚀 Lazy Loading** - Optimized 3D scene loading with intersection observers
 
 ### 🧠 Intelligence Layer
+
 - **📊 Real-time Market Data** - Live cryptocurrency prices and market statistics
 - **🔥 Alpha Signals** - AI-powered trading signals with confidence ratings
 - **👁️ Intelligence Feed** - Curated market intelligence and insights
@@ -26,6 +28,7 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 - **🛡️ Risk Verification** - Advanced algorithms for token legitimacy assessment
 
 ### 🛠️ Platform Features
+
 - **⭐ Watchlist Management** - Track your favorite tokens with custom alerts
 - **🔔 Smart Alerts** - Price, volume, and percentage change notifications
 - **📈 Market Analysis** - Sector performance and dominance charts
@@ -34,6 +37,7 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 - **🔐 Secure Authentication** - Privy-powered wallet and email authentication
 
 ### 🌐 Cross-Chain Support
+
 - **⚡ Solana** - Active: High-speed monitoring and Jupiter integration
 - **🔵 Base** - Planned (Q4 '25): Layer 2 scaling solutions
 - **🟣 Ethereum** - Planned (Q4 '25): DeFi ecosystem intelligence
@@ -42,6 +46,7 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 ## 🛠️ Tech Stack
 
 ### Frontend & 3D
+
 - **Framework**: Next.js 14 with App Router, React 18, TypeScript
 - **3D Graphics**: Spline 3D with @splinetool/react-spline
 - **Styling**: Tailwind CSS, Radix UI Components
@@ -49,12 +54,14 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 - **Charts**: Recharts for data visualization
 
 ### Backend & Data
+
 - **Database**: SQLite with Prisma ORM
 - **Authentication**: Privy (Web3 + Email)
 - **APIs**: CoinGecko, Jupiter, Birdeye, Fear & Greed Index
 - **Runtime**: Bun (recommended) or Node.js
 
 ### Infrastructure
+
 - **Deployment**: Vercel, Netlify (configured)
 - **Development**: Hot reload, TypeScript strict mode
 - **Performance**: SSR/SSG, API caching, lazy loading
@@ -80,16 +87,19 @@ cd Hades2
 ### 2. Install Dependencies
 
 Using bun (recommended):
+
 ```bash
 bun install
 ```
 
 If you encounter dependency conflicts, use:
+
 ```bash
 bun install --force
 ```
 
 Alternative package managers:
+
 ```bash
 # Using npm
 npm install --legacy-peer-deps
@@ -142,6 +152,7 @@ npx prisma db seed
 ```
 
 **For PowerShell users**, run commands separately:
+
 ```powershell
 npx prisma generate
 npx prisma migrate dev
@@ -174,7 +185,8 @@ The application will be available at `http://localhost:3000`
 
 ## 📁 Project Structure
 
-```
+```bash
+
 Hades2/
 ├── app/                    # Next.js 14 App Router
 │   ├── api/               # API routes
@@ -263,6 +275,7 @@ npx prisma db push   # Push schema changes to database
    - Deploy automatically
 
 2. **Manual Deploy**:
+
    ```bash
    # Install Vercel CLI
    npm i -g vercel
@@ -274,6 +287,7 @@ npx prisma db push   # Push schema changes to database
 
 3. **Environment Variables**:
    Set in Vercel dashboard:
+
    ```bash
    NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id
    NODE_ENV=production
@@ -359,7 +373,7 @@ yarn install --ignore-peer-deps
 - [Fear & Greed Index](https://alternative.me/) for sentiment data
 - [Jupiter](https://jup.ag/) for Solana swap aggregation inspiration
 
----
+---bash
 
 **Built with ❤️ for the crypto community**
 
