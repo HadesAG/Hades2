@@ -2,7 +2,7 @@
 
 This guide will help you set up instant Telegram updates for the alpha feed from the specified channels and bot.
 
-## Prerequisites
+## Prerequisites fsfs
 
 1. **Telegram Bot Token**: You need to create a Telegram bot and get its token
 2. **Deployed Application**: Your app needs to be deployed and accessible via HTTPS
