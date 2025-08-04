@@ -73,12 +73,7 @@ function AuthenticatedPlatformLayout({
 }) {
   const { ready, authenticated, user, login, logout } = useAuth();
   
-  useEffect(() => {
-    if (ready && !authenticated) {
-      // Redirect to home page if not authenticated
-      router.push('/');
-    }
-  }, [ready, authenticated, router]);
+  // Let unauthenticated users see the login screen instead of redirecting
 
   // Display a loading state while the auth state is loading
   if (!ready) {
