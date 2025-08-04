@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { PrivyClientProvider } from '@/lib/privy-provider';
+import { AuthProvider } from '@/contexts/auth-context';
 
 export function PrivyWrapper({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -15,5 +16,9 @@ export function PrivyWrapper({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  return <PrivyClientProvider>{children}</PrivyClientProvider>;
+  return (
+    <PrivyClientProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </PrivyClientProvider>
+  );
 }

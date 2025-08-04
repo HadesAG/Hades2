@@ -1,8 +1,10 @@
 'use client';
 
+import { useAuth } from '@/contexts/auth-context';
+import { LoginButton } from '@/components/auth/login-button';
 import { usePrivy } from '@privy-io/react-auth';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -38,10 +40,39 @@ export default function PlatformLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ready, authenticated, user, login, logout } = usePrivy();
-  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  
+  // Initialize mounted state for hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  // Don't render auth-dependent content until mounted (hydration complete)
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
+
+  // Now we can safely use auth hooks after hydration
+  return <AuthenticatedPlatformLayout pathname={pathname} router={router}>{children}</AuthenticatedPlatformLayout>;
+}
+
+function AuthenticatedPlatformLayout({ 
+  children, 
+  pathname, 
+  router 
+}: { 
+  children: React.ReactNode;
+  pathname: string;
+  router: any;
+}) {
+  const { ready, authenticated, user, login, logout } = useAuth();
+  
   useEffect(() => {
     if (ready && !authenticated) {
       // Redirect to home page if not authenticated
@@ -49,6 +80,7 @@ export default function PlatformLayout({
     }
   }, [ready, authenticated, router]);
 
+  // Display a loading state while the auth state is loading
   if (!ready) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -57,6 +89,7 @@ export default function PlatformLayout({
     );
   }
 
+  // If the user is not authenticated, show a login screen
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white flex flex-col items-center justify-center">

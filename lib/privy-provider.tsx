@@ -41,16 +41,24 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
     <PrivyProvider
       appId={appId}
       config={{
+        // Only allow connections to Solana
         loginMethods: ['wallet', 'email'],
+        defaultChain: solana,
+        supportedChains: [solana],
+        
+        // Customize the modal
         appearance: {
           theme: 'dark',
           accentColor: '#FF6B35',
-          logo: 'https://your-logo-url.com/logo.png',
+          logo: 'https://your-logo-url.com/logo.png', // Optional: Add your logo URL
+          showWalletLoginFirst: true, // Prioritize wallet login
         },
-        defaultChain: solana,
-        supportedChains: [solana],
+        
+        // Configure embedded wallets for email users
         embeddedWallets: {
           createOnLogin: 'users-without-wallets',
+          // Restrict to Solana
+
         },
       }}
     >

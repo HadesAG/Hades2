@@ -212,21 +212,21 @@ export default function AlphaFeedPage() {
             <Link href="/intelligence" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
               <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg></span></span>
               <span>Intelligence Feed</span>
-            </Link>
+              </Link>
             <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
               <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z"/></svg></span></span>
               <span>Watchlist</span>
-            </Link>
+                </Link>
             <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
               <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 3v18h18"/></svg></span></span>
               <span>Market Analysis</span>
-            </Link>
+                </Link>
             <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
               <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span></span>
               <span>Alerts</span>
-            </Link>
-          </nav>
-        </div>
+                </Link>
+              </nav>
+            </div>
         {/* Bottom Navigation */}
         <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
           <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
@@ -281,26 +281,26 @@ export default function AlphaFeedPage() {
           {/* High Confidence */}
           <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div>
+                  <div>
                 <div className="text-sm text-gray-400 mb-1">High Confidence</div>
                 <div className="text-2xl font-bold">{stats.highConfidenceSignals || 0}</div>
-              </div>
+                  </div>
               <div className="text-[#2ea043]">
                 <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
-              </div>
-            </div>
-          </div>
+                </div>
+                  </div>
+                </div>
           {/* Avg Confidence */}
           <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div>
+                  <div>
                 <div className="text-sm text-gray-400 mb-1">Avg Confidence</div>
                 <div className="text-2xl font-bold">{stats.averageConfidence || 0}%</div>
-              </div>
+                  </div>
               <div className="text-[#ff6b35]">
                 <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-              </div>
-            </div>
+                    </div>
+                  </div>
           </div>
           {/* Last Update */}
           <div className="metric-card bg-[#242938] rounded-xl p-5 border border-[#2a3441] hover:border-[#3a4553] transition-all">
@@ -333,8 +333,8 @@ export default function AlphaFeedPage() {
               <option value="alert">Alerts</option>
               <option value="trending">Trending</option>
             </select>
-          </div>
-        </div>
+                            </div>
+                          </div>
         {/* Signal Cards */}
         <div className="space-y-6">
           {filteredSignals.map(signal => (
@@ -344,66 +344,66 @@ export default function AlphaFeedPage() {
                   <div className="signal-icon w-8 h-8 rounded-lg flex items-center justify-center text-white bg-[#ff6b35]">{signal.token[0]}</div>
                   <div>
                     <h3 className="text-xl font-bold">{signal.token}</h3>
-                  </div>
-                </div>
+                              </div>
+                            </div>
                 <div className="signal-badges flex gap-2 flex-wrap">
                   <span className={`badge ${signal.strength === 'critical' ? 'badge-critical' : signal.strength === 'high' ? 'badge-high' : signal.strength === 'medium' ? 'badge-medium' : ''}`}>{signal.strength.toUpperCase()}</span>
                   {signal.metadata.signalType && <span className="badge badge-performance">{signal.metadata.signalType.toUpperCase()}</span>}
                   {signal.metadata.performanceType && <span className="badge badge-trending">{signal.metadata.performanceType}</span>}
-                </div>
-              </div>
+                        </div>
+                      </div>
               <div className="signal-content grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
                 {/* Performance */}
                 <div className="performance-section bg-green-100/10 border border-green-400/20 rounded-lg p-4">
                   <div className="performance-title text-green-400 text-sm font-medium flex items-center gap-2 mb-2">
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#2ea043" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg>
                     Performance
-                  </div>
+                    </div>
                   <div className="performance-value text-2xl font-bold text-green-400 mb-1">{signal.value}</div>
                   <div className="performance-change text-green-400 text-lg font-semibold">+{signal.change?.toFixed(0) || 0}%</div>
-                </div>
+                        </div>
                 {/* Price Movement */}
                 <div className="price-section text-center">
                   <div className="price-title text-[#8b949e] text-sm mb-2">Price Movement</div>
                   <div className="price-value text-lg font-bold text-white mb-1">{signal.metadata.priceFrom}</div>
                   <div className="price-range text-[#8b949e] text-sm">{signal.metadata.priceTo}</div>
-                </div>
+                      </div>
                 {/* Risk Analysis */}
                 <div className="risk-section bg-orange-100/10 border border-orange-400/20 rounded-lg p-4 text-center">
                   <div className="risk-title text-[#ff6b35] text-sm font-medium mb-2">Risk Analysis</div>
                   <div className={`risk-value text-lg font-bold ${signal.metadata.riskLevel === 'low' ? 'text-green-400' : signal.metadata.riskLevel === 'high' ? 'text-red-400' : 'text-yellow-400'}`}>{signal.metadata.riskLevel?.toUpperCase() || 'UNKNOWN'}</div>
-                </div>
+                        </div>
                 {/* Confidence */}
                 <div className="confidence-section text-center">
                   <div className="confidence-label text-[#8b949e] text-xs uppercase mb-1">CONFIDENCE</div>
                   <div className="confidence-value text-2xl font-bold text-green-400 mb-1">{signal.confidence}%</div>
                   <div className="confidence-time text-[#6e7681] text-xs">⏱ {getTimeAgo(signal.timestamp)}</div>
-                </div>
-              </div>
-            </div>
+                      </div>
+                    </div>
+                  </div>
           ))}
         </div>
         {/* Footer Stats */}
         <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#242938] rounded-lg p-4 border border-[#2a3441]">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
               <div className={`h-2 w-2 rounded-full ${isRealData ? 'bg-green-400 animate-pulse' : 'bg-yellow-400'}`} />
               <span className="text-sm font-medium text-[#8b949e]">{isRealData ? 'Live Channels' : 'Demo Mode'}</span>
-            </div>
-            <div className="flex items-center gap-2">
+                </div>
+                <div className="flex items-center gap-2">
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#8b949e" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
               <span className="text-sm text-[#8b949e]">Last update: {lastUpdate.toLocaleTimeString()}</span>
-            </div>
-            {autoRefresh && (
-              <div className="flex items-center gap-2">
+                </div>
+                {autoRefresh && (
+                  <div className="flex items-center gap-2">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#2ea043" strokeWidth="2" d="M4.05 11a9 9 0 1 1 2.13 5.66"/><path stroke="#2ea043" strokeWidth="2" d="M4 19v-5h5"/></svg>
-                <span className="text-sm text-green-400">Auto-refresh every {refreshInterval}s</span>
+                    <span className="text-sm text-green-400">Auto-refresh every {refreshInterval}s</span>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-4 text-sm">
             <div className="text-[#8b949e]">
-              <span className="text-white font-semibold">{signals.length}</span> total signals
+                  <span className="text-white font-semibold">{signals.length}</span> total signals
             </div>
             <div className="text-[#8b949e]">
               <span className="text-green-400 font-semibold">{signals.filter(s => s.confidence >= 85).length}</span> high confidence
