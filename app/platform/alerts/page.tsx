@@ -20,6 +20,7 @@ import {
   Plus,
   CheckCircle
 } from 'lucide-react';
+import Link from 'next/link';
 
 const dataAggregator = new DataAggregator();
 
@@ -143,183 +144,66 @@ export default function AlertsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Alert Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-orange-500">{totalAlerts}</p>
-                <p className="text-sm text-slate-300">Total Alerts</p>
-              </div>
-              <Bell className="h-8 w-8 text-orange-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-green-500">{activeAlerts}</p>
-                <p className="text-sm text-slate-300">Active</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-green-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-red-500">{triggeredAlerts}</p>
-                <p className="text-sm text-slate-300">Triggered</p>
-              </div>
-              <AlertTriangle className="h-8 w-8 text-red-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-gray-500">{pausedAlerts}</p>
-                <p className="text-sm text-slate-300">Paused</p>
-              </div>
-              <Pause className="h-8 w-8 text-gray-500" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Create Alert Button */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold text-white">Manage your notifications and price alerts</h2>
-        <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-          <Plus className="h-4 w-4 mr-2" />
-          Create Alert
-        </Button>
-      </div>
-
-      {/* Alerts List */}
-      <div className="space-y-4">
-        {alerts.map((alert) => {
-          const token = tokens.find(t => t.symbol.toLowerCase() === alert.symbol.toLowerCase());
-          const statusColor = {
-            ACTIVE: 'bg-green-600',
-            TRIGGERED: 'bg-red-600',
-            PAUSED: 'bg-gray-600'
-          }[alert.status as 'ACTIVE' | 'TRIGGERED' | 'PAUSED'];
-          
-          const statusIcon = {
-            ACTIVE: CheckCircle,
-            TRIGGERED: AlertTriangle,
-            PAUSED: Pause
-          }[alert.status as 'ACTIVE' | 'TRIGGERED' | 'PAUSED'];
-          
-          const StatusIcon = statusIcon;
-          
-          return (
-            <Card key={alert.id} className="bg-slate-800 border-slate-700">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-3">
-                      {token?.image ? (
-                        <img 
-                          src={token.image} 
-                          alt={alert.symbol}
-                          className="w-10 h-10 rounded-full"
-                        />
-                      ) : (
-                        <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm font-bold">
-                            {alert.symbol.slice(0, 2)}
-                          </span>
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="text-lg font-bold text-white">{alert.symbol}</h3>
-                        <div className="flex items-center gap-2">
-                          <Badge className={`${statusColor} text-white`}>
-                            {alert.status}
-                          </Badge>
-                          {alert.type === 'PRICE' && <Badge variant="outline">PRICE ALERT</Badge>}
-                          {alert.type === 'VOLUME' && <Badge variant="outline">VOLUME ALERT</Badge>}
-                          {alert.type === 'PERCENT_CHANGE' && <Badge variant="outline">CHANGE ALERT</Badge>}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="ml-8">
-                      <p className="text-white font-medium">{formatCondition(alert)}</p>
-                      <p className="text-sm text-slate-400">
-                        Created {new Date(alert.createdAt).toLocaleDateString()}
-                        {alert.triggeredAt && (
-                          <span className="text-red-400 ml-2">
-                            • Triggered {new Date(alert.triggeredAt).toLocaleString()}
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-white font-semibold">Current Value</p>
-                      <p className="text-lg font-bold text-blue-400">
-                        {alert.type === 'PRICE' ? `$${getCurrentValue(alert).toFixed(4)}` :
-                         alert.type === 'VOLUME' ? `$${(getCurrentValue(alert) / 1e6).toFixed(1)}M` :
-                         alert.type === 'PERCENT_CHANGE' ? `${getCurrentValue(alert).toFixed(2)}%` :
-                         getCurrentValue(alert).toFixed(2)
-                        }
-                      </p>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => pauseAlert(alert.id)}
-                        className="border-slate-600 text-slate-300 hover:bg-slate-700"
-                      >
-                        {alert.status === 'PAUSED' ? 'Activate' : 'Pause'}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => deleteAlert(alert.id)}
-                        className="border-red-600 text-red-400 hover:bg-red-900/20"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
-      {alerts.length === 0 && (
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-12 text-center">
-            <Bell className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">No alerts set up</h3>
-            <p className="text-slate-400 mb-6">
-              Create price and volume alerts to stay informed about market movements.
-            </p>
-            <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-              <Plus className="h-4 w-4 mr-2" />
-              Create Your First Alert
-            </Button>
-          </CardContent>
-        </Card>
-      )}
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
+          </div>
+          {/* Navigation */}
+          <nav className="flex flex-col gap-4">
+            <Link href="/platform" className="text-white hover:text-[#ff6b35] transition">Dashboard</Link>
+            <Link href="/platform/intelligence-feed" className="text-white hover:text-[#ff6b35] transition">Intelligence Feed</Link>
+            <Link href="/platform/alpha-signals" className="text-white hover:text-[#ff6b35] transition">Alpha Signals</Link>
+            <Link href="/platform/market-analysis" className="text-white hover:text-[#ff6b35] transition">Market Analysis</Link>
+            <Link href="/platform/alerts" className="text-[#ff6b35] font-semibold">Alerts</Link>
+            <Link href="/platform/watchlist" className="text-white hover:text-[#ff6b35] transition">Watchlist</Link>
+            <Link href="/platform/search-tokens" className="text-white hover:text-[#ff6b35] transition">Search Tokens</Link>
+            <Link href="/platform/settings" className="text-white hover:text-[#ff6b35] transition">Settings</Link>
+          </nav>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 p-10">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-white">Alerts</h2>
+          <button className="bg-[#ff6b35] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#ff5722] transition">Create Alert</button>
+        </div>
+        {/* Alerts Table */}
+        <div className="bg-[#151a26] rounded-xl shadow-lg p-6">
+          <table className="min-w-full divide-y divide-[#2a3441]">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Type</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Condition</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Value</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                <th className="px-4 py-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Map over alerts data here */}
+              {alerts.map((alert, idx) => (
+                <tr key={idx} className="hover:bg-[#23283a] transition">
+                  <td className="px-4 py-3 text-white font-semibold">{alert.type}</td>
+                  <td className="px-4 py-3 text-slate-300">{alert.condition}</td>
+                  <td className="px-4 py-3 text-slate-300">{alert.value}</td>
+                  <td className="px-4 py-3">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${alert.status === 'Active' ? 'bg-green-600 text-white' : 'bg-gray-600 text-gray-200'}`}>{alert.status}</span>
+                  </td>
+                                     <td className="px-4 py-3 flex gap-2">
+                     <button className="text-[#ff6b35] hover:underline" onClick={() => console.log('Edit alert:', alert)}>Edit</button>
+                     <button className="text-red-500 hover:underline" onClick={() => console.log('Delete alert:', alert)}>Delete</button>
+                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
   );
 }

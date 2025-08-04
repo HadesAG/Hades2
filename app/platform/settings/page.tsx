@@ -3,6 +3,7 @@
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -58,6 +59,7 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [activeTab, setActiveTab] = useState('Profile');
 
   // Load settings from backend on component mount
   useEffect(() => {
@@ -175,165 +177,137 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Save Message */}
-      {saveMessage && (
-        <div className={`p-4 rounded-lg flex items-center gap-3 ${
-          saveMessage.type === 'success' 
-            ? 'bg-green-900/20 border border-green-700 text-green-300' 
-            : 'bg-red-900/20 border border-red-700 text-red-300'
-        }`}>
-          {saveMessage.type === 'success' ? (
-            <CheckCircle className="h-5 w-5" />
-          ) : (
-            <AlertCircle className="h-5 w-5" />
-          )}
-          <span>{saveMessage.message}</span>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
+          </div>
+          {/* Navigation */}
+          <nav className="space-y-1">
+            <Link href="/platform" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-layout-dashboard w-5 h-5"></i></span>
+              <span>Dashboard</span>
+            </Link>
+            <Link href="/platform/search-tokens" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-search w-5 h-5"></i></span>
+              <span>Search Tokens</span>
+            </Link>
+            <Link href="/platform/alpha-signals" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-trending-up w-5 h-5"></i></span>
+              <span>Alpha Signals</span>
+            </Link>
+            <Link href="/platform/intelligence-feed" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-activity w-5 h-5"></i></span>
+              <span>Intelligence Feed</span>
+            </Link>
+            <Link href="/platform/watchlist" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-bookmark w-5 h-5"></i></span>
+              <span>Watchlist</span>
+            </Link>
+            <Link href="/platform/market-analysis" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-bar-chart-3 w-5 h-5"></i></span>
+              <span>Market Analysis</span>
+            </Link>
+            <Link href="/platform/alerts" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+              <span className="mr-3"><i className="lucide lucide-alert-triangle w-5 h-5"></i></span>
+              <span>Alerts</span>
+            </Link>
+            <Link href="/platform/settings" className="sidebar-item active flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all text-white bg-[#d2691e]">
+              <span className="mr-3"><i className="lucide lucide-settings w-5 h-5"></i></span>
+              <span>Settings</span>
+            </Link>
+          </nav>
         </div>
-      )}
-
-      {/* Settings Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-white mb-2">Settings</h1>
-        <p className="text-slate-400">Configure your HADES platform preferences</p>
-      </div>
-
-      {/* Settings Tabs */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-1">
-          <div className="space-y-2">
-            <Button className="w-full justify-start bg-orange-600 hover:bg-orange-700 text-white">
-              <User className="h-4 w-4 mr-2" />
-              Profile
-            </Button>
-            <Button variant="outline" className="w-full justify-start border-slate-600 text-slate-300 hover:bg-slate-700">
-              <Bell className="h-4 w-4 mr-2" />
-              Notifications
-            </Button>
-            <Button variant="outline" className="w-full justify-start border-slate-600 text-slate-300 hover:bg-slate-700">
-              <DollarSign className="h-4 w-4 mr-2" />
-              Trading
-            </Button>
-            <Button variant="outline" className="w-full justify-start border-slate-600 text-slate-300 hover:bg-slate-700">
-              <Shield className="h-4 w-4 mr-2" />
-              API
-            </Button>
-            <Button variant="outline" className="w-full justify-start border-slate-600 text-slate-300 hover:bg-slate-700">
-              <Eye className="h-4 w-4 mr-2" />
-              Privacy
-            </Button>
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
+          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
+            <span className="mr-3"><i className="lucide lucide-log-out w-5 h-5"></i></span>
+            <span>Log out</span>
           </div>
         </div>
-
-        <div className="lg:col-span-3 space-y-6">
-          {/* Profile Information */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <User className="h-5 w-5" />
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 main-content p-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <div className="flex items-center mb-2">
+              <div className="w-6 h-6 bg-gray-500 rounded-full mr-3 flex items-center justify-center">
+                <i className="lucide lucide-settings w-4 h-4 text-white"></i>
+              </div>
+              <h1 className="text-3xl font-bold">Settings</h1>
+            </div>
+            <p className="text-gray-400">Configure your HADES platform preferences</p>
+          </div>
+          <button className="save-btn bg-[#ff6b35] text-white px-6 py-3 rounded-lg flex items-center gap-2" onClick={saveSettings} disabled={saving}>
+            <i className="lucide lucide-save w-4 h-4"></i>
+            {saving ? 'Saving...' : 'Save Settings'}
+          </button>
+        </div>
+        {/* Tab Navigation */}
+        <div className="tab-nav flex border-b border-[#2a3441] mb-8">
+          {['Profile', 'Notifications', 'Trading', 'API', 'Privacy'].map(tab => (
+            <button
+              key={tab}
+              className={`tab-item px-6 py-4 text-base font-medium transition-all ${activeTab === tab ? 'active bg-[#ff6b35] text-white rounded-t-lg border-b-2 border-[#ff6b35]' : 'text-[#8b949e]'}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        {/* Tab Content */}
+        <div>
+          {activeTab === 'Profile' && (
+            <div className="settings-section bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6">
+              <div className="section-title flex items-center gap-2 text-lg font-semibold mb-6 text-white">
+                <i className="lucide lucide-user w-5 h-5 text-[#ff6b35]"></i>
                 Profile Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Username</label>
-                  <Input
-                    value={settings.username}
-                    onChange={(e) => handleSettingChange('username', e.target.value)}
-                    className="bg-slate-700 border-slate-600 text-white"
-                  />
+                  <label className="form-label block text-[#8b949e] mb-2">Username</label>
+                  <input type="text" className="form-input w-full bg-[#1a1f2e] border border-[#2a3441] rounded-lg px-4 py-3 text-white" value={settings.username} onChange={e => handleSettingChange('username', e.target.value)} placeholder="Enter username" title="Username" />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Email</label>
-                  <Input
-                    value={settings.email}
-                    onChange={(e) => handleSettingChange('email', e.target.value)}
-                    className="bg-slate-700 border-slate-600 text-white"
-                  />
+                  <label className="form-label block text-[#8b949e] mb-2">Email</label>
+                  <input type="email" className="form-input w-full bg-[#1a1f2e] border border-[#2a3441] rounded-lg px-4 py-3 text-white" value={settings.email} onChange={e => handleSettingChange('email', e.target.value)} placeholder="Enter email" title="Email" />
                 </div>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Timezone</label>
-                  <Select value={settings.timezone} onValueChange={(value) => handleSettingChange('timezone', value)}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-700 border-slate-600">
-                      <SelectItem value="UTC-8 (PST)">UTC-8 (PST)</SelectItem>
-                      <SelectItem value="UTC-5 (EST)">UTC-5 (EST)</SelectItem>
-                      <SelectItem value="UTC+0 (GMT)">UTC+0 (GMT)</SelectItem>
-                      <SelectItem value="UTC+1 (CET)">UTC+1 (CET)</SelectItem>
-                      <SelectItem value="UTC+8 (CST)">UTC+8 (CST)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="form-label block text-[#8b949e] mb-2">Timezone</label>
+                  <select className="form-select w-full bg-[#1a1f2e] border border-[#2a3441] rounded-lg px-4 py-3 text-white" value={settings.timezone} onChange={e => handleSettingChange('timezone', e.target.value)} title="Timezone">
+                    <option value="UTC-8 (PST)">UTC-8 (PST)</option>
+                    <option value="UTC-5 (EST)">UTC-5 (EST)</option>
+                    <option value="UTC+0 (GMT)">UTC+0 (GMT)</option>
+                    <option value="UTC+1 (CET)">UTC+1 (CET)</option>
+                    <option value="UTC+8 (CST)">UTC+8 (CST)</option>
+                  </select>
                 </div>
                 <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Currency</label>
-                  <Select value={settings.currency} onValueChange={(value) => handleSettingChange('currency', value)}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-700 border-slate-600">
-                      <SelectItem value="USD ($)">USD ($)</SelectItem>
-                      <SelectItem value="EUR (€)">EUR (€)</SelectItem>
-                      <SelectItem value="GBP (£)">GBP (£)</SelectItem>
-                      <SelectItem value="JPY (¥)">JPY (¥)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="form-label block text-[#8b949e] mb-2">Currency</label>
+                  <select className="form-select w-full bg-[#1a1f2e] border border-[#2a3441] rounded-lg px-4 py-3 text-white" value={settings.currency} onChange={e => handleSettingChange('currency', e.target.value)} title="Currency">
+                    <option value="USD ($)">USD ($)</option>
+                    <option value="EUR (€)">EUR (€)</option>
+                    <option value="GBP (£)">GBP (£)</option>
+                    <option value="BTC (₿)">BTC (₿)</option>
+                    <option value="ETH (Ξ)">ETH (Ξ)</option>
+                  </select>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Display Preferences */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">Display Preferences</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Theme</label>
-                  <Select value={settings.theme} onValueChange={(value) => handleSettingChange('theme', value)}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-700 border-slate-600">
-                      <SelectItem value="Dark">Dark</SelectItem>
-                      <SelectItem value="Light">Light</SelectItem>
-                      <SelectItem value="Auto">Auto</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-sm text-slate-300 mb-2 block">Number Format</label>
-                  <Select value={settings.numberFormat} onValueChange={(value) => handleSettingChange('numberFormat', value)}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-700 border-slate-600">
-                      <SelectItem value="Compact (1.2M)">Compact (1.2M)</SelectItem>
-                      <SelectItem value="Full (1,200,000)">Full (1,200,000)</SelectItem>
-                      <SelectItem value="Scientific (1.2e6)">Scientific (1.2e6)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Notification Settings */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Bell className="h-5 w-5" />
+            </div>
+          )}
+          {activeTab === 'Notifications' && (
+            <div className="settings-section bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6">
+              <div className="section-title flex items-center gap-2 text-lg font-semibold mb-6 text-white">
+                <i className="lucide lucide-bell w-5 h-5 text-[#ff6b35]"></i>
                 Notifications
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </div>
               <div className="space-y-4">
                 {[
                   { key: 'priceAlerts', label: 'Price Alerts', description: 'Get notified when token prices hit your targets' },
@@ -361,20 +335,16 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Trading Settings */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <DollarSign className="h-5 w-5" />
+            </div>
+          )}
+          {activeTab === 'Trading' && (
+            <div className="settings-section bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6">
+              <div className="section-title flex items-center gap-2 text-lg font-semibold mb-6 text-white">
+                <i className="lucide lucide-dollar-sign w-5 h-5 text-[#ff6b35]"></i>
                 Trading
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </div>
               <div>
-                <label className="text-sm text-slate-300 mb-2 block">Default Slippage (%)</label>
+                <label className="form-label block text-[#8b949e] mb-2">Default Slippage (%)</label>
                 <Input
                   value={settings.defaultSlippage}
                   onChange={(e) => handleSettingChange('defaultSlippage', e.target.value)}
@@ -401,20 +371,16 @@ export default function SettingsPage() {
                   {settings.autoApprove ? 'ON' : 'OFF'}
                 </Button>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* API Configuration */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Shield className="h-5 w-5" />
+            </div>
+          )}
+          {activeTab === 'API' && (
+            <div className="settings-section bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6">
+              <div className="section-title flex items-center gap-2 text-lg font-semibold mb-6 text-white">
+                <i className="lucide lucide-shield w-5 h-5 text-[#ff6b35]"></i>
                 API Configuration
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </div>
               <div>
-                <label className="text-sm text-slate-300 mb-2 block">Helius API Key</label>
+                <label className="form-label block text-[#8b949e] mb-2">Helius API Key</label>
                 <Input
                   type="password"
                   value={settings.heliusApiKey}
@@ -425,7 +391,7 @@ export default function SettingsPage() {
               </div>
               
               <div>
-                <label className="text-sm text-slate-300 mb-2 block">Telegram Bot Token</label>
+                <label className="form-label block text-[#8b949e] mb-2">Telegram Bot Token</label>
                 <Input
                   type="password"
                   value={settings.telegramBotToken}
@@ -434,18 +400,14 @@ export default function SettingsPage() {
                   placeholder="Enter your Telegram bot token for alerts"
                 />
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Privacy Settings */}
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Eye className="h-5 w-5" />
+            </div>
+          )}
+          {activeTab === 'Privacy' && (
+            <div className="settings-section bg-[#242938] rounded-xl p-6 border border-[#2a3441] mb-6">
+              <div className="section-title flex items-center gap-2 text-lg font-semibold mb-6 text-white">
+                <i className="lucide lucide-eye w-5 h-5 text-[#ff6b35]"></i>
                 Privacy
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </div>
               <div className="space-y-4">
                 {[
                   { key: 'shareData', label: 'Share anonymized data', description: 'Help improve HADES by sharing anonymous usage data' },
@@ -471,31 +433,30 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Action Buttons */}
-          <div className="flex gap-4">
-            <Button 
-              onClick={saveSettings} 
-              disabled={saving}
-              className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save className="h-4 w-4 mr-2" />
-              {saving ? 'Saving...' : 'Save All Settings'}
-            </Button>
-            <Button 
-              onClick={resetToDefaults} 
-              disabled={saving}
-              variant="outline" 
-              className="border-slate-600 text-slate-300 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Reset to Defaults
-            </Button>
-          </div>
+            </div>
+          )}
         </div>
-      </div>
+        {/* Action Buttons */}
+        <div className="button-group flex items-center mt-8">
+          <Button 
+            onClick={saveSettings} 
+            disabled={saving}
+            className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Save className="h-4 w-4 mr-2" />
+            {saving ? 'Saving...' : 'Save All Settings'}
+          </Button>
+          <Button 
+            onClick={resetToDefaults} 
+            disabled={saving}
+            variant="outline" 
+            className="border-slate-600 text-slate-300 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset to Defaults
+          </Button>
+        </div>
+      </main>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import {
   CheckCircle,
   ExternalLink
 } from 'lucide-react';
+import Link from 'next/link';
 
 const dataAggregator = new DataAggregator();
 
@@ -27,6 +28,38 @@ export default function SearchTokensPage() {
   const [loading, setLoading] = useState(true);
   const [searching, setSearching] = useState(false);
   const [activeFilter, setActiveFilter] = useState('trending');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredTokens, setFilteredTokens] = useState<any[]>([]);
+  const [allTokens, setAllTokens] = useState<any[]>([]);
+
+  const fetchTokenData = async () => {
+    try {
+      setLoading(true);
+      const tokenData = await dataAggregator.getTrendingTokens();
+      setAllTokens(tokenData);
+      setFilteredTokens(tokenData);
+    } catch (error) {
+      console.error('Error fetching token data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTokenData();
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setFilteredTokens(allTokens);
+    } else {
+      const filtered = allTokens.filter(token => 
+        token.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        token.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredTokens(filtered);
+    }
+  }, [searchQuery, allTokens]);
 
   useEffect(() => {
     const fetchTrendingTokens = async () => {
@@ -154,167 +187,94 @@ export default function SearchTokensPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Search Bar */}
-      <Card className="bg-slate-800 border-slate-700">
-        <CardContent className="p-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <Input
-              placeholder="Search by token symbol or name (e.g. SOL, Bonk, Pepe)..."
-              value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="pl-12 bg-slate-700 border-slate-600 text-white text-lg h-14"
-            />
-            <Button 
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-600 hover:bg-orange-700"
-              disabled={searching}
-            >
-              {searching ? 'Searching...' : 'Search'}
-            </Button>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Filter Tabs */}
-      <div className="flex flex-wrap gap-2">
-        {[
-          { key: 'trending', label: 'Trending', icon: Flame },
-          { key: 'new-launches', label: 'New Launches', icon: Rocket },
-          { key: 'low-cap', label: 'Low Cap Gems', icon: TrendingUp },
-          { key: 'verified', label: 'Verified Only', icon: CheckCircle },
-        ].map(({ key, label, icon: Icon }) => (
-          <Button
-            key={key}
-            variant={activeFilter === key ? 'default' : 'outline'}
-            onClick={() => handleFilterChange(key)}
-            className={
-              activeFilter === key
-                ? 'bg-orange-600 hover:bg-orange-700 text-white'
-                : 'border-slate-600 text-slate-300 hover:bg-slate-700'
-            }
-          >
-            <Icon className="h-4 w-4 mr-2" />
-            {label}
-          </Button>
-        ))}
-      </div>
-
-      {/* Results Header */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white">
-          {searchTerm ? `Search Results for "${searchTerm}"` : 'Trending Now'}
-        </h2>
-        <Badge variant="secondary" className="text-slate-300">
-          {searchResults.length} tokens found
-        </Badge>
-      </div>
-
-      {/* Token Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {searchResults.map((token) => {
-          const isPositive = token.change24h > 0;
-          const changeColor = isPositive ? 'text-green-400' : 'text-red-400';
-          
-          return (
-            <Card key={`${token.symbol}-${token.name}`} className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    {token.image ? (
-                      <img 
-                        src={token.image} 
-                        alt={token.symbol}
-                        className="w-10 h-10 rounded-full"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          target.nextElementSibling?.classList.remove('hidden');
-                        }}
-                      />
-                    ) : null}
-                    <div 
-                      className={`w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center ${token.image ? 'hidden' : ''}`}
-                    >
-                      <span className="text-white text-sm font-bold">
-                        {token.symbol.slice(0, 2)}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">{token.symbol}</h3>
-                      <p className="text-sm text-slate-400">{token.name}</p>
-                    </div>
-                  </div>
-                  {token.rank && (
-                    <Badge variant="outline" className="border-slate-600 text-slate-300">
-                      #{token.rank}
-                    </Badge>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-sm text-slate-400">Price</p>
-                    <p className="text-lg font-bold text-white">
-                      ${token.price >= 1 ? token.price.toFixed(2) : token.price.toFixed(6)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-400">24h Change</p>
-                    <p className={`text-lg font-bold ${changeColor}`}>
-                      {isPositive ? '+' : ''}{token.change24h.toFixed(2)}%
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-sm text-slate-400">Volume (24h)</p>
-                    <p className="text-sm font-semibold text-white">
-                      ${token.volume24h >= 1e9 ? 
-                        `${(token.volume24h / 1e9).toFixed(2)}B` : 
-                        `${(token.volume24h / 1e6).toFixed(2)}M`
-                      }
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-400">Market Cap</p>
-                    <p className="text-sm font-semibold text-white">
-                      ${token.marketCap >= 1e9 ? 
-                        `${(token.marketCap / 1e9).toFixed(2)}B` : 
-                        `${(token.marketCap / 1e6).toFixed(2)}M`
-                      }
-                    </p>
-                  </div>
-                </div>
-
-                <Button 
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white"
-                  onClick={() => {
-                    // This would open a detailed analysis or external link
-                    console.log('Quick analyze:', token.symbol);
-                  }}
-                >
-                  Quick Analyze
-                  <ExternalLink className="h-4 w-4 ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
-      {searchResults.length === 0 && !loading && (
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-12 text-center">
-            <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">No tokens found</h3>
-            <p className="text-slate-400">
-              Try searching with different keywords or check the trending tokens above.
-            </p>
-          </CardContent>
-        </Card>
-      )}
+          {/* Navigation */}
+          <nav className="flex flex-col gap-4">
+            <Link href="/platform" className="text-white hover:text-[#ff6b35] transition">Dashboard</Link>
+            <Link href="/platform/intelligence-feed" className="text-white hover:text-[#ff6b35] transition">Intelligence Feed</Link>
+            <Link href="/platform/alpha-signals" className="text-white hover:text-[#ff6b35] transition">Alpha Signals</Link>
+            <Link href="/platform/market-analysis" className="text-white hover:text-[#ff6b35] transition">Market Analysis</Link>
+            <Link href="/platform/alerts" className="text-white hover:text-[#ff6b35] transition">Alerts</Link>
+            <Link href="/platform/watchlist" className="text-white hover:text-[#ff6b35] transition">Watchlist</Link>
+            <Link href="/platform/search-tokens" className="text-[#ff6b35] font-semibold">Search Tokens</Link>
+            <Link href="/platform/settings" className="text-white hover:text-[#ff6b35] transition">Settings</Link>
+          </nav>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 p-10">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-white">Search Tokens</h2>
+        </div>
+        {/* Search Bar */}
+        <div className="mb-8">
+          <input
+            type="text"
+            className="w-full bg-[#151a26] border border-[#2a3441] rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#ff6b35]"
+            placeholder="Search for a token..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+        </div>
+        {/* Search Results */}
+        <div className="bg-[#151a26] rounded-xl shadow-lg p-6">
+          <table className="min-w-full divide-y divide-[#2a3441]">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Token</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Symbol</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Market Cap</th>
+              </tr>
+            </thead>
+                         <tbody>
+               {loading ? (
+                 [...Array(5)].map((_, idx) => (
+                   <tr key={idx} className="animate-pulse">
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                   </tr>
+                 ))
+               ) : (
+                 filteredTokens.map((token, idx) => (
+                   <tr key={idx} className="hover:bg-[#23283a] transition">
+                     <td className="px-4 py-3 text-white font-semibold flex items-center gap-2">
+                       {token.image ? (
+                         <img src={token.image} alt={token.name} className="w-6 h-6 rounded-full" />
+                       ) : (
+                         <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
+                           <span className="text-white text-xs font-bold">{token.symbol.slice(0, 2)}</span>
+                         </div>
+                       )}
+                       {token.name}
+                     </td>
+                     <td className="px-4 py-3 text-slate-300">{token.symbol}</td>
+                     <td className="px-4 py-3 text-slate-300">
+                       ${token.price >= 1 ? token.price.toFixed(2) : token.price.toFixed(6)}
+                     </td>
+                     <td className="px-4 py-3 text-slate-300">
+                       ${token.marketCap >= 1e9 ? 
+                         `${(token.marketCap / 1e9).toFixed(2)}B` : 
+                         `${(token.marketCap / 1e6).toFixed(0)}M`
+                       }
+                     </td>
+                   </tr>
+                 ))
+               )}
+             </tbody>
+          </table>
+        </div>
+      </main>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DataAggregator, MarketStats } from '@/lib/data-services';
+import { getRealtimePriceService } from '@/lib/realtime-price-service';
 import { 
   Target, 
   TrendingUp, 
@@ -25,6 +26,7 @@ const dataAggregator = new DataAggregator();
 export default function Dashboard() {
   const [marketStats, setMarketStats] = useState<MarketStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [wsConnected, setWsConnected] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +40,23 @@ export default function Dashboard() {
       }
     };
 
+    // Initialize real-time price service
+    const initializeRealtime = async () => {
+      try {
+        const priceService = getRealtimePriceService();
+        await priceService.initialize();
+        setWsConnected(true);
+        console.log('🚀 Real-time price service connected');
+      } catch (error) {
+        console.error('❌ Failed to connect real-time service:', error);
+        setWsConnected(false);
+      }
+    };
+
     fetchData();
+    initializeRealtime();
     
-    // Refresh every 30 seconds
+    // Refresh every 30 seconds (as backup to WebSocket)
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -71,6 +87,7 @@ export default function Dashboard() {
               <p className="text-lg opacity-90">Currently Tracking</p>
               <p className="text-sm opacity-75">
                 Real-time monitoring across 12 chains • 1,247 tokens tracked • 89 alpha signals active
+                {wsConnected && <span className="ml-2 text-green-300">• WebSocket Connected</span>}
               </p>
             </div>
             <Button 

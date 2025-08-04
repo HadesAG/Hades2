@@ -10,15 +10,18 @@ import { Button } from '@/components/ui/button';
 import { DataAggregator, TokenData } from '@/lib/data-services';
 import { watchlistApi, alertsApi } from '@/lib/api-client';
 import { usePrivy } from '@privy-io/react-auth';
+import { getRealtimePriceService } from '@/lib/realtime-price-service';
+import type { TokenPriceUpdate } from '@/lib/realtime-price-service';
 import { 
   Star, 
   TrendingUp, 
   TrendingDown, 
   Bell, 
-  BellOff,
-  Trash2,
+  BellOff, 
+  Trash2, 
   Plus
 } from 'lucide-react';
+import Link from 'next/link';
 
 const dataAggregator = new DataAggregator();
 
@@ -29,6 +32,7 @@ export default function WatchlistPage() {
   const [userAlerts, setUserAlerts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [alertsEnabled, setAlertsEnabled] = useState<Record<string, boolean>>({});
+  const [realtimePrices, setRealtimePrices] = useState<Map<string, TokenPriceUpdate>>(new Map());
 
   useEffect(() => {
     const fetchWatchlistData = async () => {
@@ -159,206 +163,113 @@ export default function WatchlistPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Watchlist Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-orange-500">{totalTokens}</p>
-                <p className="text-sm text-slate-300">Total Tokens</p>
-              </div>
-              <Star className="h-8 w-8 text-orange-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className={`text-2xl font-bold ${avgChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  {avgChange24h >= 0 ? '+' : ''}{avgChange24h.toFixed(1)}%
-                </p>
-                <p className="text-sm text-slate-300">Avg 24h Change</p>
-              </div>
-              {avgChange24h >= 0 ? (
-                <TrendingUp className="h-8 w-8 text-green-500" />
-              ) : (
-                <TrendingDown className="h-8 w-8 text-red-500" />
-              )}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-blue-500">{activeAlerts}</p>
-                <p className="text-sm text-slate-300">Active Alerts</p>
-              </div>
-              <Bell className="h-8 w-8 text-blue-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-purple-500">
-                  ${(combinedValue / 1e12).toFixed(2)}T
-                </p>
-                <p className="text-sm text-slate-300">Combined Value</p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-purple-500" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Add Token Button */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold text-white">Your Watchlist</h2>
-        <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-          <Plus className="h-4 w-4 mr-2" />
-          Add Token
-        </Button>
-      </div>
-
-      {/* Watchlist Table */}
-      <Card className="bg-slate-800 border-slate-700">
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left py-4 px-6 text-slate-300">Token</th>
-                  <th className="text-right py-4 px-4 text-slate-300">Price</th>
-                  <th className="text-right py-4 px-4 text-slate-300">24h Change</th>
-                  <th className="text-right py-4 px-4 text-slate-300">7d Change</th>
-                  <th className="text-right py-4 px-4 text-slate-300">Volume (24h)</th>
-                  <th className="text-center py-4 px-4 text-slate-300">Alerts</th>
-                  <th className="text-center py-4 px-4 text-slate-300">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {watchlistTokens.map((token) => {
-                  const isPositive24h = token.change24h >= 0;
-                  const isPositive7d = token.change7d >= 0;
-                  const hasAlert = alertsEnabled[token.symbol];
-                  
-                  return (
-                    <tr key={token.symbol} className="border-b border-slate-700/50 hover:bg-slate-700/30">
-                      <td className="py-4 px-6">
-                        <div className="flex items-center gap-3">
-                          {token.image ? (
-                            <img 
-                              src={token.image} 
-                              alt={token.symbol}
-                              className="w-8 h-8 rounded-full"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                target.nextElementSibling?.classList.remove('hidden');
-                              }}
-                            />
-                          ) : null}
-                          <div 
-                            className={`w-8 h-8 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center ${token.image ? 'hidden' : ''}`}
-                          >
-                            <span className="text-white text-xs font-bold">
-                              {token.symbol.slice(0, 2)}
-                            </span>
-                          </div>
-                          <div>
-                            <div className="font-semibold text-white">{token.symbol}</div>
-                            <div className="text-sm text-slate-400">{token.name}</div>
-                          </div>
-                          <Badge className="bg-blue-600 text-white ml-2">
-                            Solana
-                          </Badge>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="text-white font-semibold">
-                          ${token.price >= 1 ? token.price.toFixed(2) : token.price.toFixed(6)}
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className={`font-semibold ${isPositive24h ? 'text-green-400' : 'text-red-400'}`}>
-                          {isPositive24h ? '+' : ''}{token.change24h.toFixed(2)}%
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className={`font-semibold ${isPositive7d ? 'text-green-400' : 'text-red-400'}`}>
-                          {isPositive7d ? '+' : ''}{token.change7d.toFixed(2)}%
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="text-slate-300">
-                          ${token.volume24h >= 1e9 ? 
-                            `${(token.volume24h / 1e9).toFixed(2)}B` : 
-                            `${(token.volume24h / 1e6).toFixed(2)}M`
-                          }
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => toggleAlert(token.symbol)}
-                          className={hasAlert ? 'text-green-400 hover:text-green-300' : 'text-slate-400 hover:text-slate-300'}
-                        >
-                          {hasAlert ? (
-                            <>
-                              <Bell className="h-4 w-4 mr-1" />
-                              ON
-                            </>
-                          ) : (
-                            <>
-                              <BellOff className="h-4 w-4 mr-1" />
-                              OFF
-                            </>
-                          )}
-                        </Button>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => removeFromWatchlist(token.symbol)}
-                          className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+    <div className="flex min-h-screen bg-[#1a1f2e]">
+      {/* Sidebar */}
+      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
+        <div className="p-6">
+          {/* Logo */}
+          <div className="mb-8">
+            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
+            <p className="text-sm text-gray-400">Intelligence Platform</p>
           </div>
-        </CardContent>
-      </Card>
+          {/* Navigation */}
+          <nav className="flex flex-col gap-4">
+            <Link href="/platform" className="text-white hover:text-[#ff6b35] transition">Dashboard</Link>
+            <Link href="/platform/intelligence-feed" className="text-white hover:text-[#ff6b35] transition">Intelligence Feed</Link>
+            <Link href="/platform/alpha-signals" className="text-white hover:text-[#ff6b35] transition">Alpha Signals</Link>
+            <Link href="/platform/market-analysis" className="text-white hover:text-[#ff6b35] transition">Market Analysis</Link>
+            <Link href="/platform/alerts" className="text-white hover:text-[#ff6b35] transition">Alerts</Link>
+            <Link href="/platform/watchlist" className="text-[#ff6b35] font-semibold">Watchlist</Link>
+            <Link href="/platform/search-tokens" className="text-white hover:text-[#ff6b35] transition">Search Tokens</Link>
+            <Link href="/platform/settings" className="text-white hover:text-[#ff6b35] transition">Settings</Link>
+          </nav>
+        </div>
+      </aside>
+      {/* Main Content */}
+      <main className="flex-1 p-10">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-white">Watchlist</h2>
+        </div>
+        {/* Watchlist Table */}
+        <div className="bg-[#151a26] rounded-xl shadow-lg p-6">
+          <table className="min-w-full divide-y divide-[#2a3441]">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Token</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Change</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
+                <th className="px-4 py-2"></th>
+              </tr>
+            </thead>
+                         <tbody>
+               {loading ? (
+                 [...Array(3)].map((_, idx) => (
+                   <tr key={idx} className="animate-pulse">
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                   </tr>
+                 ))
+               ) : watchlistTokens.length === 0 ? (
+                 <tr>
+                   <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
+                     No tokens in your watchlist yet. Add some tokens to get started!
+                   </td>
+                 </tr>
+               ) : (
+                 watchlistTokens.map((token, idx) => {
+                   // Use real-time price if available, otherwise fallback to cached price
+                   const realtimePrice = realtimePrices.get(token.symbol);
+                   const displayPrice = realtimePrice?.price || token.price || 0;
+                   const displayChange = realtimePrice?.change24h || token.change24h || 0;
+                   const isRealtime = !!realtimePrice;
 
-      {watchlistTokens.length === 0 && (
-        <Card className="bg-slate-800 border-slate-700">
-          <CardContent className="p-12 text-center">
-            <Star className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">Your watchlist is empty</h3>
-            <p className="text-slate-400 mb-6">
-              Add tokens to track their performance and set up price alerts.
-            </p>
-            <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Your First Token
-            </Button>
-          </CardContent>
-        </Card>
-      )}
+                   return (
+                     <tr key={idx} className="hover:bg-[#23283a] transition">
+                       <td className="px-4 py-3 text-white font-semibold flex items-center gap-2">
+                                                {token.image ? (
+                         <img src={token.image} alt={token.name} className="w-6 h-6 rounded-full" />
+                       ) : (
+                           <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
+                             <span className="text-white text-xs font-bold">{token.symbol.slice(0, 2)}</span>
+                           </div>
+                         )}
+                         {token.name}
+                         {isRealtime && (
+                           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Real-time price"></div>
+                         )}
+                       </td>
+                       <td className="px-4 py-3 text-slate-300">
+                         ${displayPrice >= 1 ? displayPrice.toFixed(2) : displayPrice.toFixed(6)}
+                       </td>
+                       <td className={`px-4 py-3 font-semibold ${displayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                         {displayChange >= 0 ? '+' : ''}{displayChange.toFixed(2)}%
+                       </td>
+                       <td className="px-4 py-3 text-slate-300">
+                         ${token.volume24h >= 1e9 ? 
+                           `${(token.volume24h / 1e9).toFixed(2)}B` : 
+                           `${(token.volume24h / 1e6).toFixed(1)}M`
+                         }
+                       </td>
+                       <td className="px-4 py-3 flex gap-2">
+                         <button 
+                           className="text-[#ff6b35] hover:underline" 
+                           onClick={() => removeFromWatchlist(token.symbol)}
+                         >
+                           Remove
+                         </button>
+                       </td>
+                     </tr>
+                   );
+                 })
+               )}
+             </tbody>
+          </table>
+        </div>
+      </main>
     </div>
   );
 }
