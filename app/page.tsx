@@ -195,9 +195,9 @@ export default function HomePage() {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/intelligence" className="nav-link">Intelligence</Link>
-            <Link href="/platform" className="nav-link">Chains</Link>
-            <Link href="/alpha-feed" className="nav-link">Alpha Feed</Link>
+            <Link href="/platform/intelligence-feed" className="nav-link">Intelligence</Link>
+            <Link href="/platform" className="nav-link">Platform</Link>
+            <Link href="/platform/alpha-signals" className="nav-link">Alpha Feed</Link>
           </div>
           
           <Link href="/platform" className="launch-btn">
@@ -349,7 +349,7 @@ export default function HomePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link href="/alpha-feed" className="cta-primary text-lg px-8 py-4">
+            <Link href="/platform/alpha-signals" className="cta-primary text-lg px-8 py-4">
               <span>Access Alpha Feed →</span>
             </Link>
             
@@ -379,10 +379,10 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-6">Platform</h4>
               <ul className="space-y-3">
-                <li><Link href="/intelligence" className="text-gray-400 hover:text-orange-500 transition-colors">Intelligence Hub</Link></li>
-                <li><Link href="/alpha-feed" className="text-gray-400 hover:text-orange-500 transition-colors">Alpha Feed</Link></li>
-                <li><Link href="/dashboard" className="text-gray-400 hover:text-orange-500 transition-colors">Dashboard</Link></li>
-                <li><Link href="/platform" className="text-gray-400 hover:text-orange-500 transition-colors">Chain Monitor</Link></li>
+                <li><Link href="/platform/intelligence-feed" className="text-gray-400 hover:text-orange-500 transition-colors">Intelligence Hub</Link></li>
+                <li><Link href="/platform/alpha-signals" className="text-gray-400 hover:text-orange-500 transition-colors">Alpha Feed</Link></li>
+                <li><Link href="/platform" className="text-gray-400 hover:text-orange-500 transition-colors">Dashboard</Link></li>
+                <li><Link href="/platform/market-analysis" className="text-gray-400 hover:text-orange-500 transition-colors">Market Analysis</Link></li>
               </ul>
             </div>
             
