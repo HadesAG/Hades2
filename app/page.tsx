@@ -150,16 +150,17 @@ export default function HomePage() {
         <link rel="dns-prefetch" href="https://prod.spline.design" />
       </Head>
       <div className="min-h-screen relative overflow-x-hidden">
-        <div className="relative w-full" style={{ paddingTop: '177.78%' }}>
+        {/* RSS Ticker at very top */}
+        <div className="relative w-full h-12 z-50">
           <iframe
             src="https://rss.app/embed/v1/ticker/BXbP5zQAvNc6WcK9"
             frameBorder="0"
             title="RSS Ticker Feed"
-            className="absolute top-0 left-0 w-full h-full border-0"
+            className="w-full h-full border-0"
           ></iframe>
         </div>
         {/* Space Background */}
-        <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900" style={{ top: '48px' }}>
         {/* Radial gradients */}
         <div className="absolute inset-0 bg-gradient-radial from-orange-500/10 via-transparent to-transparent" style={{
           background: `radial-gradient(ellipse at center, rgba(20, 20, 20, 0.8) 0%, rgba(8, 8, 8, 1) 70%),

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { AuthGuard } from '@/components/auth/auth-guard';
 import { DataAggregator, TokenData } from '@/lib/data-services';
 import { watchlistApi, alertsApi } from '@/lib/api-client';
 import { usePrivy } from '@privy-io/react-auth';
@@ -163,113 +164,205 @@ export default function WatchlistPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#1a1f2e]">
-      {/* Sidebar */}
-      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
-        <div className="p-6">
-          {/* Logo */}
-          <div className="mb-8">
-            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
-            <p className="text-sm text-gray-400">Intelligence Platform</p>
-          </div>
-          {/* Navigation */}
-          <nav className="flex flex-col gap-4">
-            <Link href="/platform" className="text-white hover:text-[#ff6b35] transition">Dashboard</Link>
-            <Link href="/platform/intelligence-feed" className="text-white hover:text-[#ff6b35] transition">Intelligence Feed</Link>
-            <Link href="/platform/alpha-signals" className="text-white hover:text-[#ff6b35] transition">Alpha Signals</Link>
-            <Link href="/platform/market-analysis" className="text-white hover:text-[#ff6b35] transition">Market Analysis</Link>
-            <Link href="/platform/alerts" className="text-white hover:text-[#ff6b35] transition">Alerts</Link>
-            <Link href="/platform/watchlist" className="text-[#ff6b35] font-semibold">Watchlist</Link>
-            <Link href="/platform/search-tokens" className="text-white hover:text-[#ff6b35] transition">Search Tokens</Link>
-            <Link href="/platform/settings" className="text-white hover:text-[#ff6b35] transition">Settings</Link>
-          </nav>
-        </div>
-      </aside>
-      {/* Main Content */}
-      <main className="flex-1 p-10">
+    <AuthGuard 
+      requireAuth={true}
+      fallbackTitle="Watchlist Access Required"
+      fallbackDescription="Connect your Solana wallet or sign in with email to manage your personal watchlist and track your favorite tokens."
+    >
+      <div className="space-y-6">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-white">Watchlist</h2>
+          <h2 className="text-2xl font-bold text-white">Your Watchlist</h2>
+          <Link href="/platform/search-tokens">
+            <Button className="bg-orange-600 hover:bg-orange-700">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Token
+            </Button>
+          </Link>
         </div>
-        {/* Watchlist Table */}
-        <div className="bg-[#151a26] rounded-xl shadow-lg p-6">
-          <table className="min-w-full divide-y divide-[#2a3441]">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Token</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Change</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
-                <th className="px-4 py-2"></th>
-              </tr>
-            </thead>
-                         <tbody>
-               {loading ? (
-                 [...Array(3)].map((_, idx) => (
-                   <tr key={idx} className="animate-pulse">
-                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                     <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                   </tr>
-                 ))
-               ) : watchlistTokens.length === 0 ? (
-                 <tr>
-                   <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
-                     No tokens in your watchlist yet. Add some tokens to get started!
-                   </td>
-                 </tr>
-               ) : (
-                 watchlistTokens.map((token, idx) => {
-                   // Use real-time price if available, otherwise fallback to cached price
-                   const realtimePrice = realtimePrices.get(token.symbol);
-                   const displayPrice = realtimePrice?.price || token.price || 0;
-                   const displayChange = realtimePrice?.change24h || token.change24h || 0;
-                   const isRealtime = !!realtimePrice;
 
-                   return (
-                     <tr key={idx} className="hover:bg-[#23283a] transition">
-                       <td className="px-4 py-3 text-white font-semibold flex items-center gap-2">
-                                                {token.image ? (
-                         <img src={token.image} alt={token.name} className="w-6 h-6 rounded-full" />
-                       ) : (
-                           <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
-                             <span className="text-white text-xs font-bold">{token.symbol.slice(0, 2)}</span>
-                           </div>
-                         )}
-                         {token.name}
-                         {isRealtime && (
-                           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Real-time price"></div>
-                         )}
-                       </td>
-                       <td className="px-4 py-3 text-slate-300">
-                         ${displayPrice >= 1 ? displayPrice.toFixed(2) : displayPrice.toFixed(6)}
-                       </td>
-                       <td className={`px-4 py-3 font-semibold ${displayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                         {displayChange >= 0 ? '+' : ''}{displayChange.toFixed(2)}%
-                       </td>
-                       <td className="px-4 py-3 text-slate-300">
-                         ${token.volume24h >= 1e9 ? 
-                           `${(token.volume24h / 1e9).toFixed(2)}B` : 
-                           `${(token.volume24h / 1e6).toFixed(1)}M`
-                         }
-                       </td>
-                       <td className="px-4 py-3 flex gap-2">
-                         <button 
-                           className="text-[#ff6b35] hover:underline" 
-                           onClick={() => removeFromWatchlist(token.symbol)}
-                         >
-                           Remove
-                         </button>
-                       </td>
-                     </tr>
-                   );
-                 })
-               )}
-             </tbody>
-          </table>
+        {/* Portfolio Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-400 text-sm">Total Tokens</p>
+                  <p className="text-2xl font-bold text-white">{totalTokens}</p>
+                </div>
+                <Star className="h-8 w-8 text-orange-500" />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-400 text-sm">Avg 24h Change</p>
+                  <p className={`text-2xl font-bold ${avgChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    {avgChange24h >= 0 ? '+' : ''}{avgChange24h.toFixed(2)}%
+                  </p>
+                </div>
+                {avgChange24h >= 0 ? 
+                  <TrendingUp className="h-8 w-8 text-green-500" /> : 
+                  <TrendingDown className="h-8 w-8 text-red-500" />
+                }
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-400 text-sm">Active Alerts</p>
+                  <p className="text-2xl font-bold text-white">{activeAlerts}</p>
+                </div>
+                <Bell className="h-8 w-8 text-blue-500" />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-400 text-sm">Combined Market Cap</p>
+                  <p className="text-xl font-bold text-white">
+                    ${combinedValue >= 1e12 ? 
+                      `${(combinedValue / 1e12).toFixed(2)}T` : 
+                      `${(combinedValue / 1e9).toFixed(1)}B`
+                    }
+                  </p>
+                </div>
+                <TrendingUp className="h-8 w-8 text-purple-500" />
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </main>
-    </div>
+
+        {/* Watchlist Table */}
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Tokens</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-slate-700">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Token</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Price</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">24h Change</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Volume</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Market Cap</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-700">
+                  {loading ? (
+                    [...Array(3)].map((_, idx) => (
+                      <tr key={idx} className="animate-pulse">
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                      </tr>
+                    ))
+                  ) : watchlistTokens.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-8 text-center text-slate-400">
+                        No tokens in your watchlist yet. 
+                        <Link href="/platform/search-tokens" className="text-orange-500 hover:underline ml-1">
+                          Add some tokens to get started!
+                        </Link>
+                      </td>
+                    </tr>
+                  ) : (
+                    watchlistTokens.map((token, idx) => {
+                      // Use real-time price if available, otherwise fallback to cached price
+                      const realtimePrice = realtimePrices.get(token.symbol);
+                      const displayPrice = realtimePrice?.price || token.price || 0;
+                      const displayChange = realtimePrice?.change24h || token.change24h || 0;
+                      const isRealtime = !!realtimePrice;
+
+                      return (
+                        <tr key={idx} className="hover:bg-slate-700/50 transition-colors">
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-3">
+                              {token.image ? (
+                                <img src={token.image} alt={token.name} className="w-8 h-8 rounded-full" />
+                              ) : (
+                                <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
+                                  <span className="text-white text-xs font-bold">{token.symbol.slice(0, 2).toUpperCase()}</span>
+                                </div>
+                              )}
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <p className="text-white font-semibold">{token.name}</p>
+                                  {isRealtime && (
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Real-time price"></div>
+                                  )}
+                                </div>
+                                <p className="text-slate-400 text-sm">{token.symbol.toUpperCase()}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-white font-medium">
+                            ${displayPrice >= 1 ? displayPrice.toFixed(2) : displayPrice.toFixed(6)}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className={`flex items-center gap-1 font-semibold ${displayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                              {displayChange >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
+                              {displayChange >= 0 ? '+' : ''}{displayChange.toFixed(2)}%
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-slate-300">
+                            ${token.volume24h >= 1e9 ? 
+                              `${(token.volume24h / 1e9).toFixed(2)}B` : 
+                              `${(token.volume24h / 1e6).toFixed(1)}M`
+                            }
+                          </td>
+                          <td className="px-4 py-3 text-slate-300">
+                            ${token.marketCap >= 1e9 ? 
+                              `${(token.marketCap / 1e9).toFixed(2)}B` : 
+                              `${(token.marketCap / 1e6).toFixed(1)}M`
+                            }
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => toggleAlert(token.symbol)}
+                                className={`p-2 ${alertsEnabled[token.symbol] ? 'text-yellow-500 hover:text-yellow-400' : 'text-slate-400 hover:text-white'}`}
+                                title={alertsEnabled[token.symbol] ? 'Disable alerts' : 'Enable alerts'}
+                              >
+                                {alertsEnabled[token.symbol] ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => removeFromWatchlist(token.symbol)}
+                                className="p-2 text-red-400 hover:text-red-300"
+                                title="Remove from watchlist"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </AuthGuard>
   );
 }

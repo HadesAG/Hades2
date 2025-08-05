@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/contexts/auth-context';
 import { LoginButton } from '@/components/auth/login-button';
+import { UserMenu } from '@/components/auth/user-menu';
 import { usePrivy } from '@privy-io/react-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -73,8 +74,6 @@ function AuthenticatedPlatformLayout({
 }) {
   const { ready, authenticated, user, login, logout } = useAuth();
   
-  // Let unauthenticated users see the login screen instead of redirecting
-
   // Display a loading state while the auth state is loading
   if (!ready) {
     return (
@@ -84,29 +83,7 @@ function AuthenticatedPlatformLayout({
     );
   }
 
-  // If the user is not authenticated, show a login screen
-  if (!authenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white flex flex-col items-center justify-center">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            HADES Intelligence Platform
-          </h1>
-          <p className="text-slate-300 mb-8">
-            Connect your Solana wallet or sign in with email to access the platform
-          </p>
-          <Button 
-            onClick={login} 
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3"
-            size="lg"
-          >
-            <Wallet className="mr-2 h-5 w-5" />
-            Connect Wallet / Sign In
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  // Allow both authenticated and unauthenticated users to access the platform
 
   return (
     <div className="min-h-screen bg-slate-900 text-white flex">
@@ -144,30 +121,48 @@ function AuthenticatedPlatformLayout({
           })}
         </nav>
 
-        {/* User Info & Logout */}
+        {/* Authentication Section */}
         <div className="p-4 border-t border-slate-800">
-          <div className="flex items-center space-x-3 mb-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-sm font-bold">
-                {user?.email?.address?.charAt(0).toUpperCase() || 'U'}
-              </span>
+          {authenticated ? (
+            // Show user info and logout for authenticated users
+            <>
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-bold">
+                    {user?.email?.address?.charAt(0).toUpperCase() || 'U'}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-white truncate">
+                    {user?.email?.address || 'Wallet User'}
+                  </p>
+                  <p className="text-xs text-slate-400">Connected</p>
+                </div>
+              </div>
+              <Button
+                onClick={logout}
+                variant="outline"
+                size="sm"
+                className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Log out
+              </Button>
+            </>
+          ) : (
+            // Show login button for unauthenticated users
+            <div className="text-center">
+              <p className="text-xs text-slate-400 mb-3">Connect to access all features</p>
+              <Button
+                onClick={login}
+                className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                size="sm"
+              >
+                <Wallet className="h-4 w-4 mr-2" />
+                Connect Wallet
+              </Button>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">
-                {user?.email?.address || 'Wallet User'}
-              </p>
-              <p className="text-xs text-slate-400">Connected</p>
-            </div>
-          </div>
-          <Button
-            onClick={logout}
-            variant="outline"
-            size="sm"
-            className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Log out
-          </Button>
+          )}
         </div>
       </div>
 
@@ -192,6 +187,16 @@ function AuthenticatedPlatformLayout({
               <div className="text-sm text-slate-400">
                 Last update: {new Date().toLocaleTimeString()}
               </div>
+              {!authenticated && (
+                <Button
+                  onClick={login}
+                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2"
+                  size="sm"
+                >
+                  <Wallet className="h-4 w-4 mr-2" />
+                  Login
+                </Button>
+              )}
             </div>
           </div>
         </header>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { AuthGuard } from '@/components/auth/auth-guard';
 import { DataAggregator, TokenData, MarketStats } from '@/lib/data-services';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { 
@@ -90,64 +91,29 @@ export default function IntelligenceFeedPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#1a1f2e]">
-      {/* Sidebar */}
-      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
-        <div className="p-6">
-          {/* Logo */}
-          <div className="mb-8">
-            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
-            <p className="text-sm text-gray-400">Intelligence Platform</p>
+    <AuthGuard 
+      requireAuth={true}
+      fallbackTitle="Intelligence Feed Access Required"
+      fallbackDescription="Connect your Solana wallet or sign in with email to access premium intelligence feeds and market analysis."
+    >
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-white">Intelligence Feed</h1>
+            <p className="text-slate-400">Real-time market intelligence and analysis</p>
           </div>
-          {/* Navigation */}
-          <nav className="space-y-1">
-            <Link href="/dashboard" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm8-18h-8v6h8V3Z"/></svg></span></span>
-              <span>Dashboard</span>
-            </Link>
-            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35"/></svg></span></span>
-              <span>Search Tokens</span>
-            </Link>
-            <Link href="/alpha-feed" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 18a5 5 0 0 0-10 0m10 0v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1m10 0V8a5 5 0 0 0-10 0v10"/></svg></span></span>
-              <span>Alpha Signals</span>
-            </Link>
-            <Link href="/intelligence" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 20v-6m0 0V4m0 10h8m-8 0H4"/></svg></span></span>
-              <span>Intelligence Feed</span>
-            </Link>
-            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z"/></svg></span></span>
-              <span>Watchlist</span>
-            </Link>
-            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M3 3v18h18"/></svg></span></span>
-              <span>Market Analysis</span>
-            </Link>
-            <Link href="#" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span></span>
-              <span>Alerts</span>
-            </Link>
-          </nav>
+          <Button 
+            onClick={fetchData} 
+            disabled={loading}
+            className="bg-orange-600 hover:bg-orange-700 text-white"
+          >
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
         </div>
-        {/* Bottom Navigation */}
-        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
-          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path stroke="currentColor" strokeWidth="2" d="M12 16v-4m0-4h.01"/></svg></span></span>
-            <span>Settings</span>
-          </div>
-          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-            <span className="mr-3"><span className="inline-block w-5 h-5 align-middle"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg></span></span>
-            <span>Log out</span>
-          </div>
-        </div>
-      </aside>
-      {/* Main Content */}
-      <main className="flex-1 main-content p-8">
-        {/* Header, stats, tabs, platform cards, and footer status go here, mapped to dynamic data as in the previous integration. */}
-        {/* Use the intelligence_feed.html layout as a reference for structure and style. */}
-        {/* Header Stats */}
+
+        {/* Market Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card className="bg-slate-800 border-slate-700">
             <CardContent className="p-6">
@@ -379,7 +345,7 @@ export default function IntelligenceFeedPage() {
             </div>
           </CardContent>
         </Card>
-      </main>
-    </div>
+      </div>
+    </AuthGuard>
   );
 }

@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { AuthGuard } from '@/components/auth/auth-guard';
 import { usePrivy } from '@privy-io/react-auth';
 import { settingsApi } from '@/lib/api-client';
 import { 
@@ -177,76 +178,42 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#1a1f2e]">
-      {/* Sidebar */}
-      <aside className="w-64 sidebar flex flex-col justify-between border-r border-[#2a3441] bg-[#151a26] relative">
-        <div className="p-6">
-          {/* Logo */}
-          <div className="mb-8">
-            <h1 className="text-xl font-bold text-[#ff6b35]">HADES</h1>
-            <p className="text-sm text-gray-400">Intelligence Platform</p>
-          </div>
-          {/* Navigation */}
-          <nav className="space-y-1">
-            <Link href="/platform" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-layout-dashboard w-5 h-5"></i></span>
-              <span>Dashboard</span>
-            </Link>
-            <Link href="/platform/search-tokens" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-search w-5 h-5"></i></span>
-              <span>Search Tokens</span>
-            </Link>
-            <Link href="/platform/alpha-signals" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-trending-up w-5 h-5"></i></span>
-              <span>Alpha Signals</span>
-            </Link>
-            <Link href="/platform/intelligence-feed" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-activity w-5 h-5"></i></span>
-              <span>Intelligence Feed</span>
-            </Link>
-            <Link href="/platform/watchlist" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-bookmark w-5 h-5"></i></span>
-              <span>Watchlist</span>
-            </Link>
-            <Link href="/platform/market-analysis" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-bar-chart-3 w-5 h-5"></i></span>
-              <span>Market Analysis</span>
-            </Link>
-            <Link href="/platform/alerts" className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-              <span className="mr-3"><i className="lucide lucide-alert-triangle w-5 h-5"></i></span>
-              <span>Alerts</span>
-            </Link>
-            <Link href="/platform/settings" className="sidebar-item active flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all text-white bg-[#d2691e]">
-              <span className="mr-3"><i className="lucide lucide-settings w-5 h-5"></i></span>
-              <span>Settings</span>
-            </Link>
-          </nav>
-        </div>
-        {/* Bottom Navigation */}
-        <div className="absolute bottom-0 left-0 w-64 p-6 border-t border-gray-700">
-          <div className="sidebar-item flex items-center px-4 py-3 rounded-lg cursor-pointer transition-all">
-            <span className="mr-3"><i className="lucide lucide-log-out w-5 h-5"></i></span>
-            <span>Log out</span>
-          </div>
-        </div>
-      </aside>
-      {/* Main Content */}
-      <main className="flex-1 main-content p-8">
+    <AuthGuard 
+      requireAuth={true}
+      fallbackTitle="Settings Access Required"
+      fallbackDescription="Connect your Solana wallet or sign in with email to access your personal settings and configure your HADES experience."
+    >
+      <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center mb-2">
-              <div className="w-6 h-6 bg-gray-500 rounded-full mr-3 flex items-center justify-center">
-                <i className="lucide lucide-settings w-4 h-4 text-white"></i>
-              </div>
-              <h1 className="text-3xl font-bold">Settings</h1>
-            </div>
-            <p className="text-gray-400">Configure your HADES platform preferences</p>
+            <h1 className="text-3xl font-bold text-white">Settings</h1>
+            <p className="text-slate-400">Configure your HADES platform preferences</p>
           </div>
-          <button className="save-btn bg-[#ff6b35] text-white px-6 py-3 rounded-lg flex items-center gap-2" onClick={saveSettings} disabled={saving}>
-            <i className="lucide lucide-save w-4 h-4"></i>
-            {saving ? 'Saving...' : 'Save Settings'}
-          </button>
+          <div className="flex items-center gap-4">
+            {saveMessage && (
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                saveMessage.type === 'success' 
+                  ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
+                  : 'bg-red-500/10 text-red-400 border border-red-500/20'
+              }`}>
+                {saveMessage.type === 'success' ? (
+                  <CheckCircle className="h-4 w-4" />
+                ) : (
+                  <AlertCircle className="h-4 w-4" />
+                )}
+                <span className="text-sm">{saveMessage.message}</span>
+              </div>
+            )}
+            <Button 
+              onClick={saveSettings} 
+              disabled={saving}
+              className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50"
+            >
+              <Save className="h-4 w-4 mr-2" />
+              {saving ? 'Saving...' : 'Save Settings'}
+            </Button>
+          </div>
         </div>
         {/* Tab Navigation */}
         <div className="tab-nav flex border-b border-[#2a3441] mb-8">
@@ -456,7 +423,7 @@ export default function SettingsPage() {
             Reset to Defaults
           </Button>
         </div>
-      </main>
-    </div>
+      </div>
+    </AuthGuard>
   );
 }

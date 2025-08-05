@@ -57,8 +57,8 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
         // Configure embedded wallets for email users
         embeddedWallets: {
           createOnLogin: 'users-without-wallets',
-          // Restrict to Solana
-
+          // Restrict to Solana only
+          requireUserPasswordOnCreate: false,
         },
       }}
     >
