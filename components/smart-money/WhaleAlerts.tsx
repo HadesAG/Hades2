@@ -130,9 +130,9 @@ export function WhaleAlerts() {
     return (
       <div className="space-y-4">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-20 bg-slate-700 rounded mb-4"></div>
+            <div key={i} className="h-20 bg-gray-800 rounded mb-4"></div>
           ))}
         </div>
       </div>
@@ -142,7 +142,7 @@ export function WhaleAlerts() {
   return (
     <div className="space-y-6">
       {/* Alert Controls */}
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-black border-gray-800">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-white flex items-center gap-2">
@@ -151,7 +151,7 @@ export function WhaleAlerts() {
             </CardTitle>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Label htmlFor="alerts-toggle" className="text-sm text-slate-300">
+                <Label htmlFor="alerts-toggle" className="text-sm text-gray-300">
                   Alerts
                 </Label>
                 <Switch
@@ -164,7 +164,7 @@ export function WhaleAlerts() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowFilters(!showFilters)}
-                className="text-slate-300 hover:text-white"
+                className="text-gray-300 hover:text-white"
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
@@ -174,25 +174,25 @@ export function WhaleAlerts() {
         </CardHeader>
         
         {showFilters && (
-          <CardContent className="border-t border-slate-700 pt-4">
+          <CardContent className="border-t border-gray-800 pt-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <Label className="text-sm text-slate-300 mb-2 block">Min Value ($)</Label>
+                <Label className="text-sm text-gray-300 mb-2 block">Min Value ($)</Label>
                 <Input
                   type="number"
                   value={filters.minValue}
                   onChange={(e) => setFilters(prev => ({ ...prev, minValue: parseInt(e.target.value) || 0 }))}
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-gray-800 border-gray-700 text-white"
                 />
               </div>
               
               <div>
-                <Label className="text-sm text-slate-300 mb-2 block">Whale Types</Label>
+                <Label className="text-sm text-gray-300 mb-2 block">Whale Types</Label>
                 <Select>
-                  <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                     <SelectValue placeholder="Select types..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-700 border-slate-600">
+                  <SelectContent className="bg-gray-800 border-gray-700">
                     <SelectItem value="VC_FUND">VC Funds</SelectItem>
                     <SelectItem value="HEDGE_FUND">Hedge Funds</SelectItem>
                     <SelectItem value="MARKET_MAKER">Market Makers</SelectItem>
@@ -203,12 +203,12 @@ export function WhaleAlerts() {
               </div>
               
               <div>
-                <Label className="text-sm text-slate-300 mb-2 block">Actions</Label>
+                <Label className="text-sm text-gray-300 mb-2 block">Actions</Label>
                 <Select>
-                  <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                     <SelectValue placeholder="Select actions..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-700 border-slate-600">
+                  <SelectContent className="bg-gray-800 border-gray-700">
                     <SelectItem value="BUY">Buys</SelectItem>
                     <SelectItem value="SELL">Sells</SelectItem>
                     <SelectItem value="TRANSFER_IN">Transfers In</SelectItem>
@@ -218,10 +218,10 @@ export function WhaleAlerts() {
               </div>
               
               <div>
-                <Label className="text-sm text-slate-300 mb-2 block">Tokens</Label>
+                <Label className="text-sm text-gray-300 mb-2 block">Tokens</Label>
                 <Input
                   placeholder="SOL, USDC, JUP..."
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-gray-800 border-gray-700 text-white"
                 />
               </div>
             </div>
@@ -231,19 +231,19 @@ export function WhaleAlerts() {
 
       {/* Alert Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <AlertTriangle className="h-8 w-8 text-orange-500" />
               <div>
                 <p className="text-2xl font-bold text-white">{filteredAlerts.length}</p>
-                <p className="text-sm text-slate-300">Active Alerts</p>
+                <p className="text-sm text-gray-300">Active Alerts</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <DollarSign className="h-8 w-8 text-green-500" />
@@ -251,13 +251,13 @@ export function WhaleAlerts() {
                 <p className="text-2xl font-bold text-white">
                   ${(filteredAlerts.reduce((sum, alert) => sum + alert.usdValue, 0) / 1000000).toFixed(1)}M
                 </p>
-                <p className="text-sm text-slate-300">Total Volume</p>
+                <p className="text-sm text-gray-300">Total Volume</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <Clock className="h-8 w-8 text-blue-500" />
@@ -265,7 +265,7 @@ export function WhaleAlerts() {
                 <p className="text-2xl font-bold text-white">
                   {filteredAlerts.length > 0 ? formatTimeAgo(filteredAlerts[0].timestamp) : 'N/A'}
                 </p>
-                <p className="text-sm text-slate-300">Last Alert</p>
+                <p className="text-sm text-gray-300">Last Alert</p>
               </div>
             </div>
           </CardContent>
@@ -273,7 +273,7 @@ export function WhaleAlerts() {
       </div>
 
       {/* Alerts Feed */}
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-black border-gray-800">
         <CardHeader>
           <CardTitle className="text-white">Recent Whale Activity</CardTitle>
         </CardHeader>
@@ -281,13 +281,13 @@ export function WhaleAlerts() {
           <div className="max-h-96 overflow-y-auto">
             {filteredAlerts.length === 0 ? (
               <div className="text-center py-8">
-                <AlertTriangle className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                <p className="text-slate-400">No alerts match your current filters</p>
+                <AlertTriangle className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                <p className="text-gray-400">No alerts match your current filters</p>
               </div>
             ) : (
-              <div className="divide-y divide-slate-700">
+              <div className="divide-y divide-gray-800">
                 {filteredAlerts.map((alert) => (
-                  <div key={alert.id} className="p-4 hover:bg-slate-700/50 transition-colors">
+                  <div key={alert.id} className="p-4 hover:bg-gray-800/50 transition-colors">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         {getTransactionIcon(alert.transactionType)}
@@ -307,7 +307,7 @@ export function WhaleAlerts() {
                             <span className="text-white">
                               {alert.amount.toLocaleString()} {alert.tokenSymbol}
                             </span>
-                            <span className="text-slate-400">•</span>
+                            <span className="text-gray-400">•</span>
                             <span className="text-green-400 font-semibold">
                               ${alert.usdValue.toLocaleString()}
                             </span>
@@ -316,14 +316,14 @@ export function WhaleAlerts() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-400">
+                        <span className="text-sm text-gray-400">
                           {formatTimeAgo(alert.timestamp)}
                         </span>
                         <Button
                           size="sm"
                           variant="ghost"
                           onClick={() => handleViewTransaction(alert.signature)}
-                          className="text-slate-400 hover:text-white"
+                          className="text-gray-400 hover:text-white"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>

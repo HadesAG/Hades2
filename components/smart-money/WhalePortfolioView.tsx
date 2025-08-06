@@ -141,12 +141,12 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
     return (
       <div className="space-y-4">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="h-32 bg-slate-700 rounded"></div>
-            <div className="h-32 bg-slate-700 rounded"></div>
+            <div className="h-32 bg-gray-800 rounded"></div>
+            <div className="h-32 bg-gray-800 rounded"></div>
           </div>
-          <div className="h-64 bg-slate-700 rounded"></div>
+          <div className="h-64 bg-gray-800 rounded"></div>
         </div>
       </div>
     );
@@ -155,8 +155,8 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
   if (error || !portfolio) {
     return (
       <div className="text-center py-8">
-        <Wallet className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-        <p className="text-slate-400">{error || 'Portfolio data not available'}</p>
+        <Wallet className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+        <p className="text-gray-400">{error || 'Portfolio data not available'}</p>
       </div>
     );
   }
@@ -167,13 +167,13 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-xl font-bold text-white">{portfolio.wallet.label}</h3>
-          <p className="text-sm text-slate-400 font-mono">{portfolio.wallet.address}</p>
+          <p className="text-sm text-gray-400 font-mono">{portfolio.wallet.address}</p>
         </div>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleViewWallet}
-          className="text-slate-400 hover:text-white"
+          className="text-gray-400 hover:text-white"
         >
           <ExternalLink className="h-4 w-4 mr-2" />
           View on Explorer
@@ -182,7 +182,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
 
       {/* Portfolio Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-slate-700 border-slate-600">
+        <Card className="bg-gray-800 border-gray-700">
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-green-500" />
@@ -193,37 +193,37 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                     : `${(portfolio.totalValue / 1000).toFixed(0)}K`
                   }
                 </p>
-                <p className="text-xs text-slate-400">Total Value</p>
+                <p className="text-xs text-gray-400">Total Value</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-700 border-slate-600">
+        <Card className="bg-gray-800 border-gray-700">
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <PieChart className="h-5 w-5 text-blue-500" />
               <div>
                 <p className="text-lg font-bold text-white">{portfolio.holdings.length}</p>
-                <p className="text-xs text-slate-400">Holdings</p>
+                <p className="text-xs text-gray-400">Holdings</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-700 border-slate-600">
+        <Card className="bg-gray-800 border-gray-700">
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-purple-500" />
               <div>
                 <p className="text-lg font-bold text-white">{portfolio.recentActivity.totalTransactions}</p>
-                <p className="text-xs text-slate-400">Recent Txs</p>
+                <p className="text-xs text-gray-400">Recent Txs</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-700 border-slate-600">
+        <Card className="bg-gray-800 border-gray-700">
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
               {portfolio.recentActivity.netFlow >= 0 ? (
@@ -235,7 +235,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                 <p className={`text-lg font-bold ${portfolio.recentActivity.netFlow >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                   ${Math.abs(portfolio.recentActivity.netFlow / 1000).toFixed(0)}K
                 </p>
-                <p className="text-xs text-slate-400">Net Flow</p>
+                <p className="text-xs text-gray-400">Net Flow</p>
               </div>
             </div>
           </CardContent>
@@ -244,7 +244,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
 
       {/* Portfolio Details */}
       <Tabs defaultValue="holdings" className="space-y-4">
-        <TabsList className="bg-slate-700 border-slate-600">
+        <TabsList className="bg-gray-800 border-gray-700">
           <TabsTrigger value="holdings" className="data-[state=active]:bg-orange-500">
             Holdings
           </TabsTrigger>
@@ -254,14 +254,14 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
         </TabsList>
 
         <TabsContent value="holdings" className="space-y-4">
-          <Card className="bg-slate-700 border-slate-600">
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader>
               <CardTitle className="text-white">Top Holdings</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {portfolio.topPositions.map((holding) => (
-                  <div key={holding.tokenAddress} className="flex items-center justify-between p-3 bg-slate-600 rounded-lg">
+                  <div key={holding.tokenAddress} className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
                         <span className="text-sm font-bold text-white">
@@ -270,7 +270,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                       </div>
                       <div>
                         <p className="font-semibold text-white">{holding.tokenSymbol}</p>
-                        <p className="text-sm text-slate-400">
+                        <p className="text-sm text-gray-400">
                           {holding.balance.toLocaleString()} tokens
                         </p>
                       </div>
@@ -279,7 +279,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                       <p className="font-semibold text-white">
                         ${holding.usdValue.toLocaleString()}
                       </p>
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-gray-400">
                         {holding.percentOfPortfolio?.toFixed(1)}%
                       </p>
                     </div>
@@ -288,8 +288,8 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                 
                 {portfolio.topPositions.length === 0 && (
                   <div className="text-center py-8">
-                    <PieChart className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                    <p className="text-slate-400">No holdings data available</p>
+                    <PieChart className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                    <p className="text-gray-400">No holdings data available</p>
                   </div>
                 )}
               </div>
@@ -298,7 +298,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
 
           {/* Portfolio Composition */}
           {portfolio.topPositions.length > 0 && (
-            <Card className="bg-slate-700 border-slate-600">
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-white">Portfolio Composition</CardTitle>
               </CardHeader>
@@ -308,11 +308,11 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                     <div key={holding.tokenAddress} className="space-y-1">
                       <div className="flex justify-between text-sm">
                         <span className="text-white">{holding.tokenSymbol}</span>
-                        <span className="text-slate-400">{holding.percentOfPortfolio?.toFixed(1)}%</span>
+                        <span className="text-gray-400">{holding.percentOfPortfolio?.toFixed(1)}%</span>
                       </div>
                       <Progress 
                         value={holding.percentOfPortfolio || 0} 
-                        className="h-2 bg-slate-600"
+                        className="h-2 bg-gray-700"
                       />
                     </div>
                   ))}
@@ -323,7 +323,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
         </TabsContent>
 
         <TabsContent value="activity" className="space-y-4">
-          <Card className="bg-slate-700 border-slate-600">
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader>
               <CardTitle className="text-white">Recent Transactions</CardTitle>
             </CardHeader>
@@ -331,13 +331,13 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
               <div className="max-h-64 overflow-y-auto">
                 {portfolio.recentTransactions.length === 0 ? (
                   <div className="text-center py-8">
-                    <Activity className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                    <p className="text-slate-400">No recent transactions</p>
+                    <Activity className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                    <p className="text-gray-400">No recent transactions</p>
                   </div>
                 ) : (
-                  <div className="divide-y divide-slate-600">
+                  <div className="divide-y divide-gray-700">
                     {portfolio.recentTransactions.slice(0, 10).map((tx) => (
-                      <div key={tx.id} className="p-4 hover:bg-slate-600/50 transition-colors">
+                      <div key={tx.id} className="p-4 hover:bg-gray-700/50 transition-colors">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {getTransactionIcon(tx.transactionType)}
@@ -349,7 +349,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                                 <span className="text-white">{tx.tokenSymbol}</span>
                               </div>
                               <div className="flex items-center gap-2 mt-1">
-                                <span className="text-sm text-slate-400">
+                                <span className="text-sm text-gray-400">
                                   {tx.amount.toLocaleString()} tokens
                                 </span>
                                 <span className="text-sm text-green-400">
@@ -360,14 +360,14 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                           </div>
                           
                           <div className="flex items-center gap-2">
-                            <span className="text-sm text-slate-400">
+                            <span className="text-sm text-gray-400">
                               {formatTimeAgo(tx.timestamp)}
                             </span>
                             <Button
                               size="sm"
                               variant="ghost"
                               onClick={() => handleViewTransaction(tx.signature)}
-                              className="text-slate-400 hover:text-white"
+                              className="text-gray-400 hover:text-white"
                             >
                               <ExternalLink className="h-4 w-4" />
                             </Button>

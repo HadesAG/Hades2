@@ -229,7 +229,7 @@ export default function AlertsPage() {
                     <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700">
+                <tbody className="divide-y divide-gray-800">
                   {alerts.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="px-4 py-8 text-center text-slate-400">

@@ -119,15 +119,15 @@ export function WhaleTracker() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-32 bg-slate-700 rounded"></div>
+              <div key={i} className="h-32 bg-gray-800 rounded"></div>
             ))}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-96 bg-slate-700 rounded"></div>
+              <div key={i} className="h-96 bg-gray-800 rounded"></div>
             ))}
           </div>
         </div>
@@ -141,7 +141,7 @@ export function WhaleTracker() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Smart Money Tracker</h1>
-          <p className="text-slate-300">
+          <p className="text-gray-300">
             Real-time whale wallet intelligence for Solana traders
           </p>
         </div>
@@ -157,50 +157,50 @@ export function WhaleTracker() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-orange-500">{totalWhales}</p>
-                <p className="text-sm text-slate-300">Total Whales</p>
+                <p className="text-sm text-gray-300">Total Whales</p>
               </div>
               <Wallet className="h-8 w-8 text-orange-500" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-green-500">
                   ${(totalValue / 1000000).toFixed(1)}M
                 </p>
-                <p className="text-sm text-slate-300">Total Value</p>
+                <p className="text-sm text-gray-300">Total Value</p>
               </div>
               <DollarSign className="h-8 w-8 text-green-500" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-blue-500">{activeWhales}</p>
-                <p className="text-sm text-slate-300">Active Whales</p>
+                <p className="text-sm text-gray-300">Active Whales</p>
               </div>
               <Target className="h-8 w-8 text-blue-500" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-purple-500">{recentActivity}</p>
-                <p className="text-sm text-slate-300">Recent Moves</p>
+                <p className="text-sm text-gray-300">Recent Moves</p>
               </div>
               <Activity className="h-8 w-8 text-purple-500" />
             </div>
@@ -210,7 +210,7 @@ export function WhaleTracker() {
 
       {/* Main Content */}
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="bg-slate-800 border-slate-700">
+        <TabsList className="bg-black border-gray-800">
           <TabsTrigger value="overview" className="data-[state=active]:bg-orange-600">
             Overview
           </TabsTrigger>
@@ -228,7 +228,7 @@ export function WhaleTracker() {
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Whale List */}
-            <Card className="bg-slate-800 border-slate-700">
+            <Card className="bg-black border-gray-800">
               <CardHeader>
                 <CardTitle className="text-white">Top Whales</CardTitle>
               </CardHeader>
@@ -243,7 +243,7 @@ export function WhaleTracker() {
             </Card>
 
             {/* Portfolio/Activity View */}
-            <Card className="lg:col-span-2 bg-slate-800 border-slate-700">
+            <Card className="lg:col-span-2 bg-black border-gray-800">
               <CardHeader>
                 <CardTitle className="text-white">
                   {selectedWhale ? 'Whale Portfolio' : 'Recent Activity'}
@@ -264,19 +264,19 @@ export function WhaleTracker() {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search whales..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-400"
+                className="pl-10 bg-black border-gray-800 text-white placeholder:text-gray-400"
               />
             </div>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="w-full sm:w-48 bg-slate-800 border-slate-700 text-white">
+              <SelectTrigger className="w-full sm:w-48 bg-black border-gray-800 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
+              <SelectContent className="bg-black border-gray-800">
                 <SelectItem value="All Categories">All Categories</SelectItem>
                 <SelectItem value="VC_FUND">VC Funds</SelectItem>
                 <SelectItem value="HEDGE_FUND">Hedge Funds</SelectItem>
@@ -288,7 +288,7 @@ export function WhaleTracker() {
             </Select>
           </div>
 
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-0">
               <WhaleList 
                 whales={filteredWhales}
@@ -306,21 +306,21 @@ export function WhaleTracker() {
 
         <TabsContent value="top-movers" className="space-y-6">
           <div className="grid gap-6">
-            <Card className="bg-slate-800 border-slate-700">
+            <Card className="bg-black border-gray-800">
               <CardHeader>
                 <CardTitle className="text-white">Top Moving Tokens (24h)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {topMovers.map((mover, index) => (
-                    <div key={mover.token} className="flex items-center justify-between p-4 bg-slate-700 rounded-lg">
+                    <div key={mover.token} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-sm font-bold text-white">
                           {index + 1}
                         </div>
                         <div>
                           <p className="font-semibold text-white">{mover.symbol}</p>
-                          <p className="text-sm text-slate-300">{mover.whaleCount} whales active</p>
+                          <p className="text-sm text-gray-300">{mover.whaleCount} whales active</p>
                         </div>
                       </div>
                       <div className="text-right">

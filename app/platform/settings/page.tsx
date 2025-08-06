@@ -166,10 +166,10 @@ export default function SettingsPage() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-64 bg-slate-700 rounded"></div>
+              <div key={i} className="h-64 bg-gray-800 rounded"></div>
             ))}
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">Settings</h1>
-            <p className="text-slate-400">Configure your HADES platform preferences</p>
+            <p className="text-gray-400">Configure your HADES platform preferences</p>
           </div>
           <div className="flex items-center gap-4">
             {saveMessage && (
@@ -282,10 +282,10 @@ export default function SettingsPage() {
                   { key: 'signalNotifications', label: 'Alpha Signals', description: 'Real-time notifications for new alpha signals' },
                   { key: 'emailDigest', label: 'Daily Email Digest', description: 'Summary of market activity and your portfolio' },
                 ].map(({ key, label, description }) => (
-                  <div key={key} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
+                  <div key={key} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
                     <div>
                       <div className="text-white font-medium">{label}</div>
-                      <div className="text-sm text-slate-400">{description}</div>
+                      <div className="text-sm text-gray-400">{description}</div>
                     </div>
                     <Button
                       size="sm"
@@ -294,7 +294,7 @@ export default function SettingsPage() {
                       className={
                         settings[key as keyof typeof settings]
                           ? 'bg-green-600 hover:bg-green-700 text-white'
-                          : 'border-slate-600 text-slate-300 hover:bg-slate-700'
+                          : 'border-gray-700 text-gray-300 hover:bg-gray-800'
                       }
                     >
                       {settings[key as keyof typeof settings] ? 'ON' : 'OFF'}
@@ -315,15 +315,15 @@ export default function SettingsPage() {
                 <Input
                   value={settings.defaultSlippage}
                   onChange={(e) => handleSettingChange('defaultSlippage', e.target.value)}
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-gray-800 border-gray-700 text-white"
                   placeholder="0.5"
                 />
               </div>
               
-              <div className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
                 <div>
                   <div className="text-white font-medium">Auto-approve transactions</div>
-                  <div className="text-sm text-slate-400">Automatically approve transactions under $100</div>
+                  <div className="text-sm text-gray-400">Automatically approve transactions under $100</div>
                 </div>
                 <Button
                   size="sm"
@@ -332,7 +332,7 @@ export default function SettingsPage() {
                   className={
                     settings.autoApprove
                       ? 'bg-green-600 hover:bg-green-700 text-white'
-                      : 'border-slate-600 text-slate-300 hover:bg-slate-700'
+                      : 'border-gray-700 text-gray-300 hover:bg-gray-800'
                   }
                 >
                   {settings.autoApprove ? 'ON' : 'OFF'}
@@ -352,7 +352,7 @@ export default function SettingsPage() {
                   type="password"
                   value={settings.heliusApiKey}
                   onChange={(e) => handleSettingChange('heliusApiKey', e.target.value)}
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-gray-800 border-gray-700 text-white"
                   placeholder="Enter your Helius API key for enhanced data"
                 />
               </div>
@@ -363,7 +363,7 @@ export default function SettingsPage() {
                   type="password"
                   value={settings.telegramBotToken}
                   onChange={(e) => handleSettingChange('telegramBotToken', e.target.value)}
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-gray-800 border-gray-700 text-white"
                   placeholder="Enter your Telegram bot token for alerts"
                 />
               </div>
@@ -380,10 +380,10 @@ export default function SettingsPage() {
                   { key: 'shareData', label: 'Share anonymized data', description: 'Help improve HADES by sharing anonymous usage data' },
                   { key: 'analytics', label: 'Analytics tracking', description: 'Allow analytics to improve your experience' },
                 ].map(({ key, label, description }) => (
-                  <div key={key} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
+                  <div key={key} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
                     <div>
                       <div className="text-white font-medium">{label}</div>
-                      <div className="text-sm text-slate-400">{description}</div>
+                      <div className="text-sm text-gray-400">{description}</div>
                     </div>
                     <Button
                       size="sm"
@@ -392,7 +392,7 @@ export default function SettingsPage() {
                       className={
                         settings[key as keyof typeof settings]
                           ? 'bg-green-600 hover:bg-green-700 text-white'
-                          : 'border-slate-600 text-slate-300 hover:bg-slate-700'
+                          : 'border-gray-700 text-gray-300 hover:bg-gray-800'
                       }
                     >
                       {settings[key as keyof typeof settings] ? 'ON' : 'OFF'}
@@ -417,7 +417,7 @@ export default function SettingsPage() {
             onClick={resetToDefaults} 
             disabled={saving}
             variant="outline" 
-            className="border-slate-600 text-slate-300 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="border-gray-700 text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <RotateCcw className="h-4 w-4 mr-2" />
             Reset to Defaults

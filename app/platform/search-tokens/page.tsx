@@ -212,24 +212,24 @@ export default function SearchTokensPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">Token Search</h1>
-          <p className="text-slate-400 mt-1">Search and discover cryptocurrency tokens</p>
+          <p className="text-gray-400 mt-1">Search and discover cryptocurrency tokens</p>
         </div>
-        <div className="flex items-center gap-2 text-sm text-slate-400">
+        <div className="flex items-center gap-2 text-sm text-gray-400">
           <Globe className="h-4 w-4" />
           <span>Powered by CoinGecko</span>
         </div>
       </div>
 
       {/* Search Bar */}
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-black border-gray-800">
         <CardContent className="p-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               placeholder="Search for tokens (e.g., Bitcoin, ETH, DOGE)..."
               value={searchState.query}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="pl-10 bg-slate-700 border-slate-600 text-white placeholder-slate-400 text-lg py-3"
+              className="pl-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400 text-lg py-3"
             />
             {searchState.loading && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -254,7 +254,7 @@ export default function SearchTokensPage() {
                 className={`${
                   activeFilter === key 
                     ? 'bg-orange-600 hover:bg-orange-700 text-white' 
-                    : 'border-slate-600 text-slate-300 hover:bg-slate-700'
+                    : 'border-gray-700 text-gray-300 hover:bg-gray-800'
                 }`}
               >
                 <Icon className="h-4 w-4 mr-2" />
@@ -298,11 +298,11 @@ export default function SearchTokensPage() {
 
         {/* Empty State */}
         {searchState.hasSearched && filteredResults.length === 0 && !searchState.error && (
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-8 text-center">
-              <Search className="h-12 w-12 text-slate-500 mx-auto mb-4" />
+              <Search className="h-12 w-12 text-gray-500 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">No tokens found</h3>
-              <p className="text-slate-400">Try adjusting your search terms or filters</p>
+              <p className="text-gray-400">Try adjusting your search terms or filters</p>
             </CardContent>
           </Card>
         )}
@@ -311,7 +311,7 @@ export default function SearchTokensPage() {
         {displayTokens.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayTokens.map((token) => (
-              <Card key={token.id} className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-all">
+              <Card key={token.id} className="bg-black border-gray-800 hover:border-gray-700 transition-all">
                 <CardContent className="p-6">
                   {/* Token Header */}
                   <div className="flex items-start justify-between mb-4">
@@ -327,12 +327,12 @@ export default function SearchTokensPage() {
                       <div>
                         <h3 className="font-semibold text-white">{token.name}</h3>
                         <div className="flex items-center gap-2">
-                          <span className="text-slate-400 text-sm">{token.symbol}</span>
+                          <span className="text-gray-400 text-sm">{token.symbol}</span>
                           {token.verified && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
                           {token.rank && (
-                            <Badge variant="outline" className="text-xs border-slate-600 text-slate-400">
+                            <Badge variant="outline" className="text-xs border-gray-700 text-gray-400">
                               #{token.rank}
                             </Badge>
                           )}
@@ -346,7 +346,7 @@ export default function SearchTokensPage() {
                       className={`${
                         watchlist.includes(token.id) 
                           ? 'text-yellow-500 hover:text-yellow-400' 
-                          : 'text-slate-400 hover:text-yellow-500'
+                          : 'text-gray-400 hover:text-yellow-500'
                       }`}
                     >
                       <Star className={`h-4 w-4 ${watchlist.includes(token.id) ? 'fill-current' : ''}`} />
@@ -371,9 +371,9 @@ export default function SearchTokensPage() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 pt-3 border-t border-slate-700">
+                    <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-800">
                       <div>
-                        <div className="text-xs text-slate-400 mb-1">Market Cap</div>
+                        <div className="text-xs text-gray-400 mb-1">Market Cap</div>
                         <div className="text-sm text-white font-medium">
                           {token.marketCap >= 1e9 
                             ? `$${(token.marketCap / 1e9).toFixed(2)}B`
@@ -382,7 +382,7 @@ export default function SearchTokensPage() {
                         </div>
                       </div>
                       <div>
-                        <div className="text-xs text-slate-400 mb-1">Volume (24h)</div>
+                        <div className="text-xs text-gray-400 mb-1">Volume (24h)</div>
                         <div className="text-sm text-white font-medium">
                           {token.volume24h >= 1e9 
                             ? `$${(token.volume24h / 1e9).toFixed(2)}B`
@@ -394,7 +394,7 @@ export default function SearchTokensPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex gap-2 mt-4 pt-4 border-t border-slate-700">
+                  <div className="flex gap-2 mt-4 pt-4 border-t border-gray-800">
                     <Button 
                       size="sm" 
                       className="flex-1 bg-orange-600 hover:bg-orange-700 text-white"
@@ -405,7 +405,7 @@ export default function SearchTokensPage() {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                      className="border-gray-700 text-gray-300 hover:bg-gray-800"
                     >
                       <ExternalLink className="h-4 w-4" />
                     </Button>

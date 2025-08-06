@@ -93,12 +93,12 @@ export default function MarketAnalysisPage() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="bg-[#151a26] rounded-xl shadow-lg p-6 animate-pulse">
-              <div className="h-12 bg-slate-700 rounded mb-2"></div>
-              <div className="h-4 bg-slate-700 rounded"></div>
+              <div className="h-12 bg-gray-800 rounded mb-2"></div>
+              <div className="h-4 bg-gray-800 rounded"></div>
             </div>
             <div className="bg-[#151a26] rounded-xl shadow-lg p-6 animate-pulse">
-              <div className="h-12 bg-slate-700 rounded mb-2"></div>
-              <div className="h-4 bg-slate-700 rounded"></div>
+              <div className="h-12 bg-gray-800 rounded mb-2"></div>
+              <div className="h-4 bg-gray-800 rounded"></div>
             </div>
           </div>
         ) : (
@@ -107,13 +107,13 @@ export default function MarketAnalysisPage() {
               <span className="text-4xl font-bold text-[#ff6b35] mb-2">
                 ${marketStats?.totalMarketCap ? (marketStats.totalMarketCap / 1e12).toFixed(2) : '2.45'}T
               </span>
-              <span className="text-slate-300">Total Market Cap</span>
+              <span className="text-gray-300">Total Market Cap</span>
             </div>
             <div className="bg-[#151a26] rounded-xl shadow-lg p-6 flex flex-col items-center">
               <span className="text-4xl font-bold text-[#10b981] mb-2">
                 ${marketStats?.volume24h ? (marketStats.volume24h / 1e9).toFixed(1) : '89.0'}B
               </span>
-              <span className="text-slate-300">24h Volume</span>
+              <span className="text-gray-300">24h Volume</span>
             </div>
           </div>
         )}
@@ -132,10 +132,10 @@ export default function MarketAnalysisPage() {
               {loading ? (
                 [...Array(5)].map((_, idx) => (
                   <tr key={idx} className="animate-pulse">
-                    <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                    <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                    <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                    <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                    <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                    <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                    <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                    <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
                   </tr>
                 ))
               ) : (
@@ -153,7 +153,7 @@ export default function MarketAnalysisPage() {
                       )}
                       <span className="text-white font-medium">{token.name}</span>
                     </td>
-                    <td className="px-4 py-3 text-slate-300">
+                    <td className="px-4 py-3 text-gray-300">
                       ${token.price >= 1 ? token.price.toFixed(2) : token.price.toFixed(6)}
                     </td>
                     <td className={`px-4 py-3 font-semibold ${
@@ -161,7 +161,7 @@ export default function MarketAnalysisPage() {
                         }`}>
                       {token.change24h >= 0 ? '+' : ''}{token.change24h.toFixed(2)}%
                     </td>
-                    <td className="px-4 py-3 text-slate-300">
+                    <td className="px-4 py-3 text-gray-300">
                       ${token.volume24h >= 1e9 ? 
                         `${(token.volume24h / 1e9).toFixed(2)}B` : 
                         `${(token.volume24h / 1e6).toFixed(1)}M`

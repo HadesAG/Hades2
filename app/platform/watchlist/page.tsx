@@ -152,10 +152,10 @@ export default function WatchlistPage() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-32 bg-slate-700 rounded"></div>
+              <div key={i} className="h-32 bg-gray-800 rounded"></div>
             ))}
           </div>
         </div>
@@ -182,11 +182,11 @@ export default function WatchlistPage() {
 
         {/* Portfolio Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Total Tokens</p>
+                  <p className="text-gray-400 text-sm">Total Tokens</p>
                   <p className="text-2xl font-bold text-white">{totalTokens}</p>
                 </div>
                 <Star className="h-8 w-8 text-orange-500" />
@@ -194,11 +194,11 @@ export default function WatchlistPage() {
             </CardContent>
           </Card>
           
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Avg 24h Change</p>
+                  <p className="text-gray-400 text-sm">Avg 24h Change</p>
                   <p className={`text-2xl font-bold ${avgChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                     {avgChange24h >= 0 ? '+' : ''}{avgChange24h.toFixed(2)}%
                   </p>
@@ -211,11 +211,11 @@ export default function WatchlistPage() {
             </CardContent>
           </Card>
           
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Active Alerts</p>
+                  <p className="text-gray-400 text-sm">Active Alerts</p>
                   <p className="text-2xl font-bold text-white">{activeAlerts}</p>
                 </div>
                 <Bell className="h-8 w-8 text-blue-500" />
@@ -223,11 +223,11 @@ export default function WatchlistPage() {
             </CardContent>
           </Card>
           
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Combined Market Cap</p>
+                  <p className="text-gray-400 text-sm">Combined Market Cap</p>
                   <p className="text-xl font-bold text-white">
                     ${combinedValue >= 1e12 ? 
                       `${(combinedValue / 1e12).toFixed(2)}T` : 
@@ -242,7 +242,7 @@ export default function WatchlistPage() {
         </div>
 
         {/* Watchlist Table */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardHeader>
             <CardTitle className="text-white">Tokens</CardTitle>
           </CardHeader>
@@ -250,30 +250,30 @@ export default function WatchlistPage() {
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead>
-                  <tr className="border-b border-slate-700">
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Token</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Price</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">24h Change</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Volume</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Market Cap</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Actions</th>
+                  <tr className="border-b border-gray-800">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Token</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">24h Change</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Market Cap</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700">
+                <tbody className="divide-y divide-gray-800">
                   {loading ? (
                     [...Array(3)].map((_, idx) => (
                       <tr key={idx} className="animate-pulse">
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
-                        <td className="px-4 py-3"><div className="h-4 bg-slate-700 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
+                        <td className="px-4 py-3"><div className="h-4 bg-gray-800 rounded"></div></td>
                       </tr>
                     ))
                   ) : watchlistTokens.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="px-4 py-8 text-center text-slate-400">
+                      <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
                         No tokens in your watchlist yet. 
                         <Link href="/platform/search-tokens" className="text-orange-500 hover:underline ml-1">
                           Add some tokens to get started!
@@ -289,7 +289,7 @@ export default function WatchlistPage() {
                       const isRealtime = !!realtimePrice;
 
                       return (
-                        <tr key={idx} className="hover:bg-slate-700/50 transition-colors">
+                        <tr key={idx} className="hover:bg-gray-800/50 transition-colors">
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
                               {token.image ? (
@@ -306,7 +306,7 @@ export default function WatchlistPage() {
                                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Real-time price"></div>
                                   )}
                                 </div>
-                                <p className="text-slate-400 text-sm">{token.symbol.toUpperCase()}</p>
+                                <p className="text-gray-400 text-sm">{token.symbol.toUpperCase()}</p>
                               </div>
                             </div>
                           </td>
@@ -319,13 +319,13 @@ export default function WatchlistPage() {
                               {displayChange >= 0 ? '+' : ''}{displayChange.toFixed(2)}%
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-slate-300">
+                          <td className="px-4 py-3 text-gray-300">
                             ${token.volume24h >= 1e9 ? 
                               `${(token.volume24h / 1e9).toFixed(2)}B` : 
                               `${(token.volume24h / 1e6).toFixed(1)}M`
                             }
                           </td>
-                          <td className="px-4 py-3 text-slate-300">
+                          <td className="px-4 py-3 text-gray-300">
                             ${token.marketCap >= 1e9 ? 
                               `${(token.marketCap / 1e9).toFixed(2)}B` : 
                               `${(token.marketCap / 1e6).toFixed(1)}M`
@@ -337,7 +337,7 @@ export default function WatchlistPage() {
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => toggleAlert(token.symbol)}
-                                className={`p-2 ${alertsEnabled[token.symbol] ? 'text-yellow-500 hover:text-yellow-400' : 'text-slate-400 hover:text-white'}`}
+                                className={`p-2 ${alertsEnabled[token.symbol] ? 'text-yellow-500 hover:text-yellow-400' : 'text-gray-400 hover:text-white'}`}
                                 title={alertsEnabled[token.symbol] ? 'Disable alerts' : 'Enable alerts'}
                               >
                                 {alertsEnabled[token.symbol] ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}

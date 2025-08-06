@@ -52,7 +52,7 @@ export function RealtimePrice({
   if (isLoading) {
     return (
       <div className={`animate-pulse ${className}`}>
-        <div className="h-4 bg-slate-700 rounded w-16"></div>
+        <div className="h-4 bg-gray-800 rounded w-16"></div>
       </div>
     );
   }
@@ -60,7 +60,7 @@ export function RealtimePrice({
   if (!priceData) {
     return (
       <div className={className}>
-        <span className="text-slate-400">--</span>
+        <span className="text-gray-400">--</span>
       </div>
     );
   }
@@ -105,7 +105,7 @@ export function RealtimePrice({
         )}
         
         {showVolume && (
-          <div className="text-xs text-slate-400">
+          <div className="text-xs text-gray-400">
             Vol: ${formatVolume(priceData.volume24h)}
           </div>
         )}

@@ -58,10 +58,10 @@ export default function IntelligenceFeedPage() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-48 bg-slate-700 rounded"></div>
+              <div key={i} className="h-48 bg-gray-800 rounded"></div>
             ))}
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function IntelligenceFeedPage() {
 
         {/* Market Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -135,7 +135,7 @@ export default function IntelligenceFeedPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -150,7 +150,7 @@ export default function IntelligenceFeedPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -167,7 +167,7 @@ export default function IntelligenceFeedPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -190,10 +190,10 @@ export default function IntelligenceFeedPage() {
           <Button className="bg-orange-600 hover:bg-orange-700 text-white">
             Overview
           </Button>
-          <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-700">
+          <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-gray-800">
             Platforms
           </Button>
-          <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-700">
+          <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-gray-800">
             Analytics
           </Button>
         </div>
@@ -201,7 +201,7 @@ export default function IntelligenceFeedPage() {
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Ecosystem Overview Chart */}
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardHeader>
               <CardTitle className="text-white">Solana Ecosystem Overview</CardTitle>
             </CardHeader>
@@ -240,7 +240,7 @@ export default function IntelligenceFeedPage() {
           </Card>
 
           {/* Platform Comparison */}
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-black border-slate-700">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-white">Platform Comparison</CardTitle>
@@ -255,7 +255,7 @@ export default function IntelligenceFeedPage() {
                   const leaders = ['WIF', 'POPCAT', 'MEW', 'RENDER', 'RNDR', 'ONDO'];
                   
                   return (
-                    <div key={token.symbol} className="p-4 bg-slate-700/50 rounded-lg">
+                    <div key={token.symbol} className="p-4 bg-gray-800/50 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
@@ -317,7 +317,7 @@ export default function IntelligenceFeedPage() {
         </div>
 
         {/* Live Intelligence Footer */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-slate-700">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -336,7 +336,7 @@ export default function IntelligenceFeedPage() {
                   variant="outline"
                   onClick={fetchData}
                   disabled={loading}
-                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  className="border-slate-600 text-slate-300 hover:bg-gray-800"
                 >
                   <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                   Refresh

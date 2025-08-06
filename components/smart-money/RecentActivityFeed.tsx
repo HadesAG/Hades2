@@ -77,7 +77,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
       'INSTITUTION': 'bg-red-500/20 text-red-300 border-red-500/30',
       'PROJECT_TREASURY': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
     };
-    return colors[category as keyof typeof colors] || 'bg-slate-500/20 text-slate-300';
+    return colors[category as keyof typeof colors] || 'bg-gray-500/20 text-gray-300';
   };
 
   const handleViewTransaction = (signature: string) => {
@@ -87,9 +87,9 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
   if (activities.length === 0) {
     return (
       <div className="text-center py-12">
-        <Activity className="h-16 w-16 text-slate-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-slate-300 mb-2">No Recent Activity</h3>
-        <p className="text-slate-400">
+        <Activity className="h-16 w-16 text-gray-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-gray-300 mb-2">No Recent Activity</h3>
+        <p className="text-gray-400">
           Whale transactions will appear here as they happen
         </p>
       </div>
@@ -100,7 +100,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-white">Recent Whale Activity</h3>
-        <Badge variant="outline" className="text-slate-300">
+        <Badge variant="outline" className="text-gray-300">
           {activities.length} transactions
         </Badge>
       </div>
@@ -109,7 +109,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
         {activities.map((activity) => (
           <div
             key={activity.id}
-            className="p-4 bg-slate-700/50 rounded-lg border border-slate-600 hover:bg-slate-700 transition-colors"
+            className="p-4 bg-gray-800/50 rounded-lg border border-gray-700 hover:bg-gray-800 transition-colors"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-3 flex-1">
@@ -141,8 +141,8 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
                     <span className="text-green-400 font-semibold text-sm">
                       ${activity.usdValue.toLocaleString()}
                     </span>
-                    <span className="text-slate-400 text-xs">•</span>
-                    <span className="text-slate-400 text-xs">
+                    <span className="text-gray-400 text-xs">•</span>
+                    <span className="text-gray-400 text-xs">
                       {formatTimeAgo(activity.timestamp)}
                     </span>
                   </div>
@@ -153,7 +153,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
                 size="sm"
                 variant="ghost"
                 onClick={() => handleViewTransaction(activity.signature)}
-                className="text-slate-400 hover:text-white ml-2"
+                className="text-gray-400 hover:text-white ml-2"
               >
                 <ExternalLink className="h-4 w-4" />
               </Button>
@@ -163,7 +163,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
       </div>
       
       {activities.length > 10 && (
-        <div className="text-center pt-4 border-t border-slate-700">
+        <div className="text-center pt-4 border-t border-gray-800">
           <Button variant="ghost" className="text-orange-400 hover:text-orange-300">
             View All Activity
           </Button>

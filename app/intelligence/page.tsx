@@ -176,7 +176,7 @@ export default function IntelligencePage() {
           {/* Additional platform cards would be mapped here using dynamic data */}
         </div>
         {/* Footer Status */}
-        <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-black rounded-lg">
           <div className="flex items-center">
             <div className="live-indicator mr-2 w-2 h-2 bg-[#2ea043] rounded-full animate-pulse"></div>
             <span className="font-semibold">Live Intelligence</span>

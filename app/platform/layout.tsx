@@ -53,7 +53,7 @@ export default function PlatformLayout({
   // Don't render auth-dependent content until mounted (hydration complete)
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white">Loading...</div>
       </div>
     );
@@ -77,7 +77,7 @@ function AuthenticatedPlatformLayout({
   // Display a loading state while the auth state is loading
   if (!ready) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white">Loading...</div>
       </div>
     );
@@ -86,15 +86,15 @@ function AuthenticatedPlatformLayout({
   // Allow both authenticated and unauthenticated users to access the platform
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex">
+    <div className="min-h-screen bg-black text-white flex">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-950 border-r border-slate-800 flex flex-col">
+      <div className="w-64 bg-black border-r border-gray-800 flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-slate-800">
+        <div className="p-6 border-b border-gray-800">
           <Link href="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold text-orange-500">HADES</div>
           </Link>
-          <p className="text-xs text-slate-400 mt-1">Intelligence Platform</p>
+          <p className="text-xs text-gray-400 mt-1">Intelligence Platform</p>
         </div>
 
         {/* Navigation */}
@@ -111,7 +111,7 @@ function AuthenticatedPlatformLayout({
                 className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                   isActive 
                     ? 'bg-orange-600 text-white' 
-                    : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    : 'text-gray-300 hover:bg-gray-900 hover:text-white'
                 }`}
               >
                 <item.icon className="h-5 w-5" />
@@ -122,7 +122,7 @@ function AuthenticatedPlatformLayout({
         </nav>
 
         {/* Authentication Section */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-gray-800">
           {authenticated ? (
             // Show user info and logout for authenticated users
             <>
@@ -136,14 +136,14 @@ function AuthenticatedPlatformLayout({
                   <p className="text-sm font-medium text-white truncate">
                     {user?.email?.address || 'Wallet User'}
                   </p>
-                  <p className="text-xs text-slate-400">Connected</p>
+                  <p className="text-xs text-gray-400">Connected</p>
                 </div>
               </div>
               <Button
                 onClick={logout}
                 variant="outline"
                 size="sm"
-                className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
+                className="w-full border-gray-600 text-gray-300 hover:bg-gray-900"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Log out
@@ -152,7 +152,7 @@ function AuthenticatedPlatformLayout({
           ) : (
             // Show login button for unauthenticated users
             <div className="text-center">
-              <p className="text-xs text-slate-400 mb-3">Connect to access all features</p>
+              <p className="text-xs text-gray-400 mb-3">Connect to access all features</p>
               <Button
                 onClick={login}
                 className="w-full bg-orange-600 hover:bg-orange-700 text-white"
@@ -169,7 +169,7 @@ function AuthenticatedPlatformLayout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="bg-slate-950 border-b border-slate-800 px-6 py-4">
+        <header className="bg-black border-b border-gray-800 px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold text-white">
@@ -179,12 +179,12 @@ function AuthenticatedPlatformLayout({
                     : pathname.startsWith(item.href)
                 )?.label || 'Intelligence Dashboard'}
               </h1>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-gray-400">
                 Real-time crypto intelligence and market analysis
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-slate-400">
+              <div className="text-sm text-gray-400">
                 Last update: {new Date().toLocaleTimeString()}
               </div>
               {!authenticated && (

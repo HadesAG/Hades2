@@ -62,8 +62,8 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
   if (whales.length === 0) {
     return (
       <div className="text-center py-8">
-        <Wallet className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-        <p className="text-slate-400">No whale wallets found</p>
+        <Wallet className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+        <p className="text-gray-400">No whale wallets found</p>
       </div>
     );
   }
@@ -77,7 +77,7 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
             p-4 rounded-lg border transition-all duration-200 cursor-pointer
             ${selectedWhale === whale.address 
               ? 'bg-orange-500/10 border-orange-500/30 shadow-lg' 
-              : 'bg-slate-700/50 border-slate-600 hover:bg-slate-700 hover:border-slate-500'
+              : 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:border-gray-600'
             }
           `}
           onClick={() => onSelectWhale(selectedWhale === whale.address ? null : whale.address)}
@@ -90,21 +90,21 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
                 </h3>
                 <Badge 
                   variant="outline" 
-                  className={categoryColors[whale.category as keyof typeof categoryColors] || 'bg-slate-500/20 text-slate-300'}
+                  className={categoryColors[whale.category as keyof typeof categoryColors] || 'bg-gray-500/20 text-gray-300'}
                 >
                   {categoryLabels[whale.category as keyof typeof categoryLabels] || whale.category}
                 </Badge>
               </div>
               
               {!compact && (
-                <p className="text-sm text-slate-400 font-mono truncate mb-2">
+                <p className="text-sm text-gray-400 font-mono truncate mb-2">
                   {whale.address}
                 </p>
               )}
               
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-1">
-                  <span className="text-slate-400">Value:</span>
+                  <span className="text-gray-400">Value:</span>
                   <span className="text-green-400 font-semibold">
                     ${whale.totalValue > 1000000 
                       ? `${(whale.totalValue / 1000000).toFixed(1)}M` 
@@ -118,11 +118,11 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
                 {whale._count && (
                   <>
                     <div className="flex items-center gap-1">
-                      <span className="text-slate-400">Holdings:</span>
+                      <span className="text-gray-400">Holdings:</span>
                       <span className="text-blue-400">{whale._count.holdings}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="text-slate-400">Txs:</span>
+                      <span className="text-gray-400">Txs:</span>
                       <span className="text-purple-400">{whale._count.transactions}</span>
                     </div>
                   </>
@@ -145,7 +145,7 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
                 size="sm"
                 variant="ghost"
                 onClick={(e) => handleViewOnExplorer(whale.address, e)}
-                className="text-slate-400 hover:text-slate-300 hover:bg-slate-600"
+                className="text-gray-400 hover:text-gray-300 hover:bg-gray-800"
               >
                 <ExternalLink className="h-4 w-4" />
               </Button>

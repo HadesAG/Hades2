@@ -65,10 +65,10 @@ export default function Dashboard() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-slate-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-800 rounded mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-32 bg-slate-700 rounded"></div>
+              <div key={i} className="h-32 bg-gray-800 rounded"></div>
             ))}
           </div>
         </div>
@@ -104,13 +104,13 @@ export default function Dashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Alpha Signals */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">24 new today</p>
+                <p className="text-sm text-gray-400 mb-1">24 new today</p>
                 <p className="text-2xl font-bold text-white">Alpha Signals</p>
-                <p className="text-sm text-slate-300">New token discoveries</p>
+                <p className="text-sm text-gray-300">New token discoveries</p>
               </div>
               <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center">
                 <Target className="h-6 w-6 text-white" />
@@ -120,13 +120,13 @@ export default function Dashboard() {
         </Card>
 
         {/* Cross-Chain Intel */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">12 chains active</p>
+                <p className="text-sm text-gray-400 mb-1">12 chains active</p>
                 <p className="text-2xl font-bold text-white">Cross-Chain Intel</p>
-                <p className="text-sm text-slate-300">Multi-chain monitoring</p>
+                <p className="text-sm text-gray-300">Multi-chain monitoring</p>
               </div>
               <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
                 <TrendingUp className="h-6 w-6 text-white" />
@@ -136,13 +136,13 @@ export default function Dashboard() {
         </Card>
 
         {/* DeFi Alerts */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">8 alerts pending</p>
+                <p className="text-sm text-gray-400 mb-1">8 alerts pending</p>
                 <p className="text-2xl font-bold text-white">DeFi Alerts</p>
-                <p className="text-sm text-slate-300">Protocol updates</p>
+                <p className="text-sm text-gray-300">Protocol updates</p>
               </div>
               <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center">
                 <Shield className="h-6 w-6 text-white" />
@@ -152,13 +152,13 @@ export default function Dashboard() {
         </Card>
 
         {/* Market Intelligence */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">156 signals</p>
+                <p className="text-sm text-gray-400 mb-1">156 signals</p>
                 <p className="text-2xl font-bold text-white">Market Intelligence</p>
-                <p className="text-sm text-slate-300">Trading insights</p>
+                <p className="text-sm text-gray-300">Trading insights</p>
               </div>
               <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
                 <BarChart3 className="h-6 w-6 text-white" />
@@ -168,13 +168,13 @@ export default function Dashboard() {
         </Card>
 
         {/* Flash Intelligence */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">Live updates</p>
+                <p className="text-sm text-gray-400 mb-1">Live updates</p>
                 <p className="text-2xl font-bold text-white">Flash Intelligence</p>
-                <p className="text-sm text-slate-300">Real-time feeds</p>
+                <p className="text-sm text-gray-300">Real-time feeds</p>
               </div>
               <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
                 <Zap className="h-6 w-6 text-white" />
@@ -184,13 +184,13 @@ export default function Dashboard() {
         </Card>
 
         {/* Deep Analytics */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">42 reports</p>
+                <p className="text-sm text-gray-400 mb-1">42 reports</p>
                 <p className="text-2xl font-bold text-white">Deep Analytics</p>
-                <p className="text-sm text-slate-300">Advanced metrics</p>
+                <p className="text-sm text-gray-300">Advanced metrics</p>
               </div>
               <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <BarChart3 className="h-6 w-6 text-white" />
@@ -200,13 +200,13 @@ export default function Dashboard() {
         </Card>
 
         {/* Risk Intelligence */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">3 warnings</p>
+                <p className="text-sm text-gray-400 mb-1">3 warnings</p>
                 <p className="text-2xl font-bold text-white">Risk Intelligence</p>
-                <p className="text-sm text-slate-300">Security monitoring</p>
+                <p className="text-sm text-gray-300">Security monitoring</p>
               </div>
               <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
                 <AlertTriangle className="h-6 w-6 text-white" />
@@ -216,13 +216,13 @@ export default function Dashboard() {
         </Card>
 
         {/* New Token Radar */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-black border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-400 mb-1">67 detected</p>
+                <p className="text-sm text-gray-400 mb-1">67 detected</p>
                 <p className="text-2xl font-bold text-white">New Token Radar</p>
-                <p className="text-sm text-slate-300">Fresh launches</p>
+                <p className="text-sm text-gray-300">Fresh launches</p>
               </div>
               <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center">
                 <Radar className="h-6 w-6 text-white" />
@@ -235,33 +235,33 @@ export default function Dashboard() {
       {/* Market Overview Stats */}
       {marketStats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <Card className="bg-slate-800 border-slate-700 text-center">
+          <Card className="bg-black border-gray-800 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-orange-500 mb-2">
                 {marketStats.activeTokens?.toLocaleString() || '1,247'}
               </div>
-              <div className="text-sm text-slate-300">Tokens Tracked</div>
+              <div className="text-sm text-gray-300">Tokens Tracked</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700 text-center">
+          <Card className="bg-black border-gray-800 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-green-500 mb-2">89</div>
-              <div className="text-sm text-slate-300">Active Signals</div>
+              <div className="text-sm text-gray-300">Active Signals</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700 text-center">
+          <Card className="bg-black border-gray-800 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-blue-500 mb-2">12</div>
-              <div className="text-sm text-slate-300">Chains Monitored</div>
+              <div className="text-sm text-gray-300">Chains Monitored</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700 text-center">
+          <Card className="bg-black border-gray-800 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-purple-500 mb-2">24h</div>
-              <div className="text-sm text-slate-300">Live Monitoring</div>
+              <div className="text-sm text-gray-300">Live Monitoring</div>
             </CardContent>
           </Card>
         </div>
