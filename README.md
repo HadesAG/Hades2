@@ -14,34 +14,34 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 
 ### 🎮 Interactive 3D Experience
 
-- **🌌 Immersive Landing** - Interactive Spline 3D scene with real-time user interaction
-- **✨ Dynamic Animations** - Click, hover, and programmatic animation triggers
-- **🎯 Visual Feedback** - Responsive object scaling and cursor interactions
-- **🚀 Lazy Loading** - Optimized 3D scene loading with intersection observers
+- **Immersive Landing** - Interactive Spline 3D scene with real-time user interaction
+- **Dynamic Animations** - Click, hover, and programmatic animation triggers
+- **Visual Feedback** - Responsive object scaling and cursor interactions
+- **Lazy Loading** - Optimized 3D scene loading with intersection observers
 
 ### 🧠 Intelligence Layer
 
-- **📊 Real-time Market Data** - Live cryptocurrency prices and market statistics
-- **🔥 Alpha Signals** - AI-powered trading signals with confidence ratings
+- **Real-time Market Data** - Live cryptocurrency prices and market statistics
+- **Alpha Signals** - AI-powered trading signals with confidence ratings
 - **👁️ Intelligence Feed** - Curated market intelligence and insights
 - **🔍 Real-time Scanning** - Continuous token emergence monitoring across chains
 - **🛡️ Risk Verification** - Advanced algorithms for token legitimacy assessment
 
 ### 🛠️ Platform Features
 
-- **⭐ Watchlist Management** - Track your favorite tokens with custom alerts
-- **🔔 Smart Alerts** - Price, volume, and percentage change notifications
-- **📈 Market Analysis** - Sector performance and dominance charts
-- **🔍 Token Search** - Comprehensive token discovery and analysis
-- **⚙️ User Settings** - Personalized preferences and configurations
-- **🔐 Secure Authentication** - Privy-powered wallet and email authentication
+- **Watchlist Management** - Track your favorite tokens with custom alerts
+- **Smart Alerts** - Price, volume, and percentage change notifications
+- **Market Analysis** - Sector performance and dominance charts
+- **Token Search** - Comprehensive token discovery and analysis
+- **User Settings** - Personalized preferences and configurations
+- **Secure Authentication** - Privy-powered wallet and email authentication
 
 ### 🌐 Cross-Chain Support
 
-- **⚡ Solana** - Active: High-speed monitoring and Jupiter integration
-- **🔵 Base** - Planned (Q4 '25): Layer 2 scaling solutions
-- **🟣 Ethereum** - Planned (Q4 '25): DeFi ecosystem intelligence
-- **🌈 Multi-Chain** - Planned (Q1 '26): Unified intelligence across blockchain networks
+- **Solana** - Active: High-speed monitoring and Jupiter integration
+- **Base** - Planned (Q4 '25): Layer 2 scaling solutions
+- **Ethereum** - Planned (Q4 '25): DeFi ecosystem intelligence
+- **Multi-Chain** - Planned (Q1 '26): Unified intelligence across blockchain networks
 
 ## 🛠️ Tech Stack
 
@@ -166,7 +166,7 @@ bun run dev
 
 The application will be available at `http://localhost:3000`
 
-🎮 **Experience the 3D Interface**: The landing page features an interactive Spline 3D scene that responds to mouse interactions and includes programmatic animation controls.
+🎮 **3D Interface**: The landing page features an interactive Spline 3D scene that responds to mouse interactions and includes programmatic animation controls.
 
 ## 🔧 Configuration
 
