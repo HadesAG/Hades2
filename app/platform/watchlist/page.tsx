@@ -4,6 +4,7 @@
 export const dynamic = 'force-dynamic';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -293,7 +294,13 @@ export default function WatchlistPage() {
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
                               {token.image ? (
-                                <img src={token.image} alt={token.name} className="w-8 h-8 rounded-full" />
+                                <Image 
+                                  src={token.image} 
+                                  alt={token.name} 
+                                  width={32} 
+                                  height={32} 
+                                  className="w-8 h-8 rounded-full" 
+                                />
                               ) : (
                                 <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
                                   <span className="text-white text-xs font-bold">{token.symbol.slice(0, 2).toUpperCase()}</span>

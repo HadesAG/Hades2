@@ -18,6 +18,7 @@ import {
   Activity
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const dataAggregator = new DataAggregator();
 
@@ -143,7 +144,13 @@ export default function MarketAnalysisPage() {
                   <tr key={index} className="hover:bg-[#23283a] transition">
                     <td className="px-4 py-3 text-white font-semibold flex items-center gap-2">
                       {token.image ? (
-                        <img src={token.image} alt={token.name} className="w-8 h-8 rounded-full" />
+                        <Image 
+                          src={token.image} 
+                          alt={token.name} 
+                          width={32} 
+                          height={32} 
+                          className="w-8 h-8 rounded-full" 
+                        />
                       ) : (
                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                           <span className="text-white text-xs font-bold">

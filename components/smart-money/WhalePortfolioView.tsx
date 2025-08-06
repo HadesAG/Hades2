@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -64,11 +64,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchPortfolio();
-  }, [walletAddress]);
-
-  const fetchPortfolio = async () => {
+  const fetchPortfolio = useCallback(async () => {
     if (!walletAddress) return;
     
     setLoading(true);
@@ -88,7 +84,11 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [walletAddress]);
+
+  useEffect(() => {
+    fetchPortfolio();
+  }, [fetchPortfolio]);
 
   const formatTimeAgo = (timestamp: Date) => {
     const now = new Date();

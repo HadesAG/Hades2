@@ -3,7 +3,8 @@
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -60,10 +61,10 @@ export default function SearchTokensPage() {
   const [trendingTokens, setTrendingTokens] = useState<TokenResult[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<'all' | 'verified' | 'new' | 'defi'>('all');
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce(async (query: string) => {
+  // Search function
+  const performSearch = useCallback(async (query: string) => {
       if (!query.trim()) {
         setSearchState(prev => ({ ...prev, results: [], hasSearched: false }));
         return;
@@ -137,9 +138,17 @@ export default function SearchTokensPage() {
           hasSearched: true
         }));
       }
-    }, 500),
-    []
-  );
+  }, []);
+
+  // Debounced search function - properly implemented with useCallback
+  const debouncedSearch = useCallback((query: string) => {
+    // Clear any existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    // Set new timeout
+    searchTimeoutRef.current = setTimeout(() => performSearch(query), 500);
+  }, [performSearch]);
 
   // Load trending tokens on mount
   useEffect(() => {
@@ -316,9 +325,11 @@ export default function SearchTokensPage() {
                   {/* Token Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <img 
+                      <Image 
                         src={token.image} 
                         alt={token.name}
+                        width={40}
+                        height={40}
                         className="w-10 h-10 rounded-full"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = `https://via.placeholder.com/40/ff6b35/ffffff?text=${token.symbol.slice(0, 2)}`;

@@ -27,28 +27,39 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  // Handle potential missing Privy context gracefully
-  let privyData;
-  let solanaWalletsData;
+  const [mounted, setMounted] = useState(false);
   
-  try {
-    privyData = usePrivy();
-    solanaWalletsData = useSolanaWallets();
-  } catch (error) {
-    // During SSR or when Privy isn't initialized, provide fallback values
-    privyData = {
-      ready: false,
-      authenticated: false,
-      user: null,
-      login: () => {},
-      logout: () => {},
-      exportWallet: undefined
-    };
-    solanaWalletsData = { wallets: [] };
+  // Only render with Privy hooks after component mounts (client-side)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // During SSR or before mount, provide fallback context
+  if (!mounted) {
+    return (
+      <AuthContext.Provider value={{
+        ready: false,
+        authenticated: false,
+        user: null,
+        login: () => {},
+        logout: () => {},
+        solanaWallet: null,
+        solanaAddress: null,
+        isEmbeddedWallet: false,
+        exportWallet: undefined
+      }}>
+        {children}
+      </AuthContext.Provider>
+    );
   }
   
-  const { ready, authenticated, user, login, logout, exportWallet } = privyData;
-  const { wallets: solanaWallets } = solanaWalletsData;
+  // Client-side rendering with actual Privy hooks
+  return <AuthProviderClient>{children}</AuthProviderClient>;
+}
+
+function AuthProviderClient({ children }: { children: React.ReactNode }) {
+  const { ready, authenticated, user, login, logout, exportWallet } = usePrivy();
+  const { wallets: solanaWallets } = useSolanaWallets();
   const [isReady, setIsReady] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
