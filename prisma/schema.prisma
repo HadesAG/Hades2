@@ -119,3 +119,74 @@ enum AlertStatus {
   TRIGGERED
   PAUSED
 }
+
+// Whale tracking models for Smart Money Tracker
+model WhaleWallet {
+  id          String   @id @default(cuid())
+  address     String   @unique
+  label       String   // "Alameda Research", "Jump Trading", etc.
+  category    WhaleCategoryType
+  totalValue  Float    @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  transactions WhaleTransaction[]
+  holdings     WhaleHolding[]
+  
+  @@index([category])
+  @@index([isActive])
+  @@index([totalValue])
+}
+
+model WhaleTransaction {
+  id            String   @id @default(cuid())
+  walletAddress String
+  tokenAddress  String
+  tokenSymbol   String
+  transactionType TransactionType
+  amount        Float
+  usdValue      Float
+  timestamp     DateTime
+  signature     String   @unique
+  
+  wallet        WhaleWallet @relation(fields: [walletAddress], references: [address])
+  
+  @@index([walletAddress])
+  @@index([tokenSymbol])
+  @@index([timestamp])
+  @@index([transactionType])
+  @@index([usdValue])
+}
+
+model WhaleHolding {
+  id            String   @id @default(cuid())
+  walletAddress String
+  tokenAddress  String
+  tokenSymbol   String
+  balance       Float
+  usdValue      Float
+  lastUpdated   DateTime @default(now())
+  
+  wallet        WhaleWallet @relation(fields: [walletAddress], references: [address])
+  
+  @@unique([walletAddress, tokenAddress])
+  @@index([walletAddress])
+  @@index([tokenSymbol])
+  @@index([usdValue])
+}
+
+enum WhaleCategoryType {
+  VC_FUND
+  HEDGE_FUND
+  MARKET_MAKER
+  KNOWN_TRADER
+  INSTITUTION
+  PROJECT_TREASURY
+}
+
+enum TransactionType {
+  BUY
+  SELL
+  TRANSFER_IN
+  TRANSFER_OUT
+}

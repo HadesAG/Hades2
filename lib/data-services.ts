@@ -357,4 +357,21 @@ export class DataAggregator {
       throw error;
     }
   }
+
+  async getTokenPrice(tokenAddress: string): Promise<number> {
+    try {
+      // Try Birdeye first for Solana token prices
+      const tokenData = await this.birdeye.getTokenOverview(tokenAddress);
+      if (tokenData?.price) {
+        return tokenData.price;
+      }
+      
+      // Fallback to Jupiter for common tokens
+      const jupiterPrices = await this.jupiter.getSolanaTokenPrices([tokenAddress]);
+      return jupiterPrices[tokenAddress] || 0;
+    } catch (error) {
+      console.error(`Failed to get token price for ${tokenAddress}:`, error);
+      return 0;
+    }
+  }
 }

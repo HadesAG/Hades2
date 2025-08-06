@@ -10,8 +10,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataAggregator, AlphaSignal } from '@/lib/data-services';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { WhaleTracker } from '@/components/smart-money/WhaleTracker';
 import { 
   Search, 
   RefreshCw, 
@@ -19,7 +21,8 @@ import {
   TrendingDown, 
   Target,
   Clock,
-  BarChart3
+  BarChart3,
+  Fish
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -107,8 +110,20 @@ export default function AlphaSignalsPage() {
 
   return (
     <>
-      <div className="flex gap-6">
-        <div className="flex-1 space-y-6">
+      <Tabs defaultValue="alpha-signals" className="space-y-6">
+        <TabsList className="bg-slate-800 border-slate-700">
+          <TabsTrigger value="alpha-signals" className="data-[state=active]:bg-orange-600">
+            Alpha Signals
+          </TabsTrigger>
+          <TabsTrigger value="smart-money" className="data-[state=active]:bg-orange-600">
+            <Fish className="h-4 w-4 mr-2" />
+            Smart Money
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="alpha-signals" className="space-y-6">
+          <div className="flex gap-6">
+            <div className="flex-1 space-y-6">
         {/* Header, stats, filters, signal cards, and footer stats go here, mapped to dynamic data as in the previous integration. */}
         {/* Use the alpha_signals.html layout as a reference for structure and style. */}
         {/* Header Stats */}
@@ -359,6 +374,13 @@ export default function AlphaSignalsPage() {
         </div>
       </div>
       <Script src="https://widget.rss.app/v1/feed.js" type="text/javascript" async />
+      </TabsContent>
+
+      <TabsContent value="smart-money" className="space-y-6">
+        <WhaleTracker />
+      </TabsContent>
+      
+      </Tabs>
     </>
   );
 }
