@@ -92,7 +92,7 @@ function AuthenticatedPlatformLayout({
         {/* Logo */}
         <div className="p-6 border-b border-gray-800">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-orange-500">HADES</div>
+            <div className="text-2xl font-bold text-red-500">HADES</div>
           </Link>
           <p className="text-xs text-gray-400 mt-1">Intelligence Platform</p>
         </div>
@@ -110,7 +110,7 @@ function AuthenticatedPlatformLayout({
                 href={item.href}
                 className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                   isActive 
-                    ? 'bg-orange-600 text-white' 
+                    ? 'bg-red-600 text-white' 
                     : 'text-gray-300 hover:bg-gray-900 hover:text-white'
                 }`}
               >
@@ -155,7 +155,7 @@ function AuthenticatedPlatformLayout({
               <p className="text-xs text-gray-400 mb-3">Connect to access all features</p>
               <Button
                 onClick={login}
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                className="w-full bg-red-600 hover:bg-red-700 text-white"
                 size="sm"
               >
                 <Wallet className="h-4 w-4 mr-2" />
@@ -190,7 +190,7 @@ function AuthenticatedPlatformLayout({
               {!authenticated && (
                 <Button
                   onClick={login}
-                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2"
+                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2"
                   size="sm"
                 >
                   <Wallet className="h-4 w-4 mr-2" />

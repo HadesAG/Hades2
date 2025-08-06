@@ -34,7 +34,7 @@ const categoryColors = {
   'VC_FUND': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   'HEDGE_FUND': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
   'MARKET_MAKER': 'bg-green-500/20 text-green-300 border-green-500/30',
-  'KNOWN_TRADER': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
+  'KNOWN_TRADER': 'bg-red-500/20 text-red-300 border-red-500/30',
   'INSTITUTION': 'bg-red-500/20 text-red-300 border-red-500/30',
   'PROJECT_TREASURY': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
 };
@@ -76,7 +76,7 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
           className={`
             p-4 rounded-lg border transition-all duration-200 cursor-pointer
             ${selectedWhale === whale.address 
-              ? 'bg-orange-500/10 border-orange-500/30 shadow-lg' 
+              ? 'bg-red-500/10 border-red-500/30 shadow-lg' 
               : 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:border-gray-600'
             }
           `}
@@ -135,7 +135,7 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
                 size="sm"
                 variant="ghost"
                 onClick={(e) => handleViewPortfolio(whale.address, e)}
-                className="text-orange-400 hover:text-orange-300 hover:bg-orange-500/10"
+                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
               >
                 <Eye className="h-4 w-4" />
                 {!compact && <span className="ml-1">View</span>}
@@ -153,8 +153,8 @@ export function WhaleList({ whales, selectedWhale, onSelectWhale, compact = fals
           </div>
           
           {selectedWhale === whale.address && (
-            <div className="mt-3 pt-3 border-t border-orange-500/20">
-              <div className="flex items-center gap-2 text-sm text-orange-400">
+            <div className="mt-3 pt-3 border-t border-red-500/20">
+              <div className="flex items-center gap-2 text-sm text-red-400">
                 <TrendingUp className="h-4 w-4" />
                 <span>Portfolio details loading...</span>
               </div>

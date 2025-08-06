@@ -133,8 +133,8 @@ function LazySplineScene() {
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center">
           <div className="text-center space-y-4">
-            <div className="w-16 h-16 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin mx-auto"></div>
-            <div className="text-orange-500 font-semibold">Preparing 3D Experience...</div>
+            <div className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mx-auto"></div>
+            <div className="text-red-500 font-semibold">Preparing 3D Experience...</div>
           </div>
         </div>
       )}
@@ -162,7 +162,7 @@ export default function HomePage() {
         {/* Space Background */}
         <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900" style={{ top: '48px' }}>
         {/* Radial gradients */}
-        <div className="absolute inset-0 bg-gradient-radial from-orange-500/10 via-transparent to-transparent" style={{
+        <div className="absolute inset-0 bg-gradient-radial from-red-500/10 via-transparent to-transparent" style={{
           background: `radial-gradient(ellipse at center, rgba(20, 20, 20, 0.8) 0%, rgba(8, 8, 8, 1) 70%),
                       radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
                       radial-gradient(circle at 80% 20%, rgba(255, 235, 59, 0.05) 0%, transparent 50%),
@@ -229,15 +229,15 @@ export default function HomePage() {
       <section className="relative z-10 px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="features-title text-center fade-in-up">
-            <span className="orange-text">Intelligence</span> <span className="white-text">Features</span>
+            <span className="red-text">Intelligence</span> <span className="white-text">Features</span>
           </h2>
           
           {/* Feature Grid */}
           <div className="grid md:grid-cols-3 gap-8 mt-16">
             {/* Real-time Scanning */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
-              <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-6">
-                <Radar className="w-6 h-6 text-orange-500" />
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-red-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6">
+                <Radar className="w-6 h-6 text-red-500" />
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Real-time Scanning</h3>
               <p className="text-gray-400 leading-relaxed">
@@ -246,7 +246,7 @@ export default function HomePage() {
             </div>
             
             {/* Risk Assessment */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-red-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
               <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-6">
                 <ShieldCheck className="w-6 h-6 text-yellow-500" />
               </div>
@@ -257,7 +257,7 @@ export default function HomePage() {
             </div>
             
             {/* Alpha Intelligence */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-red-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
               <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6">
                 <Zap className="w-6 h-6 text-red-500" />
               </div>
@@ -275,7 +275,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-2xl p-12">
             <h3 className="text-3xl font-bold text-white mb-6">
-              Seamless <span className="text-orange-500">Jupiter Integration</span>
+              Seamless <span className="text-red-500">Jupiter Integration</span>
             </h3>
             <p className="text-xl text-gray-300 leading-relaxed mb-8">
               HADES intelligence flows directly into your Jupiter swap interface, providing contextual insights without disrupting your trading flow.
@@ -343,7 +343,7 @@ export default function HomePage() {
       <section className="relative z-10 px-6 py-32">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Ready to Access the <span className="text-orange-500 glow-orange">Underworld</span>?
+            Ready to Access the <span className="text-red-500 glow-red">Underworld</span>?
           </h2>
           <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
             Join the intelligence network that moves beneath the surface of the markets
@@ -380,11 +380,11 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-6">Platform</h4>
               <ul className="space-y-3">
-                <li><Link href="/platform/intelligence-feed" className="text-gray-400 hover:text-orange-500 transition-colors">Intelligence Hub</Link></li>
-                <li><Link href="/platform/search-tokens" className="text-gray-400 hover:text-orange-500 transition-colors">Token Search</Link></li>
-                <li><Link href="/platform/alpha-signals" className="text-gray-400 hover:text-orange-500 transition-colors">Alpha Feed</Link></li>
-                <li><Link href="/platform" className="text-gray-400 hover:text-orange-500 transition-colors">Dashboard</Link></li>
-                <li><Link href="/platform/market-analysis" className="text-gray-400 hover:text-orange-500 transition-colors">Market Analysis</Link></li>
+                <li><Link href="/platform/intelligence-feed" className="text-gray-400 hover:text-red-500 transition-colors">Intelligence Hub</Link></li>
+                <li><Link href="/platform/search-tokens" className="text-gray-400 hover:text-red-500 transition-colors">Token Search</Link></li>
+                <li><Link href="/platform/alpha-signals" className="text-gray-400 hover:text-red-500 transition-colors">Alpha Feed</Link></li>
+                <li><Link href="/platform" className="text-gray-400 hover:text-red-500 transition-colors">Dashboard</Link></li>
+                <li><Link href="/platform/market-analysis" className="text-gray-400 hover:text-red-500 transition-colors">Market Analysis</Link></li>
               </ul>
             </div>
             
@@ -392,10 +392,10 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-6">Resources</h4>
               <ul className="space-y-3">
-                <li><Link href="#documentation" className="text-gray-400 hover:text-orange-500 transition-colors">Documentation</Link></li>
-                <li><Link href="#api-reference" className="text-gray-400 hover:text-orange-500 transition-colors">API Reference</Link></li>
-                <li><Link href="#support-center" className="text-gray-400 hover:text-orange-500 transition-colors">Support Center</Link></li>
-                <li><Link href="#system-status" className="text-gray-400 hover:text-orange-500 transition-colors">System Status</Link></li>
+                <li><Link href="#documentation" className="text-gray-400 hover:text-red-500 transition-colors">Documentation</Link></li>
+                <li><Link href="#api-reference" className="text-gray-400 hover:text-red-500 transition-colors">API Reference</Link></li>
+                <li><Link href="#support-center" className="text-gray-400 hover:text-red-500 transition-colors">Support Center</Link></li>
+                <li><Link href="#system-status" className="text-gray-400 hover:text-red-500 transition-colors">System Status</Link></li>
               </ul>
             </div>
             
@@ -403,10 +403,10 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-6">Community</h4>
               <ul className="space-y-3">
-                <li><Link href="#telegram" className="text-gray-400 hover:text-orange-500 transition-colors">Telegram</Link></li>
-                <li><Link href="#twitter" className="text-gray-400 hover:text-orange-500 transition-colors">Twitter</Link></li>
-                <li><Link href="#discord" className="text-gray-400 hover:text-orange-500 transition-colors">Discord</Link></li>
-                <li><Link href="#github" className="text-gray-400 hover:text-orange-500 transition-colors">GitHub</Link></li>
+                <li><Link href="#telegram" className="text-gray-400 hover:text-red-500 transition-colors">Telegram</Link></li>
+                <li><Link href="#twitter" className="text-gray-400 hover:text-red-500 transition-colors">Twitter</Link></li>
+                <li><Link href="#discord" className="text-gray-400 hover:text-red-500 transition-colors">Discord</Link></li>
+                <li><Link href="#github" className="text-gray-400 hover:text-red-500 transition-colors">GitHub</Link></li>
               </ul>
             </div>
           </div>
@@ -418,9 +418,9 @@ export default function HomePage() {
             </p>
             
             <div className="flex space-x-6 text-sm">
-              <Link href="#privacy" className="text-gray-500 hover:text-orange-500 transition-colors">Privacy Policy</Link>
-              <Link href="#terms" className="text-gray-500 hover:text-orange-500 transition-colors">Terms of Service</Link>
-              <Link href="#cookies" className="text-gray-500 hover:text-orange-500 transition-colors">Cookie Policy</Link>
+              <Link href="#privacy" className="text-gray-500 hover:text-red-500 transition-colors">Privacy Policy</Link>
+              <Link href="#terms" className="text-gray-500 hover:text-red-500 transition-colors">Terms of Service</Link>
+              <Link href="#cookies" className="text-gray-500 hover:text-red-500 transition-colors">Cookie Policy</Link>
       </div>
           </div>
         </div>

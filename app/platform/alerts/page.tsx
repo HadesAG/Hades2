@@ -154,7 +154,7 @@ export default function AlertsPage() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-white">Price Alerts</h2>
           <Link href="/platform/watchlist">
-            <Button className="bg-orange-600 hover:bg-orange-700">
+            <Button className="bg-red-600 hover:bg-red-700">
               <Plus className="h-4 w-4 mr-2" />
               Create Alert
             </Button>
@@ -192,9 +192,9 @@ export default function AlertsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-slate-400 text-sm">Triggered</p>
-                  <p className="text-2xl font-bold text-orange-500">{triggeredAlerts}</p>
+                  <p className="text-2xl font-bold text-red-500">{triggeredAlerts}</p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-orange-500" />
+                <AlertTriangle className="h-8 w-8 text-red-500" />
               </div>
             </CardContent>
           </Card>
@@ -234,7 +234,7 @@ export default function AlertsPage() {
                     <tr>
                       <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
                         No alerts set up yet. 
-                        <Link href="/platform/watchlist" className="text-orange-500 hover:underline ml-1">
+                        <Link href="/platform/watchlist" className="text-red-500 hover:underline ml-1">
                           Add tokens to your watchlist to create alerts!
                         </Link>
                       </td>
@@ -244,7 +244,7 @@ export default function AlertsPage() {
                       const currentValue = getCurrentValue(alert);
                       const statusColorMap: Record<string, string> = {
                         'ACTIVE': 'text-green-500 bg-green-500/10',
-                        'TRIGGERED': 'text-orange-500 bg-orange-500/10',
+                        'TRIGGERED': 'text-red-500 bg-red-500/10',
                         'PAUSED': 'text-slate-400 bg-slate-400/10'
                       };
                       const statusColor = statusColorMap[alert.status] || 'text-slate-400 bg-slate-400/10';

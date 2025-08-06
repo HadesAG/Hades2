@@ -173,7 +173,7 @@ export default function WatchlistPage() {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-white">Your Watchlist</h2>
           <Link href="/platform/search-tokens">
-            <Button className="bg-orange-600 hover:bg-orange-700">
+            <Button className="bg-red-600 hover:bg-red-700">
               <Plus className="h-4 w-4 mr-2" />
               Add Token
             </Button>
@@ -189,7 +189,7 @@ export default function WatchlistPage() {
                   <p className="text-gray-400 text-sm">Total Tokens</p>
                   <p className="text-2xl font-bold text-white">{totalTokens}</p>
                 </div>
-                <Star className="h-8 w-8 text-orange-500" />
+                <Star className="h-8 w-8 text-red-500" />
               </div>
             </CardContent>
           </Card>
@@ -275,7 +275,7 @@ export default function WatchlistPage() {
                     <tr>
                       <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
                         No tokens in your watchlist yet. 
-                        <Link href="/platform/search-tokens" className="text-orange-500 hover:underline ml-1">
+                        <Link href="/platform/search-tokens" className="text-red-500 hover:underline ml-1">
                           Add some tokens to get started!
                         </Link>
                       </td>

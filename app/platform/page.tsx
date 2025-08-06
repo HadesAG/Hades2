@@ -79,7 +79,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Live Alpha Intelligence Banner */}
-      <Card className="bg-gradient-to-r from-orange-600 to-red-600 border-0 text-white">
+      <Card className="bg-gradient-to-r from-red-600 to-red-700 border-0 text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -112,7 +112,7 @@ export default function Dashboard() {
                 <p className="text-2xl font-bold text-white">Alpha Signals</p>
                 <p className="text-sm text-gray-300">New token discoveries</p>
               </div>
-              <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
                 <Target className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <Card className="bg-black border-gray-800 text-center">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-orange-500 mb-2">
+              <div className="text-3xl font-bold text-red-500 mb-2">
                 {marketStats.activeTokens?.toLocaleString() || '1,247'}
               </div>
               <div className="text-sm text-gray-300">Tokens Tracked</div>

@@ -208,7 +208,7 @@ export default function SettingsPage() {
             <Button 
               onClick={saveSettings} 
               disabled={saving}
-              className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50"
+              className="bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
             >
               <Save className="h-4 w-4 mr-2" />
               {saving ? 'Saving...' : 'Save Settings'}
@@ -408,7 +408,7 @@ export default function SettingsPage() {
           <Button 
             onClick={saveSettings} 
             disabled={saving}
-            className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Save className="h-4 w-4 mr-2" />
             {saving ? 'Saving...' : 'Save All Settings'}

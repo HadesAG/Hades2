@@ -245,10 +245,10 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
       {/* Portfolio Details */}
       <Tabs defaultValue="holdings" className="space-y-4">
         <TabsList className="bg-gray-800 border-gray-700">
-          <TabsTrigger value="holdings" className="data-[state=active]:bg-orange-500">
+          <TabsTrigger value="holdings" className="data-[state=active]:bg-red-500">
             Holdings
           </TabsTrigger>
-          <TabsTrigger value="activity" className="data-[state=active]:bg-orange-500">
+          <TabsTrigger value="activity" className="data-[state=active]:bg-red-500">
             Recent Activity
           </TabsTrigger>
         </TabsList>
@@ -263,7 +263,7 @@ export function WhalePortfolioView({ walletAddress }: WhalePortfolioViewProps) {
                 {portfolio.topPositions.map((holding) => (
                   <div key={holding.tokenAddress} className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
                         <span className="text-sm font-bold text-white">
                           {holding.tokenSymbol.charAt(0)}
                         </span>

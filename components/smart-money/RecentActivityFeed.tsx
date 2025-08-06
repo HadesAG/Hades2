@@ -73,7 +73,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
       'VC_FUND': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
       'HEDGE_FUND': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
       'MARKET_MAKER': 'bg-green-500/20 text-green-300 border-green-500/30',
-      'KNOWN_TRADER': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
+      'KNOWN_TRADER': 'bg-red-500/20 text-red-300 border-red-500/30',
       'INSTITUTION': 'bg-red-500/20 text-red-300 border-red-500/30',
       'PROJECT_TREASURY': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
     };
@@ -164,7 +164,7 @@ export function RecentActivityFeed({ activities }: RecentActivityFeedProps) {
       
       {activities.length > 10 && (
         <div className="text-center pt-4 border-t border-gray-800">
-          <Button variant="ghost" className="text-orange-400 hover:text-orange-300">
+          <Button variant="ghost" className="text-red-400 hover:text-red-300">
             View All Activity
           </Button>
         </div>

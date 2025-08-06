@@ -148,7 +148,7 @@ export function WhaleTracker() {
         <Button 
           onClick={fetchWhaleData} 
           disabled={refreshing}
-          className="bg-orange-600 hover:bg-orange-700 text-white"
+          className="bg-red-600 hover:bg-red-700 text-white"
         >
           <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh Data
@@ -161,10 +161,10 @@ export function WhaleTracker() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-orange-500">{totalWhales}</p>
+                <p className="text-2xl font-bold text-red-500">{totalWhales}</p>
                 <p className="text-sm text-gray-300">Total Whales</p>
               </div>
-              <Wallet className="h-8 w-8 text-orange-500" />
+              <Wallet className="h-8 w-8 text-red-500" />
             </div>
           </CardContent>
         </Card>
@@ -211,16 +211,16 @@ export function WhaleTracker() {
       {/* Main Content */}
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="bg-black border-gray-800">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="overview" className="data-[state=active]:bg-red-600">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="whales" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="whales" className="data-[state=active]:bg-red-600">
             Whale List
           </TabsTrigger>
-          <TabsTrigger value="alerts" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="alerts" className="data-[state=active]:bg-red-600">
             Live Alerts
           </TabsTrigger>
-          <TabsTrigger value="top-movers" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="top-movers" className="data-[state=active]:bg-red-600">
             Top Movers
           </TabsTrigger>
         </TabsList>
@@ -315,7 +315,7 @@ export function WhaleTracker() {
                   {topMovers.map((mover, index) => (
                     <div key={mover.token} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-sm font-bold text-white">
+                        <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold text-white">
                           {index + 1}
                         </div>
                         <div>

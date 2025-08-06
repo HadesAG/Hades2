@@ -112,10 +112,10 @@ export default function AlphaSignalsPage() {
     <>
       <Tabs defaultValue="alpha-signals" className="space-y-6">
         <TabsList className="bg-slate-800 border-slate-700">
-          <TabsTrigger value="alpha-signals" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="alpha-signals" className="data-[state=active]:bg-red-600">
             Alpha Signals
           </TabsTrigger>
-          <TabsTrigger value="smart-money" className="data-[state=active]:bg-orange-600">
+          <TabsTrigger value="smart-money" className="data-[state=active]:bg-red-600">
             <Fish className="h-4 w-4 mr-2" />
             Smart Money
           </TabsTrigger>
@@ -132,10 +132,10 @@ export default function AlphaSignalsPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-orange-500">{signals.length}</p>
+                  <p className="text-2xl font-bold text-red-500">{signals.length}</p>
                   <p className="text-sm text-slate-300">Total Signals</p>
                 </div>
-                <Target className="h-8 w-8 text-orange-500" />
+                <Target className="h-8 w-8 text-red-500" />
               </div>
             </CardContent>
           </Card>
@@ -233,7 +233,7 @@ export default function AlphaSignalsPage() {
                 </Button>
                 <Button 
                   size="sm"
-                  className="bg-orange-600 hover:bg-orange-700 text-white"
+                  className="bg-red-600 hover:bg-red-700 text-white"
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Refresh
@@ -254,7 +254,7 @@ export default function AlphaSignalsPage() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
                         <span className="text-white font-bold text-sm">
                           {signal.symbol.slice(0, 2)}
                         </span>
@@ -326,7 +326,7 @@ export default function AlphaSignalsPage() {
                     }`}>
                       <CardContent className="p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <Target className="h-4 w-4 text-orange-400" />
+                          <Target className="h-4 w-4 text-red-400" />
                           <span className="text-sm text-slate-300">Risk Analysis</span>
                         </div>
                         <div className={`text-xl font-bold ${

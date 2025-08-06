@@ -234,7 +234,7 @@ export function WhaleAlerts() {
         <Card className="bg-black border-gray-800">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <AlertTriangle className="h-8 w-8 text-orange-500" />
+              <AlertTriangle className="h-8 w-8 text-red-500" />
               <div>
                 <p className="text-2xl font-bold text-white">{filteredAlerts.length}</p>
                 <p className="text-sm text-gray-300">Active Alerts</p>

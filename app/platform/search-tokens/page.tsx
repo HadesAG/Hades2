@@ -233,7 +233,7 @@ export default function SearchTokensPage() {
             />
             {searchState.loading && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <div className="w-5 h-5 border-2 border-orange-500/30 border-t-orange-500 rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-red-500/30 border-t-red-500 rounded-full animate-spin"></div>
               </div>
             )}
           </div>
@@ -253,7 +253,7 @@ export default function SearchTokensPage() {
                 onClick={() => setActiveFilter(key as any)}
                 className={`${
                   activeFilter === key 
-                    ? 'bg-orange-600 hover:bg-orange-700 text-white' 
+                    ? 'bg-red-600 hover:bg-red-700 text-white' 
                     : 'border-gray-700 text-gray-300 hover:bg-gray-800'
                 }`}
               >
@@ -277,7 +277,7 @@ export default function SearchTokensPage() {
               </>
             ) : (
               <>
-                <Flame className="h-5 w-5 text-orange-500" />
+                <Flame className="h-5 w-5 text-red-500" />
                 Trending Tokens
               </>
             )}
@@ -397,7 +397,7 @@ export default function SearchTokensPage() {
                   <div className="flex gap-2 mt-4 pt-4 border-t border-gray-800">
                     <Button 
                       size="sm" 
-                      className="flex-1 bg-orange-600 hover:bg-orange-700 text-white"
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white"
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       Add to Watchlist

@@ -34,13 +34,13 @@ export function AuthGuard({
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-6">
         <div className="mb-6 p-4 rounded-full bg-black/50">
-          <Lock className="h-8 w-8 text-orange-500" />
+          <Lock className="h-8 w-8 text-red-500" />
         </div>
         <h2 className="text-2xl font-bold text-white mb-3">{fallbackTitle}</h2>
         <p className="text-gray-400 mb-6 max-w-md">{fallbackDescription}</p>
         <Button 
           onClick={login} 
-          className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3"
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3"
           size="lg"
         >
           <Wallet className="mr-2 h-5 w-5" />

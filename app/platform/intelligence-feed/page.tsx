@@ -106,7 +106,7 @@ export default function IntelligenceFeedPage() {
           <Button 
             onClick={fetchData} 
             disabled={loading}
-            className="bg-orange-600 hover:bg-orange-700 text-white"
+            className="bg-red-600 hover:bg-red-700 text-white"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -187,7 +187,7 @@ export default function IntelligenceFeedPage() {
 
         {/* Platform Tabs */}
         <div className="flex space-x-2 mb-6">
-          <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+          <Button className="bg-red-600 hover:bg-red-700 text-white">
             Overview
           </Button>
           <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-gray-800">
@@ -258,7 +258,7 @@ export default function IntelligenceFeedPage() {
                     <div key={token.symbol} className="p-4 bg-gray-800/50 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center">
                             <span className="text-white text-xs font-bold">
                               {token.symbol.slice(0, 2)}
                             </span>
@@ -293,7 +293,7 @@ export default function IntelligenceFeedPage() {
                         </div>
                         <div>
                           <div className="text-sm text-slate-300">New Tokens/hr</div>
-                          <div className="text-sm font-semibold text-orange-400">
+                          <div className="text-sm font-semibold text-red-400">
                             {Math.floor(Math.random() * 50 + 10)}
                           </div>
                         </div>
