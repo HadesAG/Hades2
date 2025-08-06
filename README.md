@@ -361,8 +361,8 @@ yarn install --ignore-peer-deps
 ## 🆘 Support
 
 - **Documentation**: Check the [Wiki](https://github.com/your-username/hades-crypto-platform/wiki)
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/your-username/hades-crypto-platform/issues)
-- **Discussions**: Join [GitHub Discussions](https://github.com/your-username/hades-crypto-platform/discussions)
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/HadesAG/Hades2/issues)
+- **Discussions**: Join [GitHub Discussions](https://github.com/HadesAG/Hades2/discussions)
 
 ## 🙏 Acknowledgments
 
@@ -377,4 +377,4 @@ yarn install --ignore-peer-deps
 
 **Built with ❤️ for the crypto community**
 
-![HADES](https://img.shields.io/badge/HADES-2024-orange?style=for-the-badge)
+![HADES](https://img.shields.io/badge/HADES-2025-orange?style=for-the-badge)
