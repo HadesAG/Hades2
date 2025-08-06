@@ -13,6 +13,7 @@ import Head from 'next/head';
 import { useAuth } from '@/contexts/auth-context';
 import { LoginButton } from '@/components/auth/login-button';
 import { UserMenu } from '@/components/auth/user-menu';
+import HadesRoadmap from '@/components/HadesRoadmap';
 
 function LazySplineScene() {
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -253,6 +254,7 @@ export default function HomePage() {
             <Link href="/platform/search-tokens" className="nav-link">Search</Link>
             <Link href="/platform/alpha-signals" className="nav-link">Alpha Feed</Link>
             <Link href="/platform" className="nav-link">Platform</Link>
+            <a href="#roadmap" className="nav-link" onClick={e => { e.preventDefault(); document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' }); }}>Roadmap</a>
           </div>
           
           <NavigationAuth />
@@ -412,6 +414,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Roadmap Section */}
+      <HadesRoadmap />
 
       {/* Footer */}
       <footer className="relative z-10 bg-black/50 border-t border-gray-800">
