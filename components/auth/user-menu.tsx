@@ -1,32 +1,25 @@
 'use client';
 
 import { usePrivy } from '@privy-io/react-auth';
-import { useSolanaWallets } from '@privy-io/react-auth/solana';
+import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 import { LogOut, Copy, ExternalLink, Wallet, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export function UserMenu() {
   const { user, logout, exportWallet } = usePrivy();
-  const { wallets: solanaWallets } = useSolanaWallets();
+  const { solanaWallet, solanaAddress, isEmbeddedWallet } = useAuth();
   const [copied, setCopied] = useState(false);
 
-  // Get Solana wallet specifically
-  const solanaWallet = solanaWallets[0] || null;
-  const walletAddress = solanaWallet?.address || user?.wallet?.address;
-  
-  // Check if it's an embedded wallet (created via email)
-  const isEmbedded = user?.wallet?.walletClientType === 'privy' || 
-                     user?.linkedAccounts?.some((account: any) => 
-                       account.type === 'wallet' && account.walletClientType === 'privy'
-                     );
+  // Use wallet address from auth context
+  const walletAddress = solanaAddress || user?.wallet?.address;
   
   // Get email if user logged in with email
   const userEmail = user?.email?.address;
   
   // Determine wallet provider name
   const walletProvider = solanaWallet?.walletClientType || 
-                         (isEmbedded ? 'Embedded Wallet' : 'Unknown');
+                         (isEmbeddedWallet ? 'Embedded Wallet' : 'Unknown');
 
   const copyAddress = () => {
     if (walletAddress) {
@@ -68,7 +61,7 @@ export function UserMenu() {
               <span className="text-xs">{copied ? 'Copied!' : 'Copy'}</span>
             </button>
           )}
-          {isEmbedded && exportWallet && (
+          {isEmbeddedWallet && exportWallet && (
             <button 
               onClick={exportWallet} 
               title="Export wallet" 

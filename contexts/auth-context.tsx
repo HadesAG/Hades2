@@ -110,7 +110,11 @@ export function useAuth() {
         authenticated: false,
         user: null,
         login: () => {},
-        logout: () => {}
+        logout: () => {},
+        solanaWallet: null,
+        solanaAddress: null,
+        isEmbeddedWallet: false,
+        exportWallet: undefined
       };
     }
     throw new Error('useAuth must be used within an AuthProvider');

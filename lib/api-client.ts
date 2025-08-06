@@ -79,6 +79,18 @@ export class ApiClient {
   }
 }
 
+// Create authenticated API client from Privy user
+export function createAuthenticatedApiClient(user: any): ApiClient {
+  const client = new ApiClient();
+  
+  // Use Privy user ID as the API user identifier
+  if (user?.id) {
+    client.setUserId(user.id);
+  }
+  
+  return client;
+}
+
 // Watchlist API methods
 export const watchlistApi = {
   async getWatchlist(userId: string) {
