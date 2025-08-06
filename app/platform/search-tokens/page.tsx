@@ -63,6 +63,14 @@ export default function SearchTokensPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'verified' | 'new' | 'defi'>('all');
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Add utility to detect contract address (EVM and Solana)
+  function isEvmAddress(query: string) {
+    return /^0x[a-fA-F0-9]{40}$/.test(query.trim());
+  }
+  function isSolanaAddress(query: string) {
+    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(query.trim());
+  }
+
   // Search function
   const performSearch = useCallback(async (query: string) => {
       if (!query.trim()) {
@@ -71,6 +79,59 @@ export default function SearchTokensPage() {
       }
 
       setSearchState(prev => ({ ...prev, loading: true, error: null }));
+
+      // Check for contract address
+      const trimmedQuery = query.trim();
+      let platform = '';
+      let address = '';
+      if (isEvmAddress(trimmedQuery)) {
+        platform = 'ethereum';
+        address = trimmedQuery;
+      } else if (isSolanaAddress(trimmedQuery)) {
+        platform = 'solana';
+        address = trimmedQuery;
+      }
+
+      if (platform && address) {
+        // Try CoinGecko contract address endpoint
+        try {
+          const res = await fetch(`https://api.coingecko.com/api/v3/coins/${platform}/contract/${address}`);
+          if (!res.ok) throw new Error('Token not found by contract address');
+          const data = await res.json();
+          const token: TokenResult = {
+            id: data.id,
+            symbol: data.symbol.toUpperCase(),
+            name: data.name,
+            price: data.market_data?.current_price?.usd || 0,
+            change24h: data.market_data?.price_change_percentage_24h || 0,
+            change7d: data.market_data?.price_change_percentage_7d_in_currency?.usd || 0,
+            volume24h: data.market_data?.total_volume?.usd || 0,
+            marketCap: data.market_data?.market_cap?.usd || 0,
+            image: data.image?.large || '',
+            rank: data.market_cap_rank,
+            description: data.description?.en || '',
+            website: data.links?.homepage?.[0] || '',
+            verified: data.market_cap_rank && data.market_cap_rank <= 100
+          };
+          setSearchState(prev => ({
+            ...prev,
+            results: [token],
+            loading: false,
+            hasSearched: true,
+            error: null
+          }));
+          return;
+        } catch (err) {
+          setSearchState(prev => ({
+            ...prev,
+            results: [],
+            loading: false,
+            hasSearched: true,
+            error: 'No token found for this contract address.'
+          }));
+          return;
+        }
+      }
 
       try {
         // Search CoinGecko API
