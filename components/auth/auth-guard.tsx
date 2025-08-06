@@ -3,6 +3,7 @@
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 import { Wallet, Lock } from 'lucide-react';
+import { AuthLoading } from './auth-loading';
 import { ReactNode } from 'react';
 
 interface AuthGuardProps {
@@ -22,11 +23,7 @@ export function AuthGuard({
 
   // Show loading state while auth is initializing
   if (!ready) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-gray-400">Loading...</div>
-      </div>
-    );
+    return <AuthLoading />;
   }
 
   // If authentication is required but user is not authenticated, show login prompt

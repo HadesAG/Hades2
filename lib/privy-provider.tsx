@@ -2,6 +2,9 @@
 
 import { PrivyProvider } from '@privy-io/react-auth';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { updateSessionTimestamp, clearAllSessionData } from './session-utils';
 
 // Solana chain configuration
 const solana = {
@@ -24,6 +27,8 @@ const solana = {
 };
 
 function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
   // Skip rendering during build/SSR
   if (typeof window === 'undefined') {
     return <>{children}</>;
@@ -37,28 +42,55 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
+  // Handle successful login
+  const handleLoginSuccess = useCallback((user: any) => {
+    console.log('✅ Login successful:', user);
+    
+    // Update session timestamp
+    updateSessionTimestamp();
+    
+    // Navigate to dashboard after successful login from home page
+    if (typeof window !== 'undefined' && window.location.pathname === '/') {
+      router.push('/platform');
+    }
+  }, [router]);
+
+  // Handle logout with comprehensive cleanup
+  const handleLogout = useCallback(() => {
+    console.log('👋 User logged out');
+    
+    // Clear all session data and cache
+    clearAllSessionData();
+    
+    // Navigate to home page
+    router.push('/');
+  }, [router]);
+
   return (
     <PrivyProvider
       appId={appId}
       config={{
-        // Only allow connections to Solana
-        loginMethods: ['wallet', 'email'],
+        // Login methods: Email and Solana wallets only
+        loginMethods: ['email', 'wallet'],
+        
+        // Solana-only configuration
         defaultChain: solana,
         supportedChains: [solana],
         
-        // Customize the modal
+        // Embedded wallets for email users - Solana only
+        embeddedWallets: {
+          createOnLogin: 'users-without-wallets',
+          requireUserPasswordOnCreate: false,
+        },
+        
+        // Customize the modal appearance
         appearance: {
           theme: 'dark',
           accentColor: '#FF6B35',
-          logo: 'https://your-logo-url.com/logo.png', // Optional: Add your logo URL
-          showWalletLoginFirst: true, // Prioritize wallet login
-        },
-        
-        // Configure embedded wallets for email users
-        embeddedWallets: {
-          createOnLogin: 'users-without-wallets',
-          // Restrict to Solana only
-          requireUserPasswordOnCreate: false,
+          logo: '/logo.png',
+          showWalletLoginFirst: false,
+          loginMessage: 'Connect to HADES',
+          walletChainType: 'solana-only',
         },
       }}
     >

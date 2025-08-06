@@ -3,6 +3,7 @@
 import { useAuth } from '@/contexts/auth-context';
 import { LoginButton } from '@/components/auth/login-button';
 import { UserMenu } from '@/components/auth/user-menu';
+import { FullPageAuthLoading } from '@/components/auth/auth-loading';
 import { usePrivy } from '@privy-io/react-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -52,11 +53,7 @@ export default function PlatformLayout({
 
   // Don't render auth-dependent content until mounted (hydration complete)
   if (!mounted) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
+    return <FullPageAuthLoading />;
   }
 
   // Now we can safely use auth hooks after hydration
@@ -127,16 +124,24 @@ function AuthenticatedPlatformLayout({
             // Show user info and logout for authenticated users
             <>
               <div className="flex items-center space-x-3 mb-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-[#9945FF] to-[#14F195] rounded-full flex items-center justify-center">
                   <span className="text-sm font-bold">
-                    {user?.email?.address?.charAt(0).toUpperCase() || 'U'}
+                    {user?.email?.address?.charAt(0).toUpperCase() || 
+                     user?.wallet?.address?.charAt(0).toUpperCase() || 'S'}
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
+                  {user?.email?.address && (
+                    <p className="text-xs text-gray-400 truncate">
+                      {user.email.address}
+                    </p>
+                  )}
                   <p className="text-sm font-medium text-white truncate">
-                    {user?.email?.address || 'Wallet User'}
+                    {user?.wallet?.address ? 
+                      `${user.wallet.address.slice(0, 6)}...${user.wallet.address.slice(-4)}` : 
+                      'Solana Wallet'}
                   </p>
-                  <p className="text-xs text-gray-400">Connected</p>
+                  <p className="text-xs text-[#14F195]">Connected</p>
                 </div>
               </div>
               <Button
@@ -152,15 +157,18 @@ function AuthenticatedPlatformLayout({
           ) : (
             // Show login button for unauthenticated users
             <div className="text-center">
-              <p className="text-xs text-gray-400 mb-3">Connect to access all features</p>
+              <p className="text-xs text-gray-400 mb-2">Connect with Solana</p>
               <Button
                 onClick={login}
-                className="w-full bg-red-600 hover:bg-red-700 text-white"
+                className="w-full bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 text-white"
                 size="sm"
               >
                 <Wallet className="h-4 w-4 mr-2" />
-                Connect Wallet
+                Connect Wallet / Email
               </Button>
+              <p className="text-xs text-gray-500 mt-2">
+                Supports Phantom, Solflare & more
+              </p>
             </div>
           )}
         </div>

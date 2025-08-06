@@ -6,10 +6,13 @@ export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Radar, ShieldCheck, Zap, Search, ExternalLink, ArrowRight, Globe, Diamond, Circle, Menu } from 'lucide-react';
+import { Radar, ShieldCheck, Zap, Search, ExternalLink, ArrowRight, Globe, Diamond, Circle, Menu, Wallet } from 'lucide-react';
 import Spline from '@splinetool/react-spline';
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import { useAuth } from '@/contexts/auth-context';
+import { LoginButton } from '@/components/auth/login-button';
+import { UserMenu } from '@/components/auth/user-menu';
 
 function LazySplineScene() {
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -142,6 +145,57 @@ function LazySplineScene() {
   );
 }
 
+// Navigation authentication component
+function NavigationAuth() {
+  const { ready, authenticated, user } = useAuth();
+
+  // Show loading state while checking auth
+  if (!ready) {
+    return (
+      <div className="flex items-center space-x-4">
+        <div className="h-10 w-32 bg-gray-800 animate-pulse rounded-lg" />
+      </div>
+    );
+  }
+
+  // Show user menu if authenticated
+  if (authenticated) {
+    return (
+      <div className="flex items-center space-x-4">
+        {/* Compact user menu for landing page */}
+        <div className="hidden lg:flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-[#9945FF] to-[#14F195] rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">
+                {user?.email?.address?.charAt(0).toUpperCase() || 
+                 user?.wallet?.address?.charAt(0).toUpperCase() || 'S'}
+              </span>
+            </div>
+            <span className="text-sm text-gray-300">
+              {user?.wallet?.address ? 
+                `${user.wallet.address.slice(0, 6)}...${user.wallet.address.slice(-4)}` : 
+                'Connected'}
+            </span>
+          </div>
+        </div>
+        <Link href="/platform" className="launch-btn">
+          Platform →
+        </Link>
+      </div>
+    );
+  }
+
+  // Show login options if not authenticated
+  return (
+    <div className="flex items-center space-x-4">
+      <LoginButton />
+      <Link href="/platform" className="launch-btn">
+        Launch Platform →
+      </Link>
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
     <>
@@ -201,9 +255,7 @@ export default function HomePage() {
             <Link href="/platform" className="nav-link">Platform</Link>
           </div>
           
-          <Link href="/platform" className="launch-btn">
-            Launch Platform →
-              </Link>
+          <NavigationAuth />
           
           <button className="md:hidden text-white" aria-label="Open mobile menu">
             <Menu className="w-6 h-6" />
