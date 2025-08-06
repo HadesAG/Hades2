@@ -18,85 +18,105 @@ import HadesRoadmap from '@/components/HadesRoadmap';
 function LazySplineScene() {
   const [shouldLoad, setShouldLoad] = useState(false);
   const [isInteractive, setIsInteractive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const splineRef = useRef<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Detect mobile devices for performance optimization
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    
+    // Use reduced threshold for mobile to delay loading
+    const threshold = isMobile ? 0.3 : 0.1;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
+        if (entry.isIntersecting && !isLoading) {
+          setIsLoading(true);
+          // Add small delay to ensure smooth scrolling
+          setTimeout(() => setShouldLoad(true), isMobile ? 500 : 100);
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold, rootMargin: '50px' }
     );
 
     if (containerRef.current) {
       observer.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [isLoading]);
 
-  // Handle Spline scene load
+  // Handle Spline scene load with performance optimization
   const onSplineLoad = (spline: any) => {
     splineRef.current = spline;
     setIsInteractive(true);
+    setIsLoading(false);
     
-    // Log available objects for debugging
-    console.log('Spline scene loaded:', spline);
-    
-    // You can access and manipulate objects here
-    // Example: const cube = spline.findObjectByName('Cube');
+    // Reduce quality on mobile for better performance
+    if (isMobile && spline.setQuality) {
+      spline.setQuality(0.6);
+    }
   };
 
-  // Handle mouse interactions
+  // Throttled mouse interactions for better performance
+  const throttleTimeout = useRef<NodeJS.Timeout>();
+  
   const onSplineMouseDown = (e: any) => {
-    console.log('Mouse down on:', e.target?.name || 'unknown object');
+    if (isMobile) return; // Disable on mobile for performance
     
-    // Add visual feedback or trigger animations
-    if (e.target) {
-      // Example: Scale object on click
-      const originalScale = { ...e.target.scale };
-      e.target.scale.x *= 1.1;
-      e.target.scale.y *= 1.1;
-      e.target.scale.z *= 1.1;
+    if (e.target && !throttleTimeout.current) {
+      // Simplified scaling effect
+      const originalTransform = e.target.style.transform || '';
+      e.target.style.transform = 'scale(1.05)';
       
-      // Reset scale after 200ms
-      setTimeout(() => {
-        e.target.scale.x = originalScale.x;
-        e.target.scale.y = originalScale.y;
-        e.target.scale.z = originalScale.z;
-      }, 200);
+      // Reset after animation
+      throttleTimeout.current = setTimeout(() => {
+        if (e.target) e.target.style.transform = originalTransform;
+        throttleTimeout.current = undefined;
+      }, 150);
     }
   };
 
   const onSplineMouseHover = (e: any) => {
-    console.log('Mouse hover on:', e.target?.name || 'unknown object');
+    if (isMobile) return; // Disable on mobile
     
-    // Change cursor to pointer when hovering over interactive objects
-    if (containerRef.current) {
-      containerRef.current.classList.toggle('cursor-pointer', !!e.target);
+    // Simplified cursor change
+    if (containerRef.current && !throttleTimeout.current) {
+      containerRef.current.style.cursor = e.target ? 'pointer' : 'default';
     }
   };
 
   const onSplineMouseUp = (e: any) => {
-    console.log('Mouse up on:', e.target?.name || 'unknown object');
+    if (isMobile) return; // Disable on mobile
     
-    // Reset cursor
     if (containerRef.current) {
-      containerRef.current.classList.remove('cursor-pointer');
+      containerRef.current.style.cursor = 'default';
     }
   };
 
-  // Trigger scene animations programmatically
+  // Simplified animation trigger for performance
   const triggerSceneAnimation = (eventType: string, objectName?: string) => {
-    if (splineRef.current && objectName) {
+    if (isMobile) return; // Disable on mobile
+    
+    if (splineRef.current && objectName && !throttleTimeout.current) {
       try {
         splineRef.current.emitEvent(eventType, objectName);
+        throttleTimeout.current = setTimeout(() => {
+          throttleTimeout.current = undefined;
+        }, 300);
       } catch (error) {
-        console.log('Animation trigger failed:', error);
+        // Silent fail for better UX
       }
     }
   };
@@ -114,19 +134,19 @@ function LazySplineScene() {
             onMouseUp={onSplineMouseUp}
           />
           
-          {/* Interactive overlay with subtle controls */}
-          {isInteractive && (
-            <div className="absolute top-4 right-4 z-20 space-y-2">
+          {/* Interactive overlay with subtle controls - desktop only */}
+          {isInteractive && !isMobile && (
+            <div className="absolute top-4 right-4 z-20 space-y-2 opacity-75">
               <button
                 onClick={() => triggerSceneAnimation('mouseHover', 'MainObject')}
-                className="bg-black/30 backdrop-blur-sm text-white/70 px-3 py-1 rounded-lg text-sm hover:bg-black/50 hover:text-white transition-all duration-200"
+                className="bg-black/20 backdrop-blur-sm text-white/60 px-2 py-1 rounded text-xs hover:bg-black/40 hover:text-white transition-colors duration-200"
                 title="Trigger hover animation"
               >
                 ✨
               </button>
               <button
                 onClick={() => triggerSceneAnimation('mouseDown', 'MainObject')}
-                className="bg-black/30 backdrop-blur-sm text-white/70 px-3 py-1 rounded-lg text-sm hover:bg-black/50 hover:text-white transition-all duration-200"
+                className="bg-black/20 backdrop-blur-sm text-white/60 px-2 py-1 rounded text-xs hover:bg-black/40 hover:text-white transition-colors duration-200"
                 title="Trigger click animation"
               >
                 🎯
@@ -136,9 +156,14 @@ function LazySplineScene() {
         </>
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mx-auto"></div>
-            <div className="text-red-500 font-semibold">Preparing 3D Experience...</div>
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 border-3 border-red-500/20 border-t-red-500 rounded-full animate-spin mx-auto"></div>
+            <div className="text-red-400 text-sm font-medium">
+              {isLoading ? 'Loading 3D Scene...' : 'Preparing Experience...'}
+            </div>
+            {isMobile && (
+              <div className="text-xs text-gray-500 mt-2">Optimized for mobile</div>
+            )}
           </div>
         </div>
       )}

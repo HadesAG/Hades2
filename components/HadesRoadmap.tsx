@@ -137,6 +137,8 @@ const useInView = (threshold = 0.15) => {
 
   useEffect(() => {
     if (!ref.current) return;
+    
+    // Use passive observers and increased root margin for better performance
     const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -144,8 +146,13 @@ const useInView = (threshold = 0.15) => {
           observer.disconnect();
         }
       },
-      { threshold }
+      { 
+        threshold,
+        rootMargin: '20px',
+        // Reduce observer frequency for better performance
+      }
     );
+    
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, [threshold]);
@@ -153,22 +160,41 @@ const useInView = (threshold = 0.15) => {
   return [ref, inView] as const;
 };
 
-// Timeline SVG Path Animation Hook
+// Timeline SVG Path Animation Hook with throttling
 const useTimelinePath = (numPhases: number) => {
   const pathRef = useRef<SVGPathElement | null>(null);
   const [draw, setDraw] = useState(false);
+  const throttleRef = useRef<number>();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!pathRef.current) return;
-      const rect = pathRef.current.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        setDraw(true);
+      if (throttleRef.current) return;
+      
+      throttleRef.current = requestAnimationFrame(() => {
+        if (!pathRef.current) {
+          throttleRef.current = undefined;
+          return;
+        }
+        
+        const rect = pathRef.current.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          setDraw(true);
+          // Remove listener once animation is triggered
+          window.removeEventListener('scroll', handleScroll);
+        }
+        throttleRef.current = undefined;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial state
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (throttleRef.current) {
+        cancelAnimationFrame(throttleRef.current);
       }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Path length for animation
@@ -282,23 +308,46 @@ const RoadmapPhaseComponent: React.FC<RoadmapPhaseComponentProps> = ({
   delay = 0
 }) => {
   const [ref, inView] = useInView();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Reduce Tilt effects on mobile for better performance
+  const tiltProps = isMobile ? {
+    glareEnable: false,
+    scale: 1,
+    tiltMaxAngleX: 0,
+    tiltMaxAngleY: 0,
+    transitionSpeed: 0,
+  } : {
+    glareEnable: true,
+    glareMaxOpacity: 0.1,
+    glareColor: "#ef4444",
+    perspective: 1000,
+    scale: 1.01,
+    tiltMaxAngleX: 4,
+    tiltMaxAngleY: 4,
+    transitionSpeed: 600,
+  };
+
   return (
     <Tilt
-      glareEnable={true}
-      glareMaxOpacity={0.15}
-      glareColor="#ef4444"
-      perspective={900}
-      scale={1.02}
-      tiltMaxAngleX={8}
-      tiltMaxAngleY={8}
-      transitionSpeed={900}
+      {...tiltProps}
       className="w-full"
     >
       <div
         ref={ref}
-        className={`flex mb-16 relative transition-all duration-700 bg-black/80 rounded-xl border border-red-900/30 shadow-lg z-10
+        className={`flex mb-16 relative transition-all duration-500 bg-black/80 rounded-xl border border-red-900/30 shadow-lg z-10
           ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          hover:scale-105 hover:shadow-[0_0_32px_0_rgba(239,68,68,0.25)] focus-within:scale-105 focus-within:shadow-[0_0_32px_0_rgba(239,68,68,0.25)]
+          ${!isMobile ? 'hover:scale-[1.02] hover:shadow-[0_0_20px_0_rgba(239,68,68,0.15)]' : ''}
+          focus-within:scale-[1.02] focus-within:shadow-[0_0_20px_0_rgba(239,68,68,0.15)]
         `}
         style={{ transitionDelay: `${delay}ms` }}
       >

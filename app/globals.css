@@ -86,22 +86,24 @@
     color: #ef4444;
   }
 
-  /* Hero Title Animation */
+  /* Hero Title Animation - Optimized */
   .hero-title {
     font-size: clamp(3rem, 8vw, 8rem);
     font-weight: 900;
     line-height: 0.9;
     letter-spacing: -0.02em;
-    animation: heroGlow 2s ease-in-out infinite alternate;
+    will-change: transform, text-shadow;
+    animation: heroGlow 3s ease-in-out infinite alternate;
   }
 
   .subtitle-glow {
     font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: 600;
-    animation: subtitleGlow 1.5s ease-in-out infinite alternate;
+    will-change: text-shadow;
+    animation: subtitleGlow 2s ease-in-out infinite alternate;
   }
 
-  /* Badge Styles */
+  /* Badge Styles - Optimized */
   .intelligence-badge {
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
     border: 1px solid rgba(239, 68, 68, 0.3);
@@ -116,7 +118,8 @@
     color: #ef4444;
     display: inline-block;
     margin-bottom: 2rem;
-    animation: badgeFloat 3s ease-in-out infinite;
+    will-change: transform;
+    animation: badgeFloat 4s ease-in-out infinite;
   }
 
   /* Button Styles */
@@ -136,8 +139,8 @@
   }
 
   .cta-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 25px rgba(239, 68, 68, 0.3);
     background: linear-gradient(135deg, #f87171, #b91c1c);
   }
 
@@ -221,18 +224,19 @@
     color: white;
   }
 
-  /* Ambient Glow Effect */
+  /* Ambient Glow Effect - Optimized */
   .ambient-glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
-    animation: ambientPulse 4s ease-in-out infinite;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+    animation: ambientPulse 6s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
+    will-change: transform, opacity;
   }
 
   /* Spline 3D Integration Styles */
@@ -243,30 +247,30 @@
 }
 
 @layer utilities {
-  /* Keyframe Animations */
+  /* Keyframe Animations - Optimized */
   @keyframes heroGlow {
     0% { 
-      text-shadow: 0 0 20px #ef4444, 0 0 40px #ef4444, 0 0 60px #ef4444;
+      text-shadow: 0 0 15px #ef4444, 0 0 30px #ef4444;
       transform: scale(1);
     }
     100% { 
-      text-shadow: 0 0 30px #ef4444, 0 0 60px #ef4444, 0 0 90px #ef4444;
-      transform: scale(1.02);
+      text-shadow: 0 0 25px #ef4444, 0 0 50px #ef4444;
+      transform: scale(1.01);
     }
   }
 
   @keyframes subtitleGlow {
     0% { 
-      text-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+      text-shadow: 0 0 15px #ffd700;
     }
     100% { 
-      text-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700;
+      text-shadow: 0 0 25px #ffd700;
     }
   }
 
   @keyframes badgeFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    50% { transform: translateY(-3px); }
   }
 
   @keyframes fadeInUp {
@@ -277,8 +281,8 @@
   }
 
   @keyframes ambientPulse {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+    0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.05); }
   }
 
   @keyframes starField {
@@ -287,17 +291,32 @@
   }
 
   .animate-star-field {
-    animation: starField 20s linear infinite;
+    animation: starField 30s linear infinite;
+    will-change: transform;
   }
 
-  /* Responsive Design */
+  /* Responsive Design with Performance Optimizations */
   @media (max-width: 768px) {
     .hero-title {
       font-size: clamp(2rem, 10vw, 4rem);
+      animation: none; /* Disable animations on mobile for better performance */
     }
     
     .subtitle-glow {
       font-size: clamp(1rem, 6vw, 2rem);
+      animation: none;
+    }
+    
+    .intelligence-badge {
+      animation: none;
+    }
+    
+    .ambient-glow {
+      display: none; /* Hide on mobile to improve performance */
+    }
+    
+    .animate-star-field {
+      animation-duration: 60s; /* Slower animation on mobile */
     }
     
     .cta-buttons {
@@ -308,6 +327,17 @@
     .cta-primary, .cta-secondary {
       width: 100%;
       justify-content: center;
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title,
+      .subtitle-glow,
+      .intelligence-badge,
+      .ambient-glow,
+      .animate-star-field {
+        animation: none;
+      }
     }
   }
 }
