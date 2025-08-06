@@ -1,10 +1,6 @@
 'use client';
 
 import { PrivyProvider } from '@privy-io/react-auth';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
-import { updateSessionTimestamp, clearAllSessionData } from './session-utils';
 
 // Solana chain configuration
 const solana = {
@@ -27,13 +23,6 @@ const solana = {
 };
 
 function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  
-  // Skip rendering during build/SSR
-  if (typeof window === 'undefined') {
-    return <>{children}</>;
-  }
-
   const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
   
   // Don't initialize if no app ID
@@ -41,30 +30,6 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
     console.warn('Privy App ID not configured. Please set NEXT_PUBLIC_PRIVY_APP_ID in your environment.');
     return <>{children}</>;
   }
-
-  // Handle successful login
-  const handleLoginSuccess = useCallback((user: any) => {
-    console.log('✅ Login successful:', user);
-    
-    // Update session timestamp
-    updateSessionTimestamp();
-    
-    // Navigate to dashboard after successful login from home page
-    if (typeof window !== 'undefined' && window.location.pathname === '/') {
-      router.push('/platform');
-    }
-  }, [router]);
-
-  // Handle logout with comprehensive cleanup
-  const handleLogout = useCallback(() => {
-    console.log('👋 User logged out');
-    
-    // Clear all session data and cache
-    clearAllSessionData();
-    
-    // Navigate to home page
-    router.push('/');
-  }, [router]);
 
   return (
     <PrivyProvider
@@ -99,7 +64,5 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Export as dynamic component to prevent SSR
-export const PrivyClientProvider = dynamic(() => Promise.resolve(PrivyProviderComponent), {
-  ssr: false,
-});
+// Export the component directly - SSR handling is done internally
+export const PrivyClientProvider = PrivyProviderComponent;

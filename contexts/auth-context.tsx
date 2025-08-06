@@ -27,8 +27,28 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { ready, authenticated, user, login, logout, exportWallet } = usePrivy();
-  const { wallets: solanaWallets } = useSolanaWallets();
+  // Handle potential missing Privy context gracefully
+  let privyData;
+  let solanaWalletsData;
+  
+  try {
+    privyData = usePrivy();
+    solanaWalletsData = useSolanaWallets();
+  } catch (error) {
+    // During SSR or when Privy isn't initialized, provide fallback values
+    privyData = {
+      ready: false,
+      authenticated: false,
+      user: null,
+      login: () => {},
+      logout: () => {},
+      exportWallet: undefined
+    };
+    solanaWalletsData = { wallets: [] };
+  }
+  
+  const { ready, authenticated, user, login, logout, exportWallet } = privyData;
+  const { wallets: solanaWallets } = solanaWalletsData;
   const [isReady, setIsReady] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
@@ -45,19 +65,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Initialize session management and check existing session
   useEffect(() => {
     const checkAuthSession = async () => {
-      if (ready) {
-        setIsReady(true);
-        
-        // Initialize session management system
-        initializeSessionManagement();
-        
-        // Check if session is still valid
-        if (isSessionValid()) {
-          console.log('Valid session found');
-        } else {
-          console.log('No valid session found');
+      try {
+        if (ready) {
+          setIsReady(true);
+          
+          // Initialize session management system
+          initializeSessionManagement();
+          
+          // Check if session is still valid
+          if (isSessionValid()) {
+            console.log('Valid session found');
+          } else {
+            console.log('No valid session found');
+          }
+          
+          setIsCheckingAuth(false);
         }
-        
+      } catch (error) {
+        console.warn('Error in auth session check:', error);
+        setIsReady(true);
         setIsCheckingAuth(false);
       }
     };
@@ -67,17 +93,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Update session and cache wallet info on authentication change
   useEffect(() => {
-    if (authenticated && user) {
-      updateSessionTimestamp();
-      
-      // Cache wallet information
-      if (solanaWallet) {
-        cacheWalletInfo({
-          address: solanaWallet.address,
-          provider: solanaWallet.walletClientType || 'Unknown',
-          chainType: 'solana'
-        });
+    try {
+      if (authenticated && user) {
+        console.log('✅ Login successful:', user);
+        updateSessionTimestamp();
+        
+        // Cache wallet information
+        if (solanaWallet) {
+          cacheWalletInfo({
+            address: solanaWallet.address,
+            provider: solanaWallet.walletClientType || 'Unknown',
+            chainType: 'solana'
+          });
+        }
+        
+        // Navigate to dashboard after successful login from home page
+        if (typeof window !== 'undefined' && window.location.pathname === '/') {
+          window.location.href = '/platform';
+        }
       }
+    } catch (error) {
+      console.warn('Error updating session/wallet cache:', error);
     }
   }, [authenticated, user, solanaWallet]);
 

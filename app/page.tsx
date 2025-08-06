@@ -362,7 +362,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Base</h3>
-                <p className="text-gray-400 text-sm">Q4 '25</p>
+                <p className="text-gray-400 text-sm">Q4 &rsquo;25</p>
               </div>
             </div>
             
@@ -373,7 +373,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Ethereum</h3>
-                <p className="text-gray-400 text-sm">Q4 '25</p>
+                <p className="text-gray-400 text-sm">Q4 &rsquo;25</p>
               </div>
             </div>
             
@@ -384,7 +384,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Multi-Chain</h3>
-                <p className="text-gray-400 text-sm">Q1 '26</p>
+                <p className="text-gray-400 text-sm">Q1 &rsquo;26</p>
               </div>
             </div>
           </div>

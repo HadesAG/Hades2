@@ -11,11 +11,8 @@ export function PrivyWrapper({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
-  // Don't render the provider until we're on the client
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Always wrap with PrivyClientProvider and AuthProvider
+  // PrivyClientProvider handles SSR gracefully internally
   return (
     <PrivyClientProvider>
       <AuthProvider>{children}</AuthProvider>

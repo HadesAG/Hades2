@@ -1,10 +1,8 @@
 'use client';
 
 import { useAuth } from '@/contexts/auth-context';
-import { LoginButton } from '@/components/auth/login-button';
-import { UserMenu } from '@/components/auth/user-menu';
+
 import { FullPageAuthLoading } from '@/components/auth/auth-loading';
-import { usePrivy } from '@privy-io/react-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -45,6 +43,7 @@ export default function PlatformLayout({
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { ready, authenticated, user, login, logout } = useAuth();
   
   // Initialize mounted state for hydration
   useEffect(() => {
@@ -56,21 +55,6 @@ export default function PlatformLayout({
     return <FullPageAuthLoading />;
   }
 
-  // Now we can safely use auth hooks after hydration
-  return <AuthenticatedPlatformLayout pathname={pathname} router={router}>{children}</AuthenticatedPlatformLayout>;
-}
-
-function AuthenticatedPlatformLayout({ 
-  children, 
-  pathname, 
-  router 
-}: { 
-  children: React.ReactNode;
-  pathname: string;
-  router: any;
-}) {
-  const { ready, authenticated, user, login, logout } = useAuth();
-  
   // Display a loading state while the auth state is loading
   if (!ready) {
     return (
@@ -81,7 +65,6 @@ function AuthenticatedPlatformLayout({
   }
 
   // Allow both authenticated and unauthenticated users to access the platform
-
   return (
     <div className="min-h-screen bg-black text-white flex">
       {/* Sidebar */}
@@ -217,3 +200,4 @@ function AuthenticatedPlatformLayout({
     </div>
   );
 }
+
