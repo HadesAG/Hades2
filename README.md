@@ -21,8 +21,8 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 
 ### 🧠 Intelligence Layer
 
-- **Real-time Market Data** - Live cryptocurrency prices and market statistics across all Solana launchpads
-- **Alpha Signals** - AI-powered trading signals with confidence ratings
+- **Real-time Market Data** - Live cryptocurrency prices and market statistics
+- **Alpha Signals** - AI-powered trading signals with confidence ratings across all Solana launchpads
 - **Intelligence Feed** - Curated market intelligence and insights
 - **Real-time Scanning** - Continuous token emergence monitoring across chains
 - **Risk Verification** - Advanced algorithms for token legitimacy assessment
