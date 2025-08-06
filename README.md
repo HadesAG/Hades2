@@ -23,9 +23,9 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 
 - **Real-time Market Data** - Live cryptocurrency prices and market statistics
 - **Alpha Signals** - AI-powered trading signals with confidence ratings
-- **👁️ Intelligence Feed** - Curated market intelligence and insights
-- **🔍 Real-time Scanning** - Continuous token emergence monitoring across chains
-- **🛡️ Risk Verification** - Advanced algorithms for token legitimacy assessment
+- **Intelligence Feed** - Curated market intelligence and insights
+- **Real-time Scanning** - Continuous token emergence monitoring across chains
+- **Risk Verification** - Advanced algorithms for token legitimacy assessment
 
 ### 🛠️ Platform Features
 
