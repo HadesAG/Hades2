@@ -26,6 +26,7 @@
         "next": "14.2.3",
         "react": "^18",
         "react-dom": "^18",
+        "react-parallax-tilt": "^1.7.304",
         "recharts": "^3.1.0",
         "tailwind-merge": "^3.3.1",
       },
@@ -2256,6 +2257,8 @@
     "react-modal": ["react-modal@3.16.3", "", { "dependencies": { "exenv": "^1.2.0", "prop-types": "^15.7.2", "react-lifecycles-compat": "^3.0.0", "warning": "^4.0.3" }, "peerDependencies": { "react": "^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19", "react-dom": "^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19" } }, "sha512-yCYRJB5YkeQDQlTt17WGAgFJ7jr2QYcWa1SHqZ3PluDmnKJ/7+tVU+E6uKyZ0nODaeEj+xCpK4LcSnKXLMC0Nw=="],
 
     "react-native": ["react-native@0.80.2", "", { "dependencies": { "@jest/create-cache-key-function": "^29.7.0", "@react-native/assets-registry": "0.80.2", "@react-native/codegen": "0.80.2", "@react-native/community-cli-plugin": "0.80.2", "@react-native/gradle-plugin": "0.80.2", "@react-native/js-polyfills": "0.80.2", "@react-native/normalize-colors": "0.80.2", "@react-native/virtualized-lists": "0.80.2", "abort-controller": "^3.0.0", "anser": "^1.4.9", "ansi-regex": "^5.0.0", "babel-jest": "^29.7.0", "babel-plugin-syntax-hermes-parser": "0.28.1", "base64-js": "^1.5.1", "chalk": "^4.0.0", "commander": "^12.0.0", "flow-enums-runtime": "^0.0.6", "glob": "^7.1.1", "invariant": "^2.2.4", "jest-environment-node": "^29.7.0", "memoize-one": "^5.0.0", "metro-runtime": "^0.82.2", "metro-source-map": "^0.82.2", "nullthrows": "^1.1.1", "pretty-format": "^29.7.0", "promise": "^8.3.0", "react-devtools-core": "^6.1.1", "react-refresh": "^0.14.0", "regenerator-runtime": "^0.13.2", "scheduler": "0.26.0", "semver": "^7.1.3", "stacktrace-parser": "^0.1.10", "whatwg-fetch": "^3.0.0", "ws": "^6.2.3", "yargs": "^17.6.2" }, "peerDependencies": { "@types/react": "^19.1.0", "react": "^19.1.0" }, "optionalPeers": ["@types/react"], "bin": { "react-native": "cli.js" } }, "sha512-6ySV4qTJo/To3lgpG/9Mcg/ZtvExqOVZuT7JVGcO5rS2Bjvl/yUAkQF0hTnbRb2Ch6T5MlKghrM4OeHX+KA9Pg=="],
+
+    "react-parallax-tilt": ["react-parallax-tilt@1.7.304", "", { "peerDependencies": { "react": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-mS71FHyx4RukCb/ffMsqZReADtUw8mG6wxn5dpRgjMS1pWnqhKTYtRaIcZFfl2wF0lGjQ9bKdDZ8AZYIYjjL9A=="],
 
     "react-qr-reader": ["react-qr-reader@2.2.1", "", { "dependencies": { "jsqr": "^1.2.0", "prop-types": "^15.7.2", "webrtc-adapter": "^7.2.1" }, "peerDependencies": { "react": "~16", "react-dom": "~16" } }, "sha512-EL5JEj53u2yAOgtpAKAVBzD/SiKWn0Bl7AZy6ZrSf1lub7xHwtaXe6XSx36Wbhl1VMGmvmrwYMRwO1aSCT2fwA=="],
 

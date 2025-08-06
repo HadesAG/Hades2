@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import Tilt from 'react-parallax-tilt';
 
 // Roadmap data and types (from roadmap_style.md)
 export interface RoadmapPhase {
@@ -152,6 +153,29 @@ const useInView = (threshold = 0.15) => {
   return [ref, inView] as const;
 };
 
+// Timeline SVG Path Animation Hook
+const useTimelinePath = (numPhases: number) => {
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const [draw, setDraw] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!pathRef.current) return;
+      const rect = pathRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        setDraw(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Path length for animation
+  const pathLength = 160 * (numPhases - 1);
+  return { pathRef, draw, pathLength };
+};
+
 // Main HadesRoadmap component
 interface HadesRoadmapProps {
   customRoadmapData?: RoadmapPhase[];
@@ -170,6 +194,7 @@ const HadesRoadmap: React.FC<HadesRoadmapProps> = ({
   const config = { ...roadmapConfig, ...customConfig };
   const [headerRef, headerInView] = useInView();
   const [posRef, posInView] = useInView();
+  const { pathRef, draw, pathLength } = useTimelinePath(data.length);
 
   return (
     <section className={`relative py-20 px-6 bg-black ${className}`} id="roadmap">
@@ -192,8 +217,26 @@ const HadesRoadmap: React.FC<HadesRoadmapProps> = ({
           </p>
         </div>
 
+        {/* Timeline SVG Path */}
+        <div className="absolute left-12 top-40 bottom-0 z-0 hidden md:block" style={{ height: `${160 * (data.length - 1) + 32}px` }}>
+          <svg width="8" height={pathLength + 32} style={{ display: 'block' }}>
+            <path
+              ref={pathRef}
+              d={`M4 0 V${pathLength}`}
+              stroke="#991b1b"
+              strokeWidth="4"
+              fill="none"
+              style={{
+                strokeDasharray: pathLength,
+                strokeDashoffset: draw ? 0 : pathLength,
+                transition: 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)'
+              }}
+            />
+          </svg>
+        </div>
+
         {/* Timeline */}
-        <div className="max-w-4xl mx-auto relative">
+        <div className="max-w-4xl mx-auto relative z-10">
           {data.map((phase, index) => (
             <RoadmapPhaseComponent
               key={`${phase.quarter}-${index}`}
@@ -240,89 +283,105 @@ const RoadmapPhaseComponent: React.FC<RoadmapPhaseComponentProps> = ({
 }) => {
   const [ref, inView] = useInView();
   return (
-    <div
-      ref={ref}
-      className={`flex mb-16 relative transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <Tilt
+      glareEnable={true}
+      glareMaxOpacity={0.15}
+      glareColor="#ef4444"
+      perspective={900}
+      scale={1.02}
+      tiltMaxAngleX={8}
+      tiltMaxAngleY={8}
+      transitionSpeed={900}
+      className="w-full"
     >
-      {/* Quarter Badge */}
-      <div className="flex-shrink-0 w-32 mr-8 relative">
-        <div className={`w-4 h-4 rounded-full absolute left-0 top-2 ${
-          phase.status === 'completed' ? 'bg-green-500' :
-          phase.status === 'in-progress' ? 'bg-yellow-500' : 'bg-red-500'
-        }`}></div>
-        {!isLast && (
-          <div className="absolute left-2 top-6 bottom-0 w-px bg-red-900/40"></div>
-        )}
-        <div className="ml-8 text-red-400 text-sm font-semibold">{phase.quarter}</div>
-        {phase.status && (
-          <div className={`ml-8 text-xs mt-1 ${
-            phase.status === 'completed' ? 'text-green-400' :
-            phase.status === 'in-progress' ? 'text-yellow-400' : 'text-gray-400'
-          }`}>
-            {phase.status === 'completed' ? '✓ Done' :
-             phase.status === 'in-progress' ? '⚡ Active' : '📅 Planned'}
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="flex-1">
-        <h3 className="text-2xl font-bold text-white mb-2">{phase.title}</h3>
-        {phase.subtitle && (
-          <p className="text-white/70 mb-6 italic text-sm">{phase.subtitle}</p>
-        )}
-
-        {/* Highlights */}
-        <div className="mb-6">
-          <h4 className="text-red-400 font-semibold mb-3 text-sm uppercase tracking-wide">Key Highlights</h4>
-          <div className="grid gap-2">
-            {phase.highlights.map((highlight, idx) => (
-              <div key={idx} className="flex items-center">
-                <div className="w-2 h-2 bg-red-400 rounded-full mr-3 flex-shrink-0"></div>
-                <span className="text-white font-medium">{highlight}</span>
-              </div>
-            ))}
-          </div>
+      <div
+        ref={ref}
+        className={`flex mb-16 relative transition-all duration-700 bg-black/80 rounded-xl border border-red-900/30 shadow-lg z-10
+          ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          hover:scale-105 hover:shadow-[0_0_32px_0_rgba(239,68,68,0.25)] focus-within:scale-105 focus-within:shadow-[0_0_32px_0_rgba(239,68,68,0.25)]
+        `}
+        style={{ transitionDelay: `${delay}ms` }}
+      >
+        {/* Quarter Badge */}
+        <div className="flex-shrink-0 w-32 mr-8 relative">
+          <div className={`w-4 h-4 rounded-full absolute left-0 top-2 ${
+            phase.status === 'completed' ? 'bg-green-500' :
+            phase.status === 'in-progress' ? 'bg-yellow-500' : 'bg-red-500'
+          }`}></div>
+          {/* SVG timeline connector for small screens */}
+          {!isLast && (
+            <div className="absolute left-2 top-6 bottom-0 w-px bg-red-900/40 md:hidden"></div>
+          )}
+          <div className="ml-8 text-red-400 text-sm font-semibold">{phase.quarter}</div>
+          {phase.status && (
+            <div className={`ml-8 text-xs mt-1 ${
+              phase.status === 'completed' ? 'text-green-400' :
+              phase.status === 'in-progress' ? 'text-yellow-400' : 'text-gray-400'
+            }`}>
+              {phase.status === 'completed' ? '✓ Done' :
+               phase.status === 'in-progress' ? '⚡ Active' : '📅 Planned'}
+            </div>
+          )}
         </div>
 
-        {/* Features */}
-        {phase.features && (
-          <div className="mb-4">
-            <h4 className="text-white/60 font-medium mb-3 text-sm">Features & Infrastructure</h4>
-            <div className="grid gap-2">
-              {phase.features.map((feature, idx) => (
-                <div key={idx} className="flex items-start">
-                  <span className="text-white/40 mr-3 mt-1 text-xs">•</span>
-                  <span className="text-white/80 text-sm">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Content */}
+        <div className="flex-1">
+          <h3 className="text-2xl font-bold text-white mb-2">{phase.title}</h3>
+          {phase.subtitle && (
+            <p className="text-white/70 mb-6 italic text-sm">{phase.subtitle}</p>
+          )}
 
-        {/* Target */}
-        {phase.target && (
-          <div className="mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded">
-            <div className="text-red-300 font-medium text-sm">
-              <div className="mb-2">Target:</div>
-              {phase.target.split('•').map((item, idx) => (
-                <div key={idx} className="flex items-start mb-1">
-                  {idx === 0 ? (
-                    <span>{item.trim()}</span>
-                  ) : (
-                    <>
-                      <span className="text-red-400 mr-2 mt-0.5">•</span>
-                      <span>{item.trim()}</span>
-                    </>
-                  )}
+          {/* Highlights */}
+          <div className="mb-6">
+            <h4 className="text-red-400 font-semibold mb-3 text-sm uppercase tracking-wide">Key Highlights</h4>
+            <div className="grid gap-2">
+              {phase.highlights.map((highlight, idx) => (
+                <div key={idx} className="flex items-center">
+                  <div className="w-2 h-2 bg-red-400 rounded-full mr-3 flex-shrink-0"></div>
+                  <span className="text-white font-medium">{highlight}</span>
                 </div>
               ))}
             </div>
           </div>
-        )}
+
+          {/* Features */}
+          {phase.features && (
+            <div className="mb-4">
+              <h4 className="text-white/60 font-medium mb-3 text-sm">Features & Infrastructure</h4>
+              <div className="grid gap-2">
+                {phase.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start">
+                    <span className="text-white/40 mr-3 mt-1 text-xs">•</span>
+                    <span className="text-white/80 text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Target */}
+          {phase.target && (
+            <div className="mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded">
+              <div className="text-red-300 font-medium text-sm">
+                <div className="mb-2">Target:</div>
+                {phase.target.split('•').map((item, idx) => (
+                  <div key={idx} className="flex items-start mb-1">
+                    {idx === 0 ? (
+                      <span>{item.trim()}</span>
+                    ) : (
+                      <>
+                        <span className="text-red-400 mr-2 mt-0.5">•</span>
+                        <span>{item.trim()}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Tilt>
   );
 };
 

@@ -33,6 +33,7 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-parallax-tilt": "^1.7.304",
     "recharts": "^3.1.0",
     "tailwind-merge": "^3.3.1"
   },
