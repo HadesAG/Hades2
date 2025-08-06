@@ -360,7 +360,7 @@ yarn install --ignore-peer-deps
 
 ## 🆘 Support
 
-- **Documentation**: Check the [Wiki](https://github.com/your-username/hades-crypto-platform/wiki)
+- **Documentation**: Check the [Docs](https://github.com/HadesAG/Hades2)
 - **Issues**: Report bugs on [GitHub Issues](https://github.com/HadesAG/Hades2/issues)
 - **Discussions**: Join [GitHub Discussions](https://github.com/HadesAG/Hades2/discussions)
 
