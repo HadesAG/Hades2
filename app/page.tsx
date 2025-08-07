@@ -55,7 +55,7 @@ function LazySplineScene() {
       observer.disconnect();
       window.removeEventListener('resize', checkMobile);
     };
-  }, [isLoading]);
+  }, [isLoading, isMobile]);
 
   // Handle Spline scene load with performance optimization
   const onSplineLoad = (spline: any) => {

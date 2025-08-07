@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { PrivyWrapper } from '@/components/privy-wrapper'
+import { SessionStatus } from '@/components/auth/session-status'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${inter.className} font-body antialiased`}>
         <PrivyWrapper>
           {children}
+          <SessionStatus />
         </PrivyWrapper>
       </body>
     </html>

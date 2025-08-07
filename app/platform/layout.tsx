@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '@/contexts/auth-context';
-
+import { LoginButton } from '@/components/auth/login-button';
 import { FullPageAuthLoading } from '@/components/auth/auth-loading';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -43,7 +43,7 @@ export default function PlatformLayout({
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { ready, authenticated, user, login, logout } = useAuth();
+  const { ready, authenticated, user, login, logout, isLoggingOut } = useAuth();
   
   // Initialize mounted state for hydration
   useEffect(() => {
@@ -132,9 +132,19 @@ export default function PlatformLayout({
                 variant="outline"
                 size="sm"
                 className="w-full border-gray-600 text-gray-300 hover:bg-gray-900"
+                disabled={isLoggingOut}
               >
-                <LogOut className="h-4 w-4 mr-2" />
-                Log out
+                {isLoggingOut ? (
+                  <>
+                    <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-gray-300 border-t-transparent" />
+                    Logging out...
+                  </>
+                ) : (
+                  <>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Log out
+                  </>
+                )}
               </Button>
             </>
           ) : (

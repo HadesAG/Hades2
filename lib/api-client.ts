@@ -1,8 +1,9 @@
-// API client utilities for authenticated requests
+// API client utilities for authenticated requests with Privy integration
 
 export class ApiClient {
   private baseUrl: string;
   private userId: string | null = null;
+  private accessToken: string | null = null;
 
   constructor(baseUrl: string = '') {
     this.baseUrl = baseUrl;
@@ -12,6 +13,10 @@ export class ApiClient {
     this.userId = userId;
   }
 
+  setAccessToken(token: string | null) {
+    this.accessToken = token;
+  }
+
   private getHeaders(): HeadersInit {
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
@@ -19,6 +24,11 @@ export class ApiClient {
 
     if (this.userId) {
       headers['x-user-id'] = this.userId;
+    }
+
+    // Use Privy access token for authentication when available
+    if (this.accessToken) {
+      headers['Authorization'] = `Bearer ${this.accessToken}`;
     }
 
     return headers;
@@ -90,6 +100,55 @@ export function createAuthenticatedApiClient(user: any): ApiClient {
   
   return client;
 }
+
+// Enhanced API client factory with Privy access token
+export async function createAuthenticatedApiClientWithToken(
+  user: any, 
+  getAccessToken: () => Promise<string | null>
+): Promise<ApiClient> {
+  const client = new ApiClient();
+  
+  // Set user ID
+  if (user?.id) {
+    client.setUserId(user.id);
+  }
+  
+  // Get and set access token
+  try {
+    const accessToken = await getAccessToken();
+    if (accessToken) {
+      client.setAccessToken(accessToken);
+    }
+  } catch (error) {
+    console.warn('Failed to get Privy access token:', error);
+  }
+  
+  return client;
+}
+
+// Enhanced API methods that accept optional access token
+export const enhancedWatchlistApi = {
+  async getWatchlist(userId: string, accessToken?: string) {
+    const client = new ApiClient();
+    client.setUserId(userId);
+    if (accessToken) client.setAccessToken(accessToken);
+    return client.get<{ tokens: any[] }>('/api/watchlist');
+  },
+
+  async addToken(userId: string, symbol: string, accessToken?: string) {
+    const client = new ApiClient();
+    client.setUserId(userId);
+    if (accessToken) client.setAccessToken(accessToken);
+    return client.post<{ token: any }>('/api/watchlist', { symbol });
+  },
+
+  async removeToken(userId: string, symbol: string, accessToken?: string) {
+    const client = new ApiClient();
+    client.setUserId(userId);
+    if (accessToken) client.setAccessToken(accessToken);
+    return client.delete<{ message: string }>(`/api/watchlist/${symbol}`);
+  },
+};
 
 // Watchlist API methods
 export const watchlistApi = {
