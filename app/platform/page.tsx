@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { EnhancedDashboardCard } from '@/components/platform/EnhancedDashboardCard';
 import { DataAggregator, MarketStats } from '@/lib/data-services';
 import { getRealtimePriceService } from '@/lib/realtime-price-service';
+import { mockStore } from '@/app/hadesMockData';
 import { 
   Target, 
   TrendingUp, 
@@ -18,7 +20,9 @@ import {
   BarChart3, 
   AlertTriangle, 
   Eye,
-  Play
+  Play,
+  Brain,
+  Link2
 } from 'lucide-react';
 
 const dataAggregator = new DataAggregator();
@@ -78,194 +82,161 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Live Alpha Intelligence Banner */}
-      <Card className="bg-gradient-to-r from-red-600 to-red-700 border-0 text-white">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
+      {/* Enhanced Live Alpha Intelligence Banner */}
+      <Card className="planetary-interface border-0 text-white relative overflow-hidden">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-between relative z-10">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Live Alpha Intelligence</h2>
-              <p className="text-lg opacity-90">Currently Tracking</p>
-              <p className="text-sm opacity-75">
-                Real-time monitoring across 12 chains • 1,247 tokens tracked • 89 alpha signals active
+              <h2 className="text-3xl font-bold mb-3 glow-red">Live Alpha Intelligence</h2>
+              <p className="text-xl opacity-90 mb-2">Currently Tracking</p>
+              <p className="text-sm opacity-75 leading-relaxed">
+                Real-time monitoring across {mockStore.platformMetrics.chainsMonitored} chains • {mockStore.platformMetrics.tokensTracked.toLocaleString()} tokens tracked • {mockStore.platformMetrics.activeSignals} alpha signals active
                 {wsConnected && <span className="ml-2 text-green-300">• WebSocket Connected</span>}
               </p>
             </div>
             <Button 
-              className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+              className="descend-button text-white border-white/30 px-6 py-3"
               size="lg"
             >
               <Play className="h-5 w-5 mr-2" />
-              Live
+              Live Feed
             </Button>
           </div>
+          
+          {/* Background glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-purple-600/20 opacity-50" />
         </CardContent>
       </Card>
 
-      {/* Stats Grid */}
+      {/* Enhanced Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Alpha Signals */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">24 new today</p>
-                <p className="text-2xl font-bold text-white">Alpha Signals</p>
-                <p className="text-sm text-gray-300">New token discoveries</p>
-              </div>
-              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-                <Target className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="Alpha Signals"
+          value={mockStore.platformMetrics.activeSignals}
+          subtitle="New token discoveries"
+          icon={Target}
+          iconColor="text-red-500"
+          iconBgColor="bg-red-600"
+          trend={{ value: "24 new today", isPositive: true }}
+        />
 
         {/* Cross-Chain Intel */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">12 chains active</p>
-                <p className="text-2xl font-bold text-white">Cross-Chain Intel</p>
-                <p className="text-sm text-gray-300">Multi-chain monitoring</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                <TrendingUp className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="Cross-Chain Intel"
+          value={mockStore.platformMetrics.chainsMonitored}
+          subtitle="Multi-chain monitoring"
+          icon={Link2}
+          iconColor="text-blue-500"
+          iconBgColor="bg-blue-600"
+          trend={{ value: "chains active", isPositive: true }}
+        />
 
         {/* DeFi Alerts */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">8 alerts pending</p>
-                <p className="text-2xl font-bold text-white">DeFi Alerts</p>
-                <p className="text-sm text-gray-300">Protocol updates</p>
-              </div>
-              <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center">
-                <Shield className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="DeFi Alerts"
+          value={mockStore.platformMetrics.alertsPending}
+          subtitle="Protocol updates"
+          icon={Shield}
+          iconColor="text-yellow-500"
+          iconBgColor="bg-yellow-600"
+          trend={{ value: "alerts pending", isPositive: false }}
+        />
 
         {/* Market Intelligence */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">156 signals</p>
-                <p className="text-2xl font-bold text-white">Market Intelligence</p>
-                <p className="text-sm text-gray-300">Trading insights</p>
-              </div>
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="Market Intelligence"
+          value="156"
+          subtitle="Trading insights"
+          icon={Brain}
+          iconColor="text-green-500"
+          iconBgColor="bg-green-600"
+          trend={{ value: "signals active", isPositive: true }}
+        />
 
         {/* Flash Intelligence */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">Live updates</p>
-                <p className="text-2xl font-bold text-white">Flash Intelligence</p>
-                <p className="text-sm text-gray-300">Real-time feeds</p>
-              </div>
-              <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
-                <Zap className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="Flash Intelligence"
+          value="Live"
+          subtitle="Real-time feeds"
+          icon={Zap}
+          iconColor="text-purple-500"
+          iconBgColor="bg-purple-600"
+          trend={{ value: "updates", isPositive: true }}
+        />
 
         {/* Deep Analytics */}
-        <Card className="bg-black border-gray-800">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">42 reports</p>
-                <p className="text-2xl font-bold text-white">Deep Analytics</p>
-                <p className="text-sm text-gray-300">Advanced metrics</p>
-              </div>
-              <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-6 w-6 text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <EnhancedDashboardCard
+          title="Deep Analytics"
+          value={mockStore.platformMetrics.reportsGenerated}
+          subtitle="Advanced metrics"
+          icon={BarChart3}
+          iconColor="text-indigo-500"
+          iconBgColor="bg-indigo-600"
+          trend={{ value: "reports", isPositive: true }}
+        />
 
         {/* Risk Intelligence */}
-        <Card className="bg-black border-gray-800">
+        <EnhancedDashboardCard
+          title="Risk Intelligence"
+          value={mockStore.platformMetrics.warningsActive}
+          subtitle="Security monitoring"
+          icon={AlertTriangle}
+          iconColor="text-red-500"
+          iconBgColor="bg-red-600"
+          trend={{ value: "warnings", isPositive: false }}
+        />
+
+        {/* New Token Radar */}
+        <EnhancedDashboardCard
+          title="New Token Radar"
+          value={mockStore.platformMetrics.newTokensDetected}
+          subtitle="Fresh launches"
+          icon={Radar}
+          iconColor="text-teal-500"
+          iconBgColor="bg-teal-600"
+          trend={{ value: "detected", isPositive: true }}
+        />
+      </div>
+
+      {/* Enhanced Market Overview Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <Card className="platform-card-enhanced text-center group">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">3 warnings</p>
-                <p className="text-2xl font-bold text-white">Risk Intelligence</p>
-                <p className="text-sm text-gray-300">Security monitoring</p>
-              </div>
-              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-                <AlertTriangle className="h-6 w-6 text-white" />
-              </div>
+            <div className="text-3xl font-bold text-red-500 mb-2 group-hover:text-red-400 transition-colors">
+              {mockStore.platformMetrics.tokensTracked.toLocaleString()}
             </div>
+            <div className="text-sm text-gray-300">Tokens Tracked</div>
           </CardContent>
         </Card>
 
-        {/* New Token Radar */}
-        <Card className="bg-black border-gray-800">
+        <Card className="platform-card-enhanced text-center group">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400 mb-1">67 detected</p>
-                <p className="text-2xl font-bold text-white">New Token Radar</p>
-                <p className="text-sm text-gray-300">Fresh launches</p>
-              </div>
-              <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center">
-                <Radar className="h-6 w-6 text-white" />
-              </div>
+            <div className="text-3xl font-bold text-green-500 mb-2 group-hover:text-green-400 transition-colors">
+              {mockStore.platformMetrics.activeSignals}
             </div>
+            <div className="text-sm text-gray-300">Active Signals</div>
+          </CardContent>
+        </Card>
+
+        <Card className="platform-card-enhanced text-center group">
+          <CardContent className="p-6">
+            <div className="text-3xl font-bold text-blue-500 mb-2 group-hover:text-blue-400 transition-colors">
+              {mockStore.platformMetrics.chainsMonitored}
+            </div>
+            <div className="text-sm text-gray-300">Chains Monitored</div>
+          </CardContent>
+        </Card>
+
+        <Card className="platform-card-enhanced text-center group">
+          <CardContent className="p-6">
+            <div className="text-3xl font-bold text-purple-500 mb-2 group-hover:text-purple-400 transition-colors">
+              24h
+            </div>
+            <div className="text-sm text-gray-300">Live Monitoring</div>
           </CardContent>
         </Card>
       </div>
-
-      {/* Market Overview Stats */}
-      {marketStats && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <Card className="bg-black border-gray-800 text-center">
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-red-500 mb-2">
-                {marketStats.activeTokens?.toLocaleString() || '1,247'}
-              </div>
-              <div className="text-sm text-gray-300">Tokens Tracked</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-black border-gray-800 text-center">
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-green-500 mb-2">89</div>
-              <div className="text-sm text-gray-300">Active Signals</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-black border-gray-800 text-center">
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-blue-500 mb-2">12</div>
-              <div className="text-sm text-gray-300">Chains Monitored</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-black border-gray-800 text-center">
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-purple-500 mb-2">24h</div>
-              <div className="text-sm text-gray-300">Live Monitoring</div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
     </div>
   );
 }

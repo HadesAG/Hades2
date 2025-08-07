@@ -70,6 +70,53 @@
 
 /* Enhanced HADES Styles */
 @layer components {
+  /* Enhanced planetary color palette */
+  :root {
+    --planetary-core: 15 15 15; /* Deep space black */
+    --planetary-surface: 25 25 35; /* Dark surface */
+    --planetary-atmosphere: 45 45 65; /* Atmospheric blue-gray */
+    --planetary-glow: 239 68 68; /* Signature red glow */
+    
+    /* Enhanced space gradients */
+    --space-gradient-primary: linear-gradient(135deg, 
+      rgba(15, 15, 15, 0.95) 0%, 
+      rgba(25, 25, 35, 0.9) 50%, 
+      rgba(45, 45, 65, 0.85) 100%);
+    
+    --space-gradient-secondary: linear-gradient(45deg,
+      rgba(239, 68, 68, 0.1) 0%,
+      rgba(59, 130, 246, 0.05) 50%,
+      rgba(16, 185, 129, 0.03) 100%);
+    
+    /* Descent interaction colors */
+    --descend-primary: 239 68 68;
+    --descend-secondary: 220 38 127;
+    --descend-accent: 59 130 246;
+    
+    /* Platform interface enhancements */
+    --platform-card-bg: rgba(25, 25, 35, 0.8);
+    --platform-card-border: rgba(75, 85, 99, 0.3);
+    --platform-card-hover: rgba(239, 68, 68, 0.1);
+    
+    /* Navigation floating elements */
+    --nav-float-bg: rgba(0, 0, 0, 0.7);
+    --nav-float-border: rgba(239, 68, 68, 0.2);
+    --nav-float-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    
+    /* Enhanced glow effects */
+    --glow-primary: 0 0 20px rgba(239, 68, 68, 0.5), 
+                    0 0 40px rgba(239, 68, 68, 0.3),
+                    0 0 60px rgba(239, 68, 68, 0.1);
+    
+    --glow-secondary: 0 0 15px rgba(59, 130, 246, 0.4),
+                      0 0 30px rgba(59, 130, 246, 0.2);
+    
+    /* Backdrop blur enhancements */
+    --backdrop-blur-light: blur(8px);
+    --backdrop-blur-medium: blur(16px);
+    --backdrop-blur-heavy: blur(24px);
+  }
+
   /* Glow Effects */
   .glow-orange {
     text-shadow: 0 0 20px #ef4444, 0 0 40px #ef4444, 0 0 60px #ef4444;
@@ -237,6 +284,61 @@
     pointer-events: none;
     z-index: -1;
     will-change: transform, opacity;
+  }
+
+  /* Enhanced component styles */
+  .planetary-interface {
+    background: var(--space-gradient-primary);
+    backdrop-filter: var(--backdrop-blur-medium);
+    border: 1px solid var(--platform-card-border);
+    border-radius: 1rem;
+  }
+
+  .descend-button {
+    background: linear-gradient(135deg, 
+      rgb(var(--descend-primary)), 
+      rgb(var(--descend-secondary)));
+    box-shadow: var(--glow-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .descend-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--glow-primary), var(--nav-float-shadow);
+  }
+
+  .floating-nav {
+    background: var(--nav-float-bg);
+    backdrop-filter: var(--backdrop-blur-heavy);
+    border: 1px solid var(--nav-float-border);
+    box-shadow: var(--nav-float-shadow);
+  }
+
+  .floating-nav-item {
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .floating-nav-item:hover {
+    color: rgb(var(--planetary-glow));
+    background: rgba(239, 68, 68, 0.1);
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  }
+
+  .platform-card-enhanced {
+    background: var(--platform-card-bg);
+    backdrop-filter: var(--backdrop-blur-light);
+    border: 1px solid var(--platform-card-border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .platform-card-enhanced:hover {
+    background: var(--platform-card-hover);
+    border-color: rgb(var(--planetary-glow));
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
   }
 
   /* Spline 3D Integration Styles */

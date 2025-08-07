@@ -67,12 +67,12 @@ export default function PlatformLayout({
   // Allow both authenticated and unauthenticated users to access the platform
   return (
     <div className="min-h-screen bg-black text-white flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-black border-r border-gray-800 flex flex-col">
-        {/* Logo */}
-        <div className="p-6 border-b border-gray-800">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-red-500">HADES</div>
+      {/* Enhanced Sidebar */}
+      <div className="w-64 planetary-interface border-r border-gray-800/50 flex flex-col">
+        {/* Enhanced Logo */}
+        <div className="p-6 border-b border-gray-800/50">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="text-2xl font-bold glow-red group-hover:scale-105 transition-transform">HADES</div>
           </Link>
           <p className="text-xs text-gray-400 mt-1">Intelligence Platform</p>
         </div>
@@ -169,11 +169,11 @@ export default function PlatformLayout({
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <header className="bg-black border-b border-gray-800 px-6 py-4">
+        {/* Enhanced Header */}
+        <header className="planetary-interface border-b border-gray-800/50 px-6 py-4 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl font-semibold text-white">
+              <h1 className="text-xl font-semibold text-white glow-red">
                 {sidebarItems.find(item => 
                   item.exact 
                     ? pathname === item.href 
@@ -191,7 +191,7 @@ export default function PlatformLayout({
               {!authenticated && (
                 <Button
                   onClick={login}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2"
+                  className="descend-button px-4 py-2"
                   size="sm"
                 >
                   <Wallet className="h-4 w-4 mr-2" />
@@ -210,4 +210,3 @@ export default function PlatformLayout({
     </div>
   );
 }
-
