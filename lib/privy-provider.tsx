@@ -37,23 +37,21 @@ function PrivyProviderComponent({ children }: { children: React.ReactNode }) {
       config={{
         // Login methods: Email and Solana wallets only
         loginMethods: ['email', 'wallet'],
-        
+        // Solana-only wallets (handled by walletChainType and supportedChains)
         // Solana-only configuration
         defaultChain: solana,
         supportedChains: [solana],
-        
         // Embedded wallets for email users - Solana only
         embeddedWallets: {
           createOnLogin: 'users-without-wallets',
           requireUserPasswordOnCreate: false,
         },
-        
         // Customize the modal appearance
         appearance: {
           theme: 'dark',
           accentColor: '#FF6B35',
-          logo: '/logo.png',
-          showWalletLoginFirst: false,
+          logo: '/hades-logo.png', // Update to your actual logo path or URL
+          showWalletLoginFirst: true,
           loginMessage: 'Connect to HADES',
           walletChainType: 'solana-only',
         },
