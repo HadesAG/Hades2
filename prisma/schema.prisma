@@ -8,14 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String           @id @default(cuid())
-  email     String           @unique
-  wallet    String?          @unique
-  username  String?
-  createdAt DateTime         @default(now())
-  watchlist WatchlistToken[]
-  alerts    Alert[]
-  settings  Json?
+  id                    String           @id @default(cuid())
+  email                 String           @unique
+  wallet                String?          @unique
+  username              String?
+  privyDid              String?          @unique
+  solanaWalletAddress   String?
+  embeddedWalletAddress String?
+  createdAt             DateTime         @default(now())
+  watchlist             WatchlistToken[]
+  alerts                Alert[]
+  settings              Json?
 }
 
 model WatchlistToken {
