@@ -279,6 +279,7 @@ export default function HomePage() {
             <Link href="/platform/search-tokens" className="nav-link">Search</Link>
             <Link href="/platform/alpha-signals" className="nav-link">Alpha Feed</Link>
             <Link href="/platform" className="nav-link">Platform</Link>
+            <Link href="/docs" className="nav-link">API</Link>
             <a href="#roadmap" className="nav-link" onClick={e => { e.preventDefault(); document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' }); }}>Roadmap</a>
           </div>
           
@@ -474,8 +475,8 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-6">Resources</h4>
               <ul className="space-y-3">
-                <li><Link href="#documentation" className="text-gray-400 hover:text-red-500 transition-colors">Documentation</Link></li>
-                <li><Link href="#api-reference" className="text-gray-400 hover:text-red-500 transition-colors">API Reference</Link></li>
+                <li><Link href="/docs" className="text-gray-400 hover:text-red-500 transition-colors">Documentation</Link></li>
+                <li><Link href="/docs" className="text-gray-400 hover:text-red-500 transition-colors">API Reference</Link></li>
                 <li><Link href="#support-center" className="text-gray-400 hover:text-red-500 transition-colors">Support Center</Link></li>
                 <li><Link href="#system-status" className="text-gray-400 hover:text-red-500 transition-colors">System Status</Link></li>
               </ul>

@@ -17,7 +17,8 @@ import {
   Bell, 
   Settings, 
   LogOut,
-  Wallet
+  Wallet,
+  FileText
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -32,6 +33,7 @@ const sidebarItems = [
   { href: '/platform/watchlist', icon: Star, label: 'Watchlist' },
   { href: '/platform/market-analysis', icon: TrendingUp, label: 'Market Analysis' },
   { href: '/platform/alerts', icon: Bell, label: 'Alerts' },
+  { href: '/docs', icon: FileText, label: 'API' },
   { href: '/platform/settings', icon: Settings, label: 'Settings' },
 ];
 

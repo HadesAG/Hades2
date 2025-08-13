@@ -13,7 +13,8 @@ import {
   Menu, 
   X,
   User,
-  LogOut
+  LogOut,
+  FileText
 } from 'lucide-react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import * as Popover from '@radix-ui/react-popover';
@@ -46,6 +47,7 @@ export function FloatingNavigation({
     { href: '/platform/search-tokens', icon: Search, label: 'Search' },
     { href: '/platform/alpha-signals', icon: Zap, label: 'Alpha Feed' },
     { href: '/platform', icon: TrendingUp, label: 'Platform' },
+    { href: '/docs', icon: FileText, label: 'API' },
   ];
 
   const AuthSection = () => {
