@@ -12,7 +12,7 @@ const WHALE_WALLETS = [
   },
   {
     address: 'GThUX1Atko4tqhN2NaiTazWSeFWMuiUiudN9HGoP49ld',
-    label: 'Alameda Research',
+    label: 'BCT Dev Wallet',
     category: 'HEDGE_FUND' as const,
   },
   {
