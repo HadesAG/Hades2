@@ -1,9 +1,49 @@
-"use client"
-
+import type { Metadata } from 'next'
 import { SparklesText } from "@/components/ui/sparkles-text"
 import { GlowBorder } from "@/components/ui/glow-border"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Hades.AG",
+  description: "Learn how Hades.AG collects, uses, and protects your information. Our privacy policy explains your rights and our data practices for the elite crypto intelligence platform.",
+  keywords: [
+    "privacy policy",
+    "data protection",
+    "crypto privacy",
+    "Hades.AG privacy",
+    "user data",
+    "information security",
+    "cryptocurrency privacy"
+  ],
+  openGraph: {
+    title: "Privacy Policy | Hades.AG",
+    description: "Learn how Hades.AG collects, uses, and protects your information. Our privacy policy explains your rights and our data practices.",
+    url: "https://hades.ag/privacy",
+    siteName: "Hades.AG",
+    type: "website",
+    images: [
+      {
+        url: "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+        width: 1200,
+        height: 630,
+        alt: "Hades.AG Privacy Policy",
+        type: "image/png"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Hades.AG",
+    description: "Learn how Hades.AG collects, uses, and protects your information. Our privacy policy explains your rights and our data practices.",
+    images: [
+      {
+        url: "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+        alt: "Hades.AG Privacy Policy"
+      }
+    ]
+  }
+}
 
 export default function PrivacyPage() {
   return (

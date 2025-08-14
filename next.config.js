@@ -42,6 +42,15 @@ const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
   compress: true,
+  // Additional performance settings
+  reactStrictMode: true,
+  generateEtags: false,
+  // Optimize image loading
+  images: {
+    ...nextConfig.images,
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+  },
 };
 
 module.exports = nextConfig;

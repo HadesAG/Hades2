@@ -87,8 +87,8 @@ export class PreloadService {
   // Preload critical images (only local images to avoid CSP violations)
   preloadImages() {
     const criticalImages = [
-      '/bctlogo.png',
-      '/computerlogo.svg',
+      '/hades-logo.png',
+      '/favicon.ico',
       // Removed external images to prevent CSP violations
     ]
 

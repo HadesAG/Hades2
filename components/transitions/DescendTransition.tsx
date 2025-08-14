@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { NavigationState } from '@/app/hadesMockData';
+import { NavigationState } from '@/types/navigation';
 
 interface DescendTransitionProps {
   isActive: boolean;

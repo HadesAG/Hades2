@@ -3,11 +3,14 @@
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
+
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, Target, BarChart3, Zap, Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+
 
 interface DashboardData {
   launchpadSignals: { count: number; description: string };

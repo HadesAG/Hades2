@@ -1,9 +1,49 @@
-"use client"
-
+import type { Metadata } from 'next'
 import { SparklesText } from "@/components/ui/sparkles-text"
 import { GlowBorder } from "@/components/ui/glow-border"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Hades.AG",
+  description: "Read the terms and conditions for using Hades.AG. Our terms of service outline the rules, rights, and responsibilities for accessing our elite crypto intelligence platform.",
+  keywords: [
+    "terms of service",
+    "terms and conditions",
+    "crypto terms",
+    "Hades.AG terms",
+    "user agreement",
+    "platform terms",
+    "cryptocurrency terms"
+  ],
+  openGraph: {
+    title: "Terms of Service | Hades.AG",
+    description: "Read the terms and conditions for using Hades.AG. Our terms of service outline the rules, rights, and responsibilities for accessing our platform.",
+    url: "https://hades.ag/terms",
+    siteName: "Hades.AG",
+    type: "website",
+    images: [
+      {
+        url: "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+        width: 1200,
+        height: 630,
+        alt: "Hades.AG Terms of Service",
+        type: "image/png"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Hades.AG",
+    description: "Read the terms and conditions for using Hades.AG. Our terms of service outline the rules, rights, and responsibilities for accessing our platform.",
+    images: [
+      {
+        url: "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+        alt: "Hades.AG Terms of Service"
+      }
+    ]
+  }
+}
 
 export default function TermsPage() {
   return (

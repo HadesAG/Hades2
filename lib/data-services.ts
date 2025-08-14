@@ -50,8 +50,17 @@ export interface MarketStats {
 // CoinGecko API (Free tier - 10-30 calls/minute)
 export class CoinGeckoService {
   private baseUrl = 'https://api.coingecko.com/api/v3';
+  private requestCache = new Map<string, { data: any; timestamp: number }>();
+  private readonly CACHE_TTL = 30000; // 30 seconds cache
 
   async getMarketData(ids: string[] = ['solana', 'bitcoin', 'ethereum', 'binancecoin', 'cardano', 'dogecoin', 'polygon', 'avalanche-2', 'chainlink', 'uniswap']): Promise<TokenData[]> {
+    const cacheKey = `market-${ids.join(',')}`;
+    const cached = this.requestCache.get(cacheKey);
+    
+    if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+      return cached.data;
+    }
+    
     try {
       const response = await fetch(
         `${this.baseUrl}/coins/markets?vs_currency=usd&ids=${ids.join(',')}&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h,7d`
@@ -63,7 +72,7 @@ export class CoinGeckoService {
       
       const data = await response.json();
       
-      return data.map((coin: any) => ({
+      const result = data.map((coin: any) => ({
         symbol: coin.symbol.toUpperCase(),
         name: coin.name,
         price: coin.current_price,
@@ -75,6 +84,11 @@ export class CoinGeckoService {
         rank: coin.market_cap_rank,
         address: coin.id === 'solana' ? 'So11111111111111111111111111111111111111112' : undefined,
       }));
+      
+      // Cache the result
+      this.requestCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      
+      return result;
     } catch (error) {
       console.error('CoinGecko market data error:', error);
       throw error;

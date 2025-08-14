@@ -77,7 +77,7 @@ export function PrivyClientProvider({
     appearance: {
       theme: 'dark' as const,
       accentColor: '#676FFF' as `#${string}`,
-      logo: '/bctlogo.png',
+      logo: 'https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png',
     },
     externalWallets: {
       solana: {
@@ -102,7 +102,7 @@ export function PrivyClientProvider({
     appearance: {
       theme: 'dark' as const,
       accentColor: '#676FFF' as `#${string}`,
-      logo: '/bctlogo.png',
+      logo: 'https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png',
     },
     externalWallets: {
       solana: {

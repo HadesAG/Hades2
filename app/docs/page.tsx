@@ -1,4 +1,5 @@
-"use client"
+'use client';
+
 
 import { useState } from "react"
 import { Copy, Check, ExternalLink, Key, Mail, Shield } from "lucide-react"

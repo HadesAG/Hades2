@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { EnhancedDashboardCard } from '@/components/platform/EnhancedDashboardCard';
 import { DataAggregator, MarketStats } from '@/lib/data-services';
 import { getRealtimePriceService } from '@/lib/realtime-price-service';
-import { mockStore } from '@/app/hadesMockData';
+
 import { 
   Target, 
   TrendingUp, 
@@ -29,16 +29,44 @@ const dataAggregator = new DataAggregator();
 
 export default function Dashboard() {
   const [marketStats, setMarketStats] = useState<MarketStats | null>(null);
+  const [platformMetrics, setPlatformMetrics] = useState({
+    tokensTracked: 0,
+    activeSignals: 0,
+    chainsMonitored: 0,
+    alertsPending: 0,
+    reportsGenerated: 0,
+    warningsActive: 0,
+    newTokensDetected: 0
+  });
   const [loading, setLoading] = useState(true);
   const [wsConnected, setWsConnected] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch market stats
         const stats = await dataAggregator.getMarketOverview();
         setMarketStats(stats);
+        
+        // Fetch platform metrics from intelligence API
+        const intelligenceResponse = await fetch('/api/launchpad-intelligence');
+        const intelligenceData = await intelligenceResponse.json();
+        
+        if (intelligenceData.intelligence) {
+          const intelligence = intelligenceData.intelligence;
+          setPlatformMetrics({
+            tokensTracked: intelligence.aggregatedStats?.newTokensPerHour ? 
+              Math.floor(intelligence.aggregatedStats.newTokensPerHour * 24) : 0,
+            activeSignals: (intelligence.sniperAlerts?.length || 0) + (intelligence.launchpads?.length || 0),
+            chainsMonitored: 12, // Solana + other chains
+            alertsPending: intelligence.sniperAlerts?.length || 0,
+            reportsGenerated: Math.floor(intelligence.aggregatedStats?.volume24h / 10000) || 0,
+            warningsActive: intelligence.aggregatedStats?.launchpadsTracked || 0,
+            newTokensDetected: intelligence.aggregatedStats?.newTokensPerHour || 0
+          });
+        }
       } catch (error) {
-        console.error('Error fetching market data:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
@@ -57,7 +85,10 @@ export default function Dashboard() {
       }
     };
 
+    // Start data fetching immediately
     fetchData();
+    
+    // Initialize real-time service in parallel
     initializeRealtime();
     
     // Refresh every 30 seconds (as backup to WebSocket)
@@ -90,7 +121,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-bold mb-3 glow-red">Live Alpha Intelligence</h2>
               <p className="text-xl opacity-90 mb-2">Currently Tracking</p>
               <p className="text-sm opacity-75 leading-relaxed">
-                Real-time monitoring across {mockStore.platformMetrics.chainsMonitored} chains • {mockStore.platformMetrics.tokensTracked.toLocaleString()} tokens tracked • {mockStore.platformMetrics.activeSignals} alpha signals active
+                Real-time monitoring across {platformMetrics.chainsMonitored} chains • {platformMetrics.tokensTracked.toLocaleString()} tokens tracked • {platformMetrics.activeSignals} alpha signals active
                 {wsConnected && <span className="ml-2 text-green-300">• WebSocket Connected</span>}
               </p>
             </div>
@@ -113,7 +144,7 @@ export default function Dashboard() {
         {/* Alpha Signals */}
         <EnhancedDashboardCard
           title="Alpha Signals"
-          value={mockStore.platformMetrics.activeSignals}
+                          value={platformMetrics.activeSignals}
           subtitle="New token discoveries"
           icon={Target}
           iconColor="text-red-500"
@@ -124,7 +155,7 @@ export default function Dashboard() {
         {/* Cross-Chain Intel */}
         <EnhancedDashboardCard
           title="Cross-Chain Intel"
-          value={mockStore.platformMetrics.chainsMonitored}
+                          value={platformMetrics.chainsMonitored}
           subtitle="Multi-chain monitoring"
           icon={Link2}
           iconColor="text-blue-500"
@@ -135,7 +166,7 @@ export default function Dashboard() {
         {/* DeFi Alerts */}
         <EnhancedDashboardCard
           title="DeFi Alerts"
-          value={mockStore.platformMetrics.alertsPending}
+                          value={platformMetrics.alertsPending}
           subtitle="Protocol updates"
           icon={Shield}
           iconColor="text-yellow-500"
@@ -168,7 +199,7 @@ export default function Dashboard() {
         {/* Deep Analytics */}
         <EnhancedDashboardCard
           title="Deep Analytics"
-          value={mockStore.platformMetrics.reportsGenerated}
+                          value={platformMetrics.reportsGenerated}
           subtitle="Advanced metrics"
           icon={BarChart3}
           iconColor="text-indigo-500"
@@ -179,7 +210,7 @@ export default function Dashboard() {
         {/* Risk Intelligence */}
         <EnhancedDashboardCard
           title="Risk Intelligence"
-          value={mockStore.platformMetrics.warningsActive}
+                          value={platformMetrics.warningsActive}
           subtitle="Security monitoring"
           icon={AlertTriangle}
           iconColor="text-red-500"
@@ -190,7 +221,7 @@ export default function Dashboard() {
         {/* New Token Radar */}
         <EnhancedDashboardCard
           title="New Token Radar"
-          value={mockStore.platformMetrics.newTokensDetected}
+                          value={platformMetrics.newTokensDetected}
           subtitle="Fresh launches"
           icon={Radar}
           iconColor="text-teal-500"
@@ -204,7 +235,7 @@ export default function Dashboard() {
         <Card className="platform-card-enhanced text-center group">
           <CardContent className="p-6">
             <div className="text-3xl font-bold text-red-500 mb-2 group-hover:text-red-400 transition-colors">
-              {mockStore.platformMetrics.tokensTracked.toLocaleString()}
+                              {platformMetrics.tokensTracked.toLocaleString()}
             </div>
             <div className="text-sm text-gray-300">Tokens Tracked</div>
           </CardContent>
@@ -213,7 +244,7 @@ export default function Dashboard() {
         <Card className="platform-card-enhanced text-center group">
           <CardContent className="p-6">
             <div className="text-3xl font-bold text-green-500 mb-2 group-hover:text-green-400 transition-colors">
-              {mockStore.platformMetrics.activeSignals}
+                              {platformMetrics.activeSignals}
             </div>
             <div className="text-sm text-gray-300">Active Signals</div>
           </CardContent>
@@ -222,7 +253,7 @@ export default function Dashboard() {
         <Card className="platform-card-enhanced text-center group">
           <CardContent className="p-6">
             <div className="text-3xl font-bold text-blue-500 mb-2 group-hover:text-blue-400 transition-colors">
-              {mockStore.platformMetrics.chainsMonitored}
+                              {platformMetrics.chainsMonitored}
             </div>
             <div className="text-sm text-gray-300">Chains Monitored</div>
           </CardContent>

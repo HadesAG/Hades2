@@ -10,6 +10,23 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 ![Spline](https://img.shields.io/badge/Spline-3D%20Interactive-purple?style=flat-square)
 ![Prisma](https://img.shields.io/badge/Prisma-6.13.0-2D3748?style=flat-square&logo=prisma)
 
+## 🆕 Recent Updates (August 2025)
+
+### 🔥 Alpha Signals Page - Complete Real-Time Overhaul
+
+- **✅ RSS Feed Integration** - Trending tab now embeds live RSS feed from external sources
+- **✅ Tabbed Interface** - Three distinct tabs: Trending (RSS), New Tokens, and Leaderboard
+- **✅ Real-Time Data** - All mock data replaced with live API calls and auto-refresh
+- **✅ Enhanced UX** - Loading states, error handling, and retry mechanisms
+- **✅ Performance** - 30-second auto-refresh with network status monitoring
+
+**New API Endpoints Added:**
+- `/api/signals` - Trending tokens with real-time market data
+- `/api/whales/transactions` - Live whale activity monitoring
+- `/api/launchpad-intelligence` - Launchpad statistics and trends
+- `/api/solana-new-tokens` - New token launches and analysis
+- `/api/coingecko-memes` - Meme token leaderboard and rankings
+
 ## 🚀 Core Features
 
 ### 🎮 Interactive 3D Experience
@@ -22,7 +39,7 @@ A sophisticated cryptocurrency intelligence platform built with Next.js, featuri
 ### 🧠 Intelligence Layer
 
 - **📊 Real-time Market Data** - Live cryptocurrency prices and market statistics
-- **🔥 Alpha Signals** - AI-powered trading signals with confidence ratings
+- **🔥 Alpha Signals** - Real-time trading signals with RSS feed integration and tabbed interface
 - **👁️ Intelligence Feed** - Curated market intelligence and insights
 - **🔍 Real-time Scanning** - Continuous token emergence monitoring across chains
 - **🛡️ Risk Verification** - Advanced algorithms for token legitimacy assessment
@@ -197,7 +214,7 @@ Hades2/
 │   │   └── watchlist/     # Watchlist management
 │   ├── platform/          # Main application pages
 │   │   ├── alerts/        # Alerts dashboard
-│   │   ├── alpha-signals/ # Alpha signals page
+│   │   ├── alpha-signals/ # Alpha signals with RSS feed & real-time data
 │   │   ├── intelligence-feed/ # Intelligence feed
 │   │   ├── market-analysis/   # Market analysis
 │   │   ├── search-tokens/     # Token search
@@ -257,8 +274,11 @@ npx prisma db push   # Push schema changes to database
 ### Public Endpoints
 
 - `GET /api/alpha-signals` - Get alpha trading signals
-- `GET /api/signals` - Get general trading signals
-- `GET /api/launchpad-intelligence` - Get launchpad data
+- `GET /api/signals` - Get general trading signals (trending, new, leaderboard)
+- `GET /api/launchpad-intelligence` - Get launchpad data and statistics
+- `GET /api/whales/transactions` - Get whale transaction data
+- `GET /api/solana-new-tokens` - Get newly launched Solana tokens
+- `GET /api/coingecko-memes` - Get meme token leaderboard data
 - `GET /api/telegram-signals` - Get Telegram signals
 - `POST /api/telegram-webhook` - Telegram bot webhook endpoint
 

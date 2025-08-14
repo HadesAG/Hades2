@@ -1,0 +1,78 @@
+{
+  "name": "Hades.AG - Elite Crypto Intelligence Platform",
+  "short_name": "Hades.AG",
+  "description": "🔥 EXCLUSIVE ACCESS: Track whale portfolios, get instant alpha signals, and follow smart money before the crowd. Real-time Solana intelligence that turns darkness into profits.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "business"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/hades-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Alpha Signals",
+      "short_name": "Alpha",
+      "description": "Access real-time alpha trading signals",
+      "url": "/alpha-signals",
+      "icons": [
+        {
+          "src": "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Whale Tracker",
+      "short_name": "Whales",
+      "description": "Track whale portfolio movements",
+      "url": "/portfolio",
+      "icons": [
+        {
+          "src": "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Watchlist",
+      "short_name": "Watch",
+      "description": "Monitor your tracked tokens",
+      "url": "/watchlist",
+      "icons": [
+        {
+          "src": "https://wzqnoowkjahivajh.public.blob.vercel-storage.com/h2/hadeslogo2.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
